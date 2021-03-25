@@ -31,5 +31,9 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x = int(self.x) - 5
         self.rect.y = int(self.y) - 5
 
+class Enemy1(pygame.sprite.Sprite):
+    def __init__(self):
+        pass
+
 
 
