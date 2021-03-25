@@ -8,6 +8,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 400
         self.rect.y = 300
+        self.health = 200 
         
     def move(self, x_val, y_val):
         self.rect.x += x_val
@@ -32,8 +33,10 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y = int(self.y) - 5
 
 class Enemy1(pygame.sprite.Sprite):
-    def __init__(self):
-        pass
+    def __init__(self, colour):
+        self.image = pygame.Surface()
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
 
 
 
