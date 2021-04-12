@@ -3,9 +3,8 @@ from pygame.locals import *
 
 # Import Other Files
 from classes import Player, Bullet, Enemy1, Wall
-from levels import file1, mapGrid, blankMap
-
-print(file1)
+from levels import mapGrid, blankMap
+pygame.init()
 
 # Colours
 BLACK = (0, 0, 0)
@@ -15,7 +14,6 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
-pygame.init()
 
 # Screen Settings
 size = (1280, 720)
@@ -41,14 +39,7 @@ bullet_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
 
-# -- map generation
-#def createMap():
-    #w = Wall(RED, 750, 375)
-    #wall_group.add(w)
-    #all_sprites_list.add(w)
-
-#createMap()
-
+# -- blank room creation
 def spawnRoom():
     x = 0
     y = 0
@@ -61,8 +52,11 @@ def spawnRoom():
             x = x + 40
         x = 0
         y = y + 40
-
 spawnRoom()
+
+# -- RNG map
+def mapCreate():
+    pass
 
 # -------- Main Program Loop -----------
 while not done:
@@ -104,18 +98,27 @@ while not done:
             stamina = stamina + 1
 
     # -- shooting (requires fixing)
-    if event.type == MOUSEBUTTONDOWN: 
-        if event.button == 1 and click == False:
-            click = True
-    if click: 
-        x, y = pygame.mouse.get_pos()
-        b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 5, x, y)
-        bullet_group.add(b)
-        all_sprites_list.add(b)
-        click = False
+#    if event.type == MOUSEBUTTONDOWN: 
+#        if event.button == 1 and click == False:
+#            click = True
+#    if click: 
+#        x, y = pygame.mouse.get_pos()
+#        b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 5, x, y)
+#        bullet_group.add(b)
+#        all_sprites_list.add(b)
+#        click = False
 
     # -- bullet collisions with wall
-    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
+#    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
+
+    # -- player wall collision
+    player_hit = pygame.sprite.spritecollide(player, wall_group, False)
+    for foo in player_hit:
+        player.move(0, 0)
+        player.rect.x = player_old_x
+        player.rect.y = player_old_y
+    player_old_x = player.rect.x
+    player_old_y = player.rect.y
     
     # -- #
     screen.fill(BLACK)
