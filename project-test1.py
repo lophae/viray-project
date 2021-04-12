@@ -41,9 +41,21 @@ spawnRoom()
 def mapCreate():
     x = 0
     y = 0
-    randomNum = random.randint(1, 5)
+    randomNum = 1
     if randomNum == 1:
-        pass
+        x = x + 1320
+        y = 0
+        for row in blankMap:
+            for col in row:
+                if col == 1:
+                    w2 = Wall(BLUE, 40, 40, x, y)
+                    all_sprites_list.add(w2)
+                    wall_group.add(w2)
+                x = x + 40
+            x = 0
+            x = x + 1320
+            y = y + 40
+mapCreate()
 
 # -------- Main Program Loop -----------
 while not done:
@@ -108,9 +120,9 @@ while not done:
     player_old_y = player.rect.y
     
     # CAMERA
-    c = Camera(1280, 720)
-    c.update(player)
-    screen.blit(c.apply(player))
+    #c = Camera(1280, 720)
+    #c.update(player)
+    #screen.blit(c.apply(player))
 
     # -- #
     screen.fill(BLACK)
