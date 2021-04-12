@@ -41,10 +41,10 @@ spawnRoom()
 def mapCreate():
     x = 0
     y = 0
-    randomNum = random.randint(0, 5)
+    randomNum = random.randint(1, 2)
+    print(randomNum)
     if randomNum == 1:
         x = x + 1280
-        y = 0
         for row in blankMap:
             for col in row:
                 if col == 1:
@@ -56,8 +56,7 @@ def mapCreate():
             x = x + 1280
             y = y + 40
     if randomNum == 2:
-        x = x - 1280
-        y = 0
+        y = y + 720
         for row in blankMap:
             for col in row:
                 if col == 1:
@@ -66,7 +65,6 @@ def mapCreate():
                     wall_group.add(w2)
                 x = x + 40
             x = 0
-            x = x - 1280
             y = y + 40
 mapCreate()
 
