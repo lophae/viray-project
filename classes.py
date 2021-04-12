@@ -34,13 +34,15 @@ class Bullet(pygame.sprite.Sprite):
 
 class Enemy1(pygame.sprite.Sprite):
     def __init__(self, colour):
+        super().__init__()
         self.image = pygame.Surface()
         self.image.fill(colour)
         self.rect = self.image.get_rect()
 
 class Wall(pygame.sprite.Sprite):
-    def __init__(self, colour, posx, posy):
-        self.image = pygame.Surface([60, 60])
+    def __init__(self, colour, width, height, posx, posy):
+        super().__init__()
+        self.image = pygame.Surface([width, height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         self.rect.x = posx
