@@ -48,9 +48,9 @@ def mapCreate():
         for row in blankMap:
             for col in row:
                 if col == 1:
-                    w2 = Wall(BLUE, 40, 40, x, y)
-                    all_sprites_list.add(w2)
-                    wall_group.add(w2)
+                    w = Wall(BLUE, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    wall_group.add(w)
                 x = x + 40
             x = 0
             x = x + 1280
@@ -60,9 +60,9 @@ def mapCreate():
         for row in blankMap:
             for col in row:
                 if col == 1:
-                    w2 = Wall(BLUE, 40, 40, x, y)
-                    all_sprites_list.add(w2)
-                    wall_group.add(w2)
+                    w = Wall(BLUE, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    wall_group.add(w)
                 x = x + 40
             x = 0
             y = y + 40
