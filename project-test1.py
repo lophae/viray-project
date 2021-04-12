@@ -44,7 +44,6 @@ def mapCreate():
     randomNum = random.randint(1, 5)
     if randomNum == 1:
         pass
-        
 
 # -------- Main Program Loop -----------
 while not done:
@@ -99,7 +98,7 @@ while not done:
     # --  BULLET WALL COLLISION
 #    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
 
-    # -- PLAYER WALL COLLISION (requires fixing)
+    # -- PLAYER WALL COLLISION (requires imporvement)
     player_hit = pygame.sprite.spritecollide(player, wall_group, False)
     for foo in player_hit:
         player.move(0, 0)
@@ -108,6 +107,11 @@ while not done:
     player_old_x = player.rect.x
     player_old_y = player.rect.y
     
+    # CAMERA
+    c = Camera(1280, 720)
+    c.update(player)
+    screen.blit(c.apply(player))
+
     # -- #
     screen.fill(BLACK)
     font = pygame.font.Font(None, 25)
