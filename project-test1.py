@@ -5,15 +5,11 @@ from pygame.locals import *
 from classes import *
 from levels import *
 from settings import *
+from variables import *
 pygame.init()
 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
-
-# -- variables
-done = False
-click = False
-stamina = 150
 
 # -- sprite lists
 all_sprites_list = pygame.sprite.Group()
@@ -43,7 +39,12 @@ spawnRoom()
 
 # -- RNG map
 def mapCreate():
-    pass
+    x = 0
+    y = 0
+    randomNum = random.randint(1, 5)
+    if randomNum == 1:
+        pass
+        
 
 # -------- Main Program Loop -----------
 while not done:
