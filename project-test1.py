@@ -2,23 +2,10 @@ import pygame, math, random
 from pygame.locals import *
 
 # Import Other Files
-from classes import Player, Bullet, Enemy1, Wall
-from levels import mapGrid, blankMap
+from classes import *
+from levels import *
+from settings import *
 pygame.init()
-
-# Colours
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-
-
-# Screen Settings
-size = (1280, 720)
-screen = pygame.display.set_mode((size), pygame.FULLSCREEN)
-pygame.display.set_caption("Test1")
 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
@@ -65,7 +52,7 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
         
-    # -- movement
+    # -- MOVEMENT
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
         player.move(-1,0)
@@ -80,7 +67,7 @@ while not done:
     if keys[pygame.K_p]:
             done = True
     
-    # -- stamina
+    # -- STAMINA
     if keys[pygame.K_a] and keys[pygame.K_j] and stamina > 1: 
         player.move(-2,0)
         stamina = stamina - 2
@@ -97,8 +84,8 @@ while not done:
         if stamina != 150:
             stamina = stamina + 1
 
-    # -- shooting (requires fixing)
-#    if event.type == MOUSEBUTTONDOWN: 
+    # -- SHOOTING (requires fixing)
+#    if event.type == pygame.MOUSEBUTTONDOWN: 
 #        if event.button == 1 and click == False:
 #            click = True
 #    if click: 
@@ -108,10 +95,10 @@ while not done:
 #        all_sprites_list.add(b)
 #        click = False
 
-    # -- bullet collisions with wall
+    # --  BULLET WALL COLLISION
 #    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
 
-    # -- player wall collision
+    # -- PLAYER WALL COLLISION (requires fixing)
     player_hit = pygame.sprite.spritecollide(player, wall_group, False)
     for foo in player_hit:
         player.move(0, 0)
