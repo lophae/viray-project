@@ -54,12 +54,13 @@ def spawnRoom():
     y = 0
     for row in blankMap:
         for col in row:
-            w = Wall(RED, 40, 40, x, y)
-            all_sprites_list.add(w)
-            wall_group.add(my_wall)
-        x = x + 40
-    x = 0
-    y = y + 40
+            if col == 1:
+                w = Wall(RED, 40, 40, x, y)
+                all_sprites_list.add(w)
+                wall_group.add(w)
+            x = x + 40
+        x = 0
+        y = y + 40
 
 spawnRoom()
 
@@ -69,7 +70,7 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-    
+        
     # -- movement
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
@@ -80,6 +81,10 @@ while not done:
         player.move(0,-1)
     if keys[pygame.K_s]:
         player.move(0,1)
+    
+    # -- temporary quit
+    if keys[pygame.K_p]:
+            done = True
     
     # -- stamina
     if keys[pygame.K_a] and keys[pygame.K_j] and stamina > 1: 
@@ -108,6 +113,9 @@ while not done:
         bullet_group.add(b)
         all_sprites_list.add(b)
         click = False
+
+    # -- bullet collisions with wall
+    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
     
     # -- #
     screen.fill(BLACK)
