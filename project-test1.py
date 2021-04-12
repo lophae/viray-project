@@ -2,8 +2,8 @@ import pygame, math, random
 from pygame.locals import *
 
 # Import Other Files
-from classes import Player, Bullet
-from levels import file1
+from classes import Player, Bullet, Enemy1, Wall
+from levels import file1, mapGrid
 
 print(file1)
 
@@ -17,30 +17,38 @@ YELLOW = (255, 255, 0)
 
 pygame.init()
 
-# Adding sprites to groups
+# Screen Settings
+size = (1280, 720)
+screen = pygame.display.set_mode((size), pygame.FULLSCREEN)
+pygame.display.set_caption("Test1")
+
+# Used to manage how fast the screen updates
+clock = pygame.time.Clock()
+
+# -- variables
+done = False
+click = False
+stamina = 150
+
+# -- sprite lists
 all_sprites_list = pygame.sprite.Group()
+
 player = Player(WHITE)
 all_sprites_list.add(player)
 all_sprites_list
 
 bullet_group = pygame.sprite.Group()
 
-clock = pygame.time.Clock()
-stamina = 150
+wall_group = pygame.sprite.Group()
 
-# Screen Settings
-size = (1500, 750)
-screen = pygame.display.set_mode(size)
-pygame.display.set_caption("Test1")
+# -- map generation
+#def createMap():
+    #w = Wall(RED, 750, 375)
+    #wall_group.add(w)
+    #all_sprites_list.add(w)
 
-# Loop until the user clicks the close button.
-done = False
+#createMap()
 
-# Register mouse onclick
-click = False
-# Used to manage how fast the screen updates
-clock = pygame.time.Clock()
- 
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
@@ -48,7 +56,8 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
     
-    keys = pygame.key.get_pressed() # player movement
+    # -- movement
+    keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
         player.move(-1,0)
     if keys[pygame.K_d]:
@@ -58,34 +67,33 @@ while not done:
     if keys[pygame.K_s]:
         player.move(0,1)
     
-    if keys[pygame.K_a] and keys[pygame.K_j] and stamina > 1: # player stamina
-        player.move(-4,0)
+    # -- stamina
+    if keys[pygame.K_a] and keys[pygame.K_j] and stamina > 1: 
+        player.move(-2,0)
         stamina = stamina - 2
     if keys[pygame.K_d] and keys[pygame.K_j] and stamina > 1:
-        player.move(4,0)
+        player.move(2,0)
         stamina = stamina - 2
     if keys[pygame.K_w] and keys[pygame.K_j] and stamina > 1:
-        player.move(0,-4)
+        player.move(0,-2)
         stamina = stamina - 2
     if keys[pygame.K_s] and keys[pygame.K_j] and stamina > 1:
-        player.move(0,4)
+        player.move(0,2)
         stamina = stamina - 2
-
-    if not keys[pygame.K_j]: # key for stamina
+    if not keys[pygame.K_j]:
         if stamina != 150:
             stamina = stamina + 1
 
-    if event.type == MOUSEBUTTONDOWN: # register mouse down
+    # -- shooting (requires fixing)
+    if event.type == MOUSEBUTTONDOWN: 
         if event.button == 1 and click == False:
             click = True
-        
-    if click: # shoot if mouse click
+    if click: 
         x, y = pygame.mouse.get_pos()
         b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 5, x, y)
         bullet_group.add(b)
         all_sprites_list.add(b)
         click = False
-
     
     # -- #
     screen.fill(BLACK)
