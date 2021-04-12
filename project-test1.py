@@ -3,7 +3,7 @@ from pygame.locals import *
 
 # Import Other Files
 from classes import Player, Bullet, Enemy1, Wall
-from levels import file1, mapGrid
+from levels import file1, mapGrid, blankMap
 
 print(file1)
 
@@ -48,6 +48,20 @@ wall_group = pygame.sprite.Group()
     #all_sprites_list.add(w)
 
 #createMap()
+
+def spawnRoom():
+    x = 0
+    y = 0
+    for row in blankMap:
+        for col in row:
+            w = Wall(RED, 40, 40, x, y)
+            all_sprites_list.add(w)
+            wall_group.add(my_wall)
+        x = x + 40
+    x = 0
+    y = y + 40
+
+spawnRoom()
 
 # -------- Main Program Loop -----------
 while not done:
