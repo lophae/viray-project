@@ -3,11 +3,11 @@ import pygame, math
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour):
         super().__init__()
-        self.image = pygame.Surface([20,20])
+        self.image = pygame.Surface([40,40])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = 640
-        self.rect.y = 360
+        self.rect.x = 620
+        self.rect.y = 340
         self.health = 200 
         
     def move(self, x_val, y_val):
