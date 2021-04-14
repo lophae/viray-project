@@ -22,7 +22,7 @@ bullet_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
 
-wall_groupUp = pygame.sprite.Group()
+wall_groupRight = pygame.sprite.Group()
 
 # -- blank room creation
 def spawnRoom():
@@ -37,7 +37,7 @@ def spawnRoom():
             elif col == 3:
                 w2 = Wall(YELLOW, 10, 40, x + 30, y)
                 all_sprites_list.add(w2)
-                wall_groupUp.add(w2)
+                wall_groupRight.add(w2)
             x = x + 40
         x = 0
         y = y + 40
@@ -136,6 +136,15 @@ while not done:
     player_old_x = player.rect.x
     player_old_y = player.rect.y
     
+    # -- PLAYER DOOR COLLISION
+    player_door = pygame.sprite.spritecollide(player, wall_groupRight, False)
+    for foo in player_door:
+        player.rect.x = player.rect.x - 610
+        for foo in wall_group:
+            foo.rect.x = foo.rect.x - 610
+        
+
+
     # CAMERA
     #c = Camera(1280, 720)
     #c.update(player)
