@@ -22,6 +22,8 @@ bullet_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
 
+wall_groupUp = pygame.sprite.Group()
+
 # -- blank room creation
 def spawnRoom():
     x = 0
@@ -32,6 +34,10 @@ def spawnRoom():
                 w = Wall(RED, 40, 40, x, y)
                 all_sprites_list.add(w)
                 wall_group.add(w)
+            elif col == 3:
+                w2 = Wall(YELLOW, 10, 40, x + 30, y)
+                all_sprites_list.add(w2)
+                wall_groupUp.add(w2)
             x = x + 40
         x = 0
         y = y + 40
@@ -42,7 +48,7 @@ def mapCreate():
     x = 0
     y = 0
     randomNum = random.randint(1, 2)
-    print(randomNum)
+    randomNum = 1
     if randomNum == 1:
         x = x + 1280
         for row in blankMap:
