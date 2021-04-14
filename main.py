@@ -21,12 +21,13 @@ all_sprites_list
 bullet_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
-
 wall_groupRight = pygame.sprite.Group()
-
 wall_groupLeft = pygame.sprite.Group()
+wall_groupUp = pygame.sprite.Group()
+wall_groupDown = pygame.sprite.Group()
 
-# -- blank room creation
+
+# -- SPAWN ROOM CREATION
 def spawnRoom():
     x = 0
     y = 0
@@ -44,6 +45,14 @@ def spawnRoom():
                 w = Wall(YELLOW, 10, 40, x, y)
                 all_sprites_list.add(w)
                 wall_groupLeft.add(w)
+            elif col == 4:
+                w = Wall(YELLOW, 40, 10, x, y)
+                all_sprites_list.add(w)
+                wall_groupUp.add(w)
+            elif col == 5:
+                w = Wall(YELLOW, 40, 10, x, y + 30)
+                all_sprites_list.add(w)
+                wall_groupDown.add(w)
             x = x + 40
         x = 0
         y = y + 40
@@ -72,7 +81,7 @@ def mapCreate():
         for row in blankMap:
             for col in row:
                 if col == 1:
-                    w = Wall(BLUE, 40, 40, x, y)
+                    w = Wall(GREEN, 40, 40, x, y)
                     all_sprites_list.add(w)
                     wall_group.add(w)
                 x = x + 40
@@ -143,20 +152,30 @@ while not done:
     player_old_y = player.rect.y
     
     # -- PLAYER DOOR COLLISION
-    # RIGHT
+    # Right
     player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
     for foo in player_doorRight:
         player.rect.x = player.rect.x - 610
         for foo in wall_group:
             foo.rect.x = foo.rect.x - 640
-    
-    # LEFT
+    # Left
     player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
     for foo in player_doorLeft:
-        player.rect.x= player.rect.x + 610
+        player.rect.x = player.rect.x + 610
         for foo in wall_group:
             foo.rect.x = foo.rect.x + 640
-        
+    # Up
+    player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
+    for foo in player_doorUp:
+        player.rect.y = player.rect.y + 330
+        for foo in wall_group:
+            foo.rect.y = foo.rect.y + 360
+    # Down
+    player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
+    for foo in player_doorDown:
+        player.rect.y = player.rect.y - 330
+        for foo in wall_group:
+            foo.rect.y = foo.rect.y - 360
 
 
     # CAMERA
