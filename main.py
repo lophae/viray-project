@@ -59,7 +59,7 @@ def spawnRoom():
 spawnRoom()
 
 # -- RNG map
-def mapCreate():
+def mapCreateTest():
     x = 0
     y = 0
     randomNum = random.randint(1, 2)
@@ -116,6 +116,13 @@ def mapCreate():
                 x = x + 40
             x = 0
             y = y + 40
+mapCreateTest()
+
+def mapCreate():
+    x = 0
+    y = 0
+    randomNum = random.randint(1, 4)
+    
 mapCreate()
 
 # -------- Main Program Loop -----------
