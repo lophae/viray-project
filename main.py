@@ -222,7 +222,7 @@ while not done:
     # -- #
     screen.fill(BLACK)
     font = pygame.font.Font(None, 25)
-    txt = font.render("press 'j' to sprint    " + str(stamina), True, WHITE)
+    txt = font.render("stamina count al;ksjdo;k: " + str(stamina), True, WHITE)
     screen.blit(txt, (400, 100))
     
     all_sprites_list.update()
