@@ -116,14 +116,57 @@ def mapCreateTest():
                 x = x + 40
             x = 0
             y = y + 40
-mapCreateTest()
+#mapCreateTest()
 
 def mapCreate():
     x = 0
     y = 0
-    randomNum = random.randint(1, 4)
-    
+    z = 0
+    while z != 3:
+        randomNum = random.randint(1, 4)
+        randomRoom = random.randint(0, 2)
+        randomNum = 1
+        # right
+        if randomNum == 1:
+            x = x + 1280
+            for row in myRooms[randomRoom]:
+                for col in row:
+                    if col == 1:
+                        w = Wall(BLUE, 40, 40, x, y)
+                        all_sprites_list.add(w)
+                        wall_group.add(w)
+                    x = x + 40
+                if z == 0:
+                    x = 0
+                x = x + 1280
+                y = y + 40
+        
+        # left
+        if randomNum == 2:
+            x = x - 1280
+            for row in myRooms[randomRoom]:
+                for col in row:
+                    if col == 1:
+                        w = Wall(BLUE, 40, 40, x, y)
+                        all_sprites_list.add(w)
+                        wall_group.add(w)
+                    x = x + 40
+                if z == 0:
+                    x = 0
+                x = x - 1280
+                y = y + 40
+        
+        if randomNum == 2:
+            y = y - 720
+        if randomNum == 1:
+            x = x + 40
+            
+
+        z += 1
+        print(x, y)
+
 mapCreate()
+
 
 # -------- Main Program Loop -----------
 while not done:
@@ -231,6 +274,6 @@ while not done:
  
     pygame.display.flip()
  
-    clock.tick(60)
+    clock.tick(240)
  
 pygame.quit()
