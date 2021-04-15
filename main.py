@@ -116,7 +116,7 @@ def mapCreateTest():
                 x = x + 40
             x = 0
             y = y + 40
-#mapCreateTest()
+mapCreateTest()
 
 def mapCreate():
     x = 0
@@ -193,7 +193,7 @@ def mapCreate():
             
         z += 1
         print(x, y)
-mapCreate()
+#mapCreate()
 
 
 # -------- Main Program Loop -----------
