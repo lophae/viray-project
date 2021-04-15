@@ -123,9 +123,9 @@ def mapCreate():
     y = 0
     z = 0
     while z != 3:
-        randomNum = random.randint(1, 4)
+        randomNum = random.randint(2, 3)
         randomRoom = random.randint(0, 2)
-        randomNum = 3
+        #randomNum = 3
         # right
         if randomNum == 1:
             x = x + 1280
@@ -149,7 +149,7 @@ def mapCreate():
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
-                        w = Wall(BLUE, 40, 40, x, y)
+                        w = Wall(YELLOW, 40, 40, x, y)
                         all_sprites_list.add(w)
                         wall_group.add(w)
                     x = x + 40
@@ -168,21 +168,31 @@ def mapCreate():
                         all_sprites_list.add(w)
                         wall_group.add(w)
                     x = x + 40
-                if z == 0:
-                    x = 0
+                x = 0
+                y = y + 40
+        
+        # down
+        if randomNum == 4:
+            y = y + 720
+            for row in myRooms[randomRoom]:
+                for col in row:
+                    if col == 1:
+                        w = Wall(GREEN, 40, 40, x, y)
+                        all_sprites_list.add(w)
+                        wall_group.add(w)
+                    x = x + 40
+                x = 0
                 y = y + 40
         
         if randomNum == 2:
             y = y - 720
-        if randomNum == 1:
-            y = y - 720
         if randomNum == 3:
-            x = x - 1280
+            y = y - 720
+        if randomNum == 4:
+            y = y + 720
             
-
         z += 1
         print(x, y)
-
 mapCreate()
 
 
