@@ -64,3 +64,15 @@ class Camera:
         x = -target.rect.x + int(1280 / 2) 
         y = -target.rect.y + int(720 /2)
         self.camera = pygame.Rect(x, y, self.width, self.height)
+
+class Camera2:
+    def __init__(self, player):
+        self.player = player
+        self.offset = pygame.math.Vector2(0, 0)
+        self.offset_float = pygame.math.Vector2(0, 0)
+
+    def setmethod(self, method):
+        self.method = method
+    
+class CamScroll():
+    pass
