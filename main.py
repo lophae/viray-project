@@ -121,10 +121,11 @@ def mapCreate():
     x = 0
     y = 0
     z = 0
-    while z != 3:
-        randomNum = random.randint(2, 3)
+    while z != 5:
+        randomNum = random.randint(1, 3)
         randomRoom = random.randint(0, 2)
-        randomNum = 1
+        #randomNum = 1
+
         # right
         if randomNum == 1:
             x = x + 1280
@@ -138,7 +139,7 @@ def mapCreate():
                 if z == 0:
                     x = 0
                 else:
-                    pass
+                    x = x - 2560
                 x = x + 1280
                 y = y + 40
         
@@ -185,7 +186,9 @@ def mapCreate():
                     x = x + 40
                 x = 0
                 y = y + 40
-        
+
+        if randomNum == 1:
+            y = y - 720
         if randomNum == 2:
             y = y - 720
         if randomNum == 3:
