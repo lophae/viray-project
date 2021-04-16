@@ -121,10 +121,11 @@ def mapCreate():
     x = 0
     y = 0
     z = 0
-    while z != 3:
-        randomNum = random.randint(1, 3)
+    while z != 7:
+        randomNum = random.randint(1, 4)
         randomRoom = random.randint(0, 2)
-        randomNum = 4
+        #randomNum = 4
+        print(randomNum)
 
         # right
         if randomNum == 1:
