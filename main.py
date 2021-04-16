@@ -57,66 +57,6 @@ def spawnRoom():
         y = y + 40
 spawnRoom()
 
-# -- RNG map
-def mapCreateTest():
-    x = 0
-    y = 0
-    randomNum = random.randint(1, 2)
-    randomNum = 1
-    if randomNum == 1:
-        x = x + 1280
-        for row in blankMap:
-            for col in row:
-                if col == 1:
-                    w = Wall(BLUE, 40, 40, x, y)
-                    all_sprites_list.add(w)
-                    wall_group.add(w)
-                x = x + 40
-            x = 0
-            x = x + 1280
-            y = y + 40
-    if randomNum == 1:
-        x = 0
-        y = 0
-        y = y + 720
-        for row in blankMap:
-            for col in row:
-                if col == 1:
-                    w = Wall(GREEN, 40, 40, x, y)
-                    all_sprites_list.add(w)
-                    wall_group.add(w)
-                x = x + 40
-            x = 0
-            y = y + 40
-    if randomNum == 1:
-        x = 0
-        y = 0
-        x = x - 1280
-        for row in blankMap:
-            for col in row:
-                if col == 1:
-                    w = Wall(YELLOW, 40, 40, x, y)
-                    all_sprites_list.add(w)
-                    wall_group.add(w)
-                x = x + 40
-            x = 0
-            x = x - 1280
-            y = y + 40
-    if randomNum == 1:
-        x = 0
-        y = 0
-        y = y - 720
-        for row in blankMap:
-            for col in row:
-                if col == 1:
-                    w = Wall(WHITE, 40, 40, x, y)
-                    all_sprites_list.add(w)
-                    wall_group.add(w)
-                x = x + 40
-            x = 0
-            y = y + 40
-#mapCreateTest()
-
 def mapCreate():
     x = 0
     y = 0
@@ -124,7 +64,8 @@ def mapCreate():
     while z != 7:
         randomNum = random.randint(1, 4)
         randomRoom = random.randint(0, 2)
-        #randomNum = 4
+        if z == 0:
+            randomRoom = random.randint(1, 2)
         print(randomNum)
 
         # right
@@ -202,7 +143,7 @@ def mapCreate():
             
         z += 1
         print(x, y)
-mapCreate()
+mapCreate() 
 
 
 # -------- Main Program Loop -----------
@@ -292,12 +233,6 @@ while not done:
         player.rect.y = player.rect.y - 330
         for foo in wall_group:
             foo.rect.y = foo.rect.y - 360
-
-
-    # CAMERA
-    #c = Camera(1280, 720)
-    #c.update(player)
-    #screen.blit(c.apply(player))
 
     # -- #
     screen.fill(BLACK)
