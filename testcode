@@ -1,0 +1,91 @@
+# -- RNG map
+def mapCreateTest():
+    x = 0
+    y = 0
+    randomNum = random.randint(1, 2)
+    randomNum = 1
+    if randomNum == 1:
+        x = x + 1280
+        for row in blankMap:
+            for col in row:
+                if col == 1:
+                    w = Wall(BLUE, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    wall_group.add(w)
+                x = x + 40
+            x = 0
+            x = x + 1280
+            y = y + 40
+    if randomNum == 1:
+        x = 0
+        y = 0
+        y = y + 720
+        for row in blankMap:
+            for col in row:
+                if col == 1:
+                    w = Wall(GREEN, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    wall_group.add(w)
+                x = x + 40
+            x = 0
+            y = y + 40
+    if randomNum == 1:
+        x = 0
+        y = 0
+        x = x - 1280
+        for row in blankMap:
+            for col in row:
+                if col == 1:
+                    w = Wall(YELLOW, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    wall_group.add(w)
+                x = x + 40
+            x = 0
+            x = x - 1280
+            y = y + 40
+    if randomNum == 1:
+        x = 0
+        y = 0
+        y = y - 720
+        for row in blankMap:
+            for col in row:
+                if col == 1:
+                    w = Wall(WHITE, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    wall_group.add(w)
+                x = x + 40
+            x = 0
+            y = y + 40
+#mapCreateTest()
+
+# CAMERA WORK
+class Camera:
+    def __init__(self,width, height):
+        self.camera = pygame.Rect(0, 0, width, height)
+        self.width = width
+        self.height = height
+    
+    def apply(self, entity):
+        return entity.rect.move(self.camera.topleft)
+    
+    def update(self, target):
+        x = -target.rect.x + int(1280 / 2) 
+        y = -target.rect.y + int(720 /2)
+        self.camera = pygame.Rect(x, y, self.width, self.height)
+
+class Camera2:
+    def __init__(self, player):
+        self.player = player
+        self.offset = pygame.math.Vector2(0, 0)
+        self.offset_float = pygame.math.Vector2(0, 0)
+
+    def setmethod(self, method):
+        self.method = method
+    
+class CamScroll():
+    pass
+
+# CAMERA
+#c = Camera(1280, 720)
+#c.update(player)
+#screen.blit(c.apply(player))
