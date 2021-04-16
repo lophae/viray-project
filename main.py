@@ -16,7 +16,6 @@ all_sprites_list = pygame.sprite.Group()
 
 player = Player(WHITE)
 all_sprites_list.add(player)
-all_sprites_list
 
 bullet_group = pygame.sprite.Group()
 
@@ -116,7 +115,7 @@ def mapCreateTest():
                 x = x + 40
             x = 0
             y = y + 40
-mapCreateTest()
+#mapCreateTest()
 
 def mapCreate():
     x = 0
@@ -125,7 +124,7 @@ def mapCreate():
     while z != 3:
         randomNum = random.randint(2, 3)
         randomRoom = random.randint(0, 2)
-        #randomNum = 3
+        randomNum = 1
         # right
         if randomNum == 1:
             x = x + 1280
@@ -168,7 +167,10 @@ def mapCreate():
                         all_sprites_list.add(w)
                         wall_group.add(w)
                     x = x + 40
-                x = 0
+                if z == 0:
+                    x = 0
+                else:
+                    x = x - 1280
                 y = y + 40
         
         # down
@@ -193,7 +195,7 @@ def mapCreate():
             
         z += 1
         print(x, y)
-#mapCreate()
+mapCreate()
 
 
 # -------- Main Program Loop -----------
