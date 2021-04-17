@@ -25,6 +25,7 @@ wall_groupLeft = pygame.sprite.Group()
 wall_groupUp = pygame.sprite.Group()
 wall_groupDown = pygame.sprite.Group()
 
+door_group = pygame.sprite.Group()
 
 # -- SPAWN ROOM CREATION
 def spawnRoom():
@@ -57,15 +58,27 @@ def spawnRoom():
         y = y + 40
 spawnRoom()
 
+def doorBug():
+    x = 0
+    y = 0
+    for row in doorFix:
+        for col in row:
+            if col == 9:
+                w = Wall(WHITE, 40, 40, x, y)
+                all_sprites_list.add(w)
+                wall_group.add(w)
+            x = x + 40
+        x = 0
+        y = y + 40
+doorBug()
+
 def mapCreate():
     x = 0
     y = 0
     z = 0
-    while z != 7:
+    while z != 8:
         randomNum = random.randint(1, 4)
         randomRoom = random.randint(0, 2)
-        if z == 0:
-            randomRoom = random.randint(1, 2)
         print(randomNum)
 
         # right
@@ -142,9 +155,7 @@ def mapCreate():
             y = y - 720
             
         z += 1
-        print(x, y)
 mapCreate() 
-
 
 # -------- Main Program Loop -----------
 while not done:
@@ -199,7 +210,7 @@ while not done:
     # --  BULLET WALL COLLISION
 #    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
 
-    # -- PLAYER WALL COLLISION (requires imporvement)
+    # -- PLAYER WALL COLLISION (requires improvement)
     player_hit = pygame.sprite.spritecollide(player, wall_group, False)
     for foo in player_hit:
         player.move(0, 0)
@@ -207,8 +218,16 @@ while not done:
         player.rect.y = player_old_y
     player_old_x = player.rect.x
     player_old_y = player.rect.y
+
+    player_hit2 = pygame.sprite.spritecollide(player, door_group, False)
+    for foo in player_hit2:
+        player.move(0,0)
+        player.rect.x = player_old_x
+        player.rect.y = player_old_y
+    player_old_x = player.rect.x
+    player_old_y = player.rect.y
     
-    # -- PLAYER DOOR COLLISION
+    # -- PLAYER DOOR COLLISION (BUGGED IN THE CORNERS)
     # Right
     player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
     for foo in player_doorRight:
