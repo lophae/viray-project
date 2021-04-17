@@ -107,6 +107,17 @@ def closeDoor():
         mapCreate()
 #closeDoor()
 
+def closeDoor2():
+    print(mapGrid)
+    roomnumber = 0
+    for row in mapGrid:
+        for col in row:
+            if col == 1 or col == 2:
+                roomnumber += 1
+    if roomnumber != level1rooms:
+        for foo in wall_group:
+            foo.delete()
+#closeDoor2()
 
         if randomNum == 1:
             y = y - 720
