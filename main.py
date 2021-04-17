@@ -62,12 +62,33 @@ def mapCreate():
     z = 0
     originalx = 13
     originaly = 13
+    previousNum = 0
     while z != level1rooms:
         randomNum = random.randint(1, 4)
         randomRoom = random.randint(0, 2)
+
+        if randomNum == 1:
+            if mapGrid[originalx][originaly + 1] == 1:
+                while randomNum == 1:
+                    randomNum = random.randint(1, 4)
+        if randomNum == 2:
+            if mapGrid[originalx][originaly - 1] == 1:
+                while randomNum == 2:
+                    randomNum = random.randint(1, 4)
+        if randomNum == 3:
+            if mapGrid[originalx - 1][originaly] == 1:
+                while randomNum == 3:
+                    randomNum = random.randint(1, 4)
+        if randomNum == 4:
+            if mapGrid[originalx + 1][originaly] == 1:
+                while randomNum == 4:
+                    randomNum = random.randint(1, 4)
+
         # right
         if randomNum == 1:
             x = x + 1280
+            originaly += 1
+            mapGrid[originalx][originaly] = 1
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -84,6 +105,8 @@ def mapCreate():
         # left
         if randomNum == 2:
             x = x - 1280
+            originaly -= 1
+            mapGrid[originalx][originaly] = 1
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -98,6 +121,8 @@ def mapCreate():
         # up
         if randomNum == 3:
             y = y - 720
+            originalx -= 1
+            mapGrid[originalx][originaly] = 1
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -113,6 +138,8 @@ def mapCreate():
         # down
         if randomNum == 4:
             y = y + 720
+            originalx += 1
+            mapGrid[originalx][originaly] = 1
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -128,39 +155,15 @@ def mapCreate():
 
         if randomNum == 1:
             y = y - 720
-            originaly += 1
-            mapGrid[originalx][originaly] = 1
         if randomNum == 2:
             y = y - 720
-            originaly -= 1
-            mapGrid[originalx][originaly] = 1
         if randomNum == 3:
-            y = y - 720
-            originalx -= 1
-            mapGrid[originalx][originaly] = 1
+            y = y - 720           
         if randomNum == 4:
-            y = y - 720
-            originalx += 1
-            mapGrid[originalx][originaly] = 1     
+            y = y - 720                
+        previousNum = randomNum
         z += 1
 mapCreate() 
-
-def closeDoor():
-    print(mapGrid)
-    numberOfRooms = 0
-    for row in mapGrid:
-        for col in row:
-            if col == 1:
-                numberOfRooms += 1
-    while numberOfRooms != level1rooms + 1:
-        for row in mapGrid:
-            for col in row:
-                if col == 1:
-                    col = 0
-        for foo in wall_group:
-            foo.delete()
-        mapCreate()
-#closeDoor()
 
 def closeDoor2():
     print(mapGrid)
@@ -172,8 +175,10 @@ def closeDoor2():
     if roomnumber != level1rooms:
         for foo in wall_group:
             foo.delete()
+#closeDoor2()
 
-closeDoor2()
+def closeDoor3():
+    pass
 
 # -------- Main Program Loop -----------
 while not done:
