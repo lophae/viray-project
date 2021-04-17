@@ -48,5 +48,20 @@ class Wall(pygame.sprite.Sprite):
         self.rect.x = posx
         self.rect.y = posy
 
+    def delete(self):
+        self.kill()
+    
     def update(self):
         pass
+
+class doorClosed(pygame.sprite.Sprite):
+    def __init__(self, colour, width, height, posx, posy):
+        super().__init__()
+        self.image = pygame.Surface([width, height])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = posx
+        self.rect.y = posy
+    
+    def delete():
+        self.kill()
