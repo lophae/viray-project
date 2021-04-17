@@ -172,7 +172,7 @@ def closeDoor2():
     if roomnumber != 8:
         for foo in wall_group:
             foo.delete()
-#closeDoor2()
+closeDoor2()
 
 # -------- Main Program Loop -----------
 while not done:
