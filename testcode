@@ -89,3 +89,38 @@ class CamScroll():
 #c = Camera(1280, 720)
 #c.update(player)
 #screen.blit(c.apply(player))
+
+def closeDoor():
+    print(mapGrid)
+    numberOfRooms = 0
+    for row in mapGrid:
+        for col in row:
+            if col == 1:
+                numberOfRooms += 1
+    while numberOfRooms != level1rooms + 1:
+        for row in mapGrid:
+            for col in row:
+                if col == 1:
+                    col = 0
+        for foo in wall_group:
+            foo.delete()
+        mapCreate()
+#closeDoor()
+
+
+        if randomNum == 1:
+            y = y - 720
+            originaly += 1
+            mapGrid[originalx][originaly] = 1
+        if randomNum == 2:
+            y = y - 720
+            originaly -= 1
+            mapGrid[originalx][originaly] = 1
+        if randomNum == 3:
+            y = y - 720
+            originalx -= 1
+            mapGrid[originalx][originaly] = 1
+        if randomNum == 4:
+            y = y - 720
+            originalx += 1
+            mapGrid[originalx][originaly] = 1  
