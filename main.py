@@ -58,20 +58,6 @@ def spawnRoom():
         y = y + 40
 spawnRoom()
 
-def doorBug():
-    x = 0
-    y = 0
-    for row in doorFix:
-        for col in row:
-            if col == 9:
-                w = Wall(WHITE, 40, 40, x, y)
-                all_sprites_list.add(w)
-                wall_group.add(w)
-            x = x + 40
-        x = 0
-        y = y + 40
-doorBug()
-
 def mapCreate():
     x = 0
     y = 0
@@ -214,14 +200,6 @@ while not done:
     player_hit = pygame.sprite.spritecollide(player, wall_group, False)
     for foo in player_hit:
         player.move(0, 0)
-        player.rect.x = player_old_x
-        player.rect.y = player_old_y
-    player_old_x = player.rect.x
-    player_old_y = player.rect.y
-
-    player_hit2 = pygame.sprite.spritecollide(player, door_group, False)
-    for foo in player_hit2:
-        player.move(0,0)
         player.rect.x = player_old_x
         player.rect.y = player_old_y
     player_old_x = player.rect.x
