@@ -25,8 +25,6 @@ wall_groupLeft = pygame.sprite.Group()
 wall_groupUp = pygame.sprite.Group()
 wall_groupDown = pygame.sprite.Group()
 
-door_group = pygame.sprite.Group()
-
 # -- SPAWN ROOM CREATION
 def spawnRoom():
     x = 0
@@ -62,11 +60,11 @@ def mapCreate():
     x = 0
     y = 0
     z = 0
-    while z != 8:
+    originalx = 13
+    originaly = 13
+    while z != level1rooms + 1:
         randomNum = random.randint(1, 4)
         randomRoom = random.randint(0, 2)
-        print(randomNum)
-
         # right
         if randomNum == 1:
             x = x + 1280
@@ -83,7 +81,6 @@ def mapCreate():
                     x = x - 2560
                 x = x + 1280
                 y = y + 40
-        
         # left
         if randomNum == 2:
             x = x - 1280
@@ -98,7 +95,6 @@ def mapCreate():
                     x = 0
                 x = x - 1280
                 y = y + 40
-        
         # up
         if randomNum == 3:
             y = y - 720
@@ -114,7 +110,6 @@ def mapCreate():
                 else:
                     x = x - 1280
                 y = y + 40
-        
         # down
         if randomNum == 4:
             y = y + 720
@@ -133,15 +128,51 @@ def mapCreate():
 
         if randomNum == 1:
             y = y - 720
+            originaly += 1
+            mapGrid[originalx][originaly] = 1
         if randomNum == 2:
             y = y - 720
+            originaly -= 1
+            mapGrid[originalx][originaly] = 1
         if randomNum == 3:
             y = y - 720
+            originalx -= 1
+            mapGrid[originalx][originaly] = 1
         if randomNum == 4:
             y = y - 720
-            
+            originalx += 1
+            mapGrid[originalx][originaly] = 1     
         z += 1
 mapCreate() 
+
+def closeDoor():
+    print(mapGrid)
+    numberOfRooms = 0
+    for row in mapGrid:
+        for col in row:
+            if col == 1:
+                numberOfRooms += 1
+    while numberOfRooms != level1rooms + 1:
+        for row in mapGrid:
+            for col in row:
+                if col == 1:
+                    col = 0
+        for foo in wall_group:
+            foo.delete()
+        mapCreate()
+#closeDoor()
+
+def closeDoor2():
+    print(mapGrid)
+    roomnumber = 0
+    for row in mapGrid:
+        for col in row:
+            if col == 1:
+                roomnumber += 1
+    if roomnumber != 8:
+        for foo in wall_group:
+            foo.delete()
+#closeDoor2()
 
 # -------- Main Program Loop -----------
 while not done:
