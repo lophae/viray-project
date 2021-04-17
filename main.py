@@ -67,6 +67,7 @@ def mapCreate():
         randomNum = random.randint(1, 4)
         randomRoom = random.randint(0, 2)
 
+        # no overlapping
         if randomNum == 1:
             if mapGrid[originalx][originaly + 1] == 1:
                 while randomNum == 1:
@@ -164,21 +165,6 @@ def mapCreate():
         previousNum = randomNum
         z += 1
 mapCreate() 
-
-def closeDoor2():
-    print(mapGrid)
-    roomnumber = 0
-    for row in mapGrid:
-        for col in row:
-            if col == 1 or col == 2:
-                roomnumber += 1
-    if roomnumber != level1rooms:
-        for foo in wall_group:
-            foo.delete()
-#closeDoor2()
-
-def closeDoor3():
-    pass
 
 # -------- Main Program Loop -----------
 while not done:
