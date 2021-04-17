@@ -62,7 +62,7 @@ def mapCreate():
     z = 0
     originalx = 13
     originaly = 13
-    while z != level1rooms + 1:
+    while z != level1rooms:
         randomNum = random.randint(1, 4)
         randomRoom = random.randint(0, 2)
         # right
@@ -167,11 +167,12 @@ def closeDoor2():
     roomnumber = 0
     for row in mapGrid:
         for col in row:
-            if col == 1:
+            if col == 1 or col == 2:
                 roomnumber += 1
-    if roomnumber != 8:
+    if roomnumber != level1rooms:
         for foo in wall_group:
             foo.delete()
+
 closeDoor2()
 
 # -------- Main Program Loop -----------
