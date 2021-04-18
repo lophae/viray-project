@@ -20,6 +20,7 @@ all_sprites_list.add(player)
 bullet_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
+door_group = pygame.sprite.Group()
 wall_groupRight = pygame.sprite.Group()
 wall_groupLeft = pygame.sprite.Group()
 wall_groupUp = pygame.sprite.Group()
@@ -35,25 +36,29 @@ def spawnRoom():
                 w = Wall(RED, 40, 40, x, y)
                 all_sprites_list.add(w)
                 wall_group.add(w)
-            elif col == 3:
-                w = Wall(YELLOW, 10, 40, x + 30, y)
-                all_sprites_list.add(w)
-                wall_groupRight.add(w)
-            elif col == 2:
-                w = Wall(YELLOW, 10, 40, x, y)
-                all_sprites_list.add(w)
-                wall_groupLeft.add(w)
-            elif col == 4:
-                w = Wall(YELLOW, 40, 10, x, y)
-                all_sprites_list.add(w)
-                wall_groupUp.add(w)
-            elif col == 5:
-                w = Wall(YELLOW, 40, 10, x, y + 30)
-                all_sprites_list.add(w)
-                wall_groupDown.add(w)
             x = x + 40
         x = 0
         y = y + 40
+
+    # right
+    w = Wall(YELLOW, 10, 240, 1270, 240)
+    all_sprites_list.add(w)
+    wall_groupRight.add(w)
+
+    # left
+    w = Wall(YELLOW, 10, 240, 0, 240)
+    all_sprites_list.add(w)
+    wall_groupLeft.add(w)
+
+    # up
+    w = Wall(YELLOW, 240, 10, 520, 0)
+    all_sprites_list.add(w)
+    wall_groupUp.add(w)
+
+    # down
+    w = Wall(YELLOW, 240, 10, 520, 710)
+    all_sprites_list.add(w)
+    wall_groupDown.add(w)
 spawnRoom()
 
 # -- MAP GENERATION
@@ -240,15 +245,64 @@ def mapCreate():
             y = y - 720
                  
         z += 1
-        print(randomNum, originalx, originaly)
 mapCreate()
 for row in mapGrid:
     for col in row:
         if col == 1:
-            print("f")
+            pass
+            #print("f")
 
-def doorCreate():
-    pass
+def mapDoors():
+    x = 0
+    y = 0
+    if mapGrid[mapx][mapy + 1] == 0:
+        for row in door:
+            for col in row:
+                if col == 1:
+                    w = Wall(RED, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    door_group.add(w)
+                x = x + 40
+            x = 0
+            y = y + 40
+    x = 0
+    y = 0
+    if mapGrid[mapx][mapy - 1] == 0:
+        for row in door:
+            for col in row:
+                if col == 2:
+                    w = Wall(RED, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    door_group.add(w)
+                x = x + 40
+            x = 0
+            y = y + 40
+    x = 0
+    y = 0
+    if mapGrid[mapx - 1][mapy] == 0:
+        for row in door:
+            for col in row:
+                if col == 3:
+                    w = Wall(RED, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    door_group.add(w)
+                x = x + 40
+            x = 0
+            y = y + 40
+    x = 0
+    y = 0
+    if mapGrid[mapx + 1][mapy] == 0:
+        for row in door:
+            for col in row:
+                if col == 4:
+                    w = Wall(RED, 40, 40, x, y)
+                    all_sprites_list.add(w)
+                    door_group.add(w)
+                x = x + 40
+            x = 0
+            y = y + 40
+    print(mapx, mapy)
+mapDoors()
 
 # -------- Main Program Loop -----------
 while not done:
@@ -316,27 +370,48 @@ while not done:
     # Right
     player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
     for foo in player_doorRight:
-        player.rect.x = player.rect.x - 610
+        player.rect.x = player.rect.x - 1220
+        for foo in door_group:
+            foo.delete()
+        mapy = mapy + 1
+        mapDoors()
         for foo in wall_group:
-            foo.rect.x = foo.rect.x - 640
+            foo.rect.x = foo.rect.x - 1280
     # Left
     player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
     for foo in player_doorLeft:
-        player.rect.x = player.rect.x + 610
+        player.rect.x = player.rect.x + 1220
+        for foo in door_group:
+            foo.delete()
+        mapy = mapy - 1
+        mapDoors()
         for foo in wall_group:
-            foo.rect.x = foo.rect.x + 640
+            foo.rect.x = foo.rect.x + 1280
     # Up
     player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
     for foo in player_doorUp:
-        player.rect.y = player.rect.y + 330
+        player.rect.y = player.rect.y + 660
+        for foo in door_group:
+            foo.delete()
+        mapx = mapx - 1
+        mapDoors() 
         for foo in wall_group:
-            foo.rect.y = foo.rect.y + 360
+            foo.rect.y = foo.rect.y + 720
     # Down
     player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
     for foo in player_doorDown:
-        player.rect.y = player.rect.y - 330
+        player.rect.y = player.rect.y - 660
+        for foo in door_group:
+            foo.delete()
+        mapx = mapx + 1
+        mapDoors()
         for foo in wall_group:
-            foo.rect.y = foo.rect.y - 360
+            foo.rect.y = foo.rect.y - 720
+    
+    print(mapx, mapy)
+    
+    # -- CLOSING OFF DOORS WHERE NECESSARY
+
 
     # -- #
     screen.fill(BLACK)
