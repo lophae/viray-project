@@ -210,3 +210,21 @@ def closeDoor2():
                         if randomNum == 2:
                             if mapGrid[originalx][originaly - 1] == 1:
                                 randomNum = 1
+
+# DOOR GAPS
+            elif col == 3:
+                w = Wall(YELLOW, 10, 40, x + 30, y)
+                all_sprites_list.add(w)
+                wall_groupRight.add(w)
+            elif col == 2:
+                w = Wall(YELLOW, 10, 40, x, y)
+                all_sprites_list.add(w)
+                wall_groupLeft.add(w)
+            elif col == 4:
+                w = Wall(YELLOW, 40, 10, x, y)
+                all_sprites_list.add(w)
+                wall_groupUp.add(w)
+            elif col == 5:
+                w = Wall(YELLOW, 40, 10, x, y + 30)
+                all_sprites_list.add(w)
+                wall_groupDown.add(w)
