@@ -63,6 +63,7 @@ def mapCreate():
     z = 0
     originalx = 13
     originaly = 13
+    
     while z != level1rooms:
         randomNum = random.randint(1, 4)
         randomRoom = random.randint(0, 2)
@@ -70,81 +71,94 @@ def mapCreate():
         # no overlapping
         if mapGrid[originalx][originaly + 1] == 1 and mapGrid[originalx][originaly - 1] == 1 and mapGrid[originalx - 1][originaly] == 1 and mapGrid[originalx + 1][originaly] == 1:
             z = level1rooms
-
+        
         if randomNum == 1:
-            if mapGrid[originalx][originaly + 1] == 1:
-                while randomNum == 1:
-                    randomNum = random.randint(1, 4)   
+            if mapGrid[originalx][originaly + 1] == 0:
+                randomNum = 1
+            else:
+                randomNum = random.choice([2, 3, 4])
                 if randomNum == 2:
-                    if mapGrid[originalx][originaly - 1] == 1:
-                        randomNum = random.choice([3, 4])
-                        if randomNum == 3:
-                            if mapGrid[originalx - 1][originaly] == 1:
-                                randomNum = 4
-                        if randomNum == 4:
-                            if mapGrid[originalx + 1][originaly] == 1:
-                                randomNum = 3
-
+                    if mapGrid[originalx][originaly - 1] == 0:
+                        randomNum = 2
+                if randomNum == 3:
+                    if mapGrid[originalx - 1][originaly] == 0:
+                        randomNum = 3
+                if randomNum == 4:
+                    if mapGrid[originalx + 1][originaly] == 0:
+                        randomNum = 4
+        
         if randomNum == 2:
-            if mapGrid[originalx][originaly - 1] == 1:
-                while randomNum == 2:
-                    randomNum = random.randint(1, 4)
+            if mapGrid[originalx][originaly - 1] == 0:
+                randomNum = 2
+            else:
+                randomNum = random.choice([1, 3, 4])
                 if randomNum == 1:
-                    if mapGrid[originalx][originaly + 1] == 1:
+                    if mapGrid[originalx][originaly + 1] == 0:
+                        randomNum = 1
+                    else:
                         randomNum = random.choice([3, 4])
-                        if randomNum == 3:
-                            if mapGrid[originalx - 1][originaly] == 1:
-                                randomNum = 4
-                        if randomNum == 4:
-                            if mapGrid[originalx + 1][originaly] == 1:
-                                randomNum = 3
-
+                if randomNum == 3:
+                    if mapGrid[originalx - 1][originaly] == 0:
+                        randomNum = 3
+                if randomNum == 4:
+                    if mapGrid[originalx + 1][originaly] == 0:
+                        randomNum = 4
+        
         if randomNum == 3:
-            if mapGrid[originalx - 1][originaly] == 1:
-                while randomNum == 3:
-                    randomNum = random.randint(1, 4)
+            if mapGrid[originalx - 1][originaly] == 0:
+                randomNum = 3
+            else:
+                randomNum = random.choice([1, 2, 4])
                 if randomNum == 1:
-                    if mapGrid[originalx][originaly + 1] == 1:
+                    if mapGrid[originalx][originaly + 1] == 0:
+                        randomNum = 1
+                    else:
                         randomNum = random.choice([2, 4])
-                        if randomNum == 2:
-                            if mapGrid[originalx][originaly - 1] == 1:
+                if randomNum == 2:
+                    if mapGrid[originalx][originaly - 1] == 0:
+                        randomNum = 2
+                    else:
+                        randomNum = random.choice([1, 4])
+                        if randomNum == 1:
+                            if mapGrid[originalx][originaly + 1] != 0:
                                 randomNum = 4
-                        if randomNum == 4:
-                            if mapGrid[originalx + 1][originaly] == 1:
-                                randomNum = 2
+                if randomNum == 4:
+                    if mapGrid[originalx + 1][originaly] == 0:
+                        randomNum = 4
 
         if randomNum == 4:
-            if mapGrid[originalx + 1][originaly] == 1:
-                while randomNum == 4:
-                    randomNum = random.randint(1, 4)
+            if mapGrid[originalx + 1][originaly] == 0:
+                randomNum = 4
+            else:
+                randomNum = random.choice([1, 2, 3])
                 if randomNum == 1:
-                    if mapGrid[originalx][originaly + 1] == 1:
+                    if mapGrid[originalx][originaly + 1] == 0:
+                        randomNum = 1
+                    else:
                         randomNum = random.choice([2, 3])
                         if randomNum == 2:
-                            if mapGrid[originalx][originaly - 1] == 1:
+                            if mapGrid[originalx][originaly - 1] != 0:
                                 randomNum = 3
-                        if randomNum == 3:
-                            if mapGrid[originalx - 1][originaly] == 1:
-                                randomNum = 2
                 if randomNum == 2:
-                    if mapGrid[originalx][originaly - 1] == 1:
+                    if mapGrid[originalx][originaly - 1] == 0:
+                        randomNum = 2
+                    else:
                         randomNum = random.choice([1, 3])
                         if randomNum == 1:
-                            if mapGrid[originalx][originaly + 1] == 1:
+                            if mapGrid[originalx][originaly + 1] != 0:
                                 randomNum = 3
-                        if randomNum == 3:
-                            if mapGrid[originalx - 1][originaly] == 1:
-                                randomNum = 1
                 if randomNum == 3:
-                    if mapGrid[originalx][originaly - 1] == 1:
+                    if mapGrid[originalx - 1][originaly] == 0:
+                        randomNum = 3
+                    else:
                         randomNum = random.choice([1, 2])
                         if randomNum == 1:
-                            if mapGrid[originalx][originaly + 1] == 1:
-                                randomNum = 2
+                            if mapGrid[originalx][originaly + 1] != 0:
+                                randomNum = 2 
                         if randomNum == 2:
-                            if mapGrid[originalx][originaly - 1] == 1:
-                                randomNum = 1
-                                
+                            if mapGrid[originalx][originaly - 1] != 0:  
+                                randomNum = 1  
+
         # right
         if randomNum == 1:
             x = x + 1280
@@ -223,10 +237,15 @@ def mapCreate():
         if randomNum == 3:
             y = y - 720           
         if randomNum == 4:
-            y = y - 720                
+            y = y - 720
+                 
         z += 1
         print(randomNum, originalx, originaly)
-mapCreate() 
+mapCreate()
+for row in mapGrid:
+    for col in row:
+        if col == 1:
+            print("f")
 
 def doorCreate():
     pass
