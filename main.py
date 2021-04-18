@@ -363,9 +363,16 @@ while not done:
         player.move(0, 0)
         player.rect.x = player_old_x
         player.rect.y = player_old_y
+    
+    player_hitDoor = pygame.sprite.spritecollide(player, door_group, False)
+    for foo in player_hitDoor:
+        player.move(0, 0)
+        player.rect.x = player_old_x
+        player.rect.y = player_old_y
+
     player_old_x = player.rect.x
     player_old_y = player.rect.y
-    
+
     # -- PLAYER DOOR COLLISION (BUGGED IN THE CORNERS)
     # Right
     player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
@@ -416,7 +423,7 @@ while not done:
     # -- #
     screen.fill(BLACK)
     font = pygame.font.Font(None, 25)
-    txt = font.render("stamina count al;ksjdo;k: " + str(stamina), True, WHITE)
+    txt = font.render("stamina count: " + str(stamina), True, WHITE)
     screen.blit(txt, (400, 100))
     
     all_sprites_list.update()
