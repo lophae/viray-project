@@ -135,3 +135,78 @@ def closeDoor2():
             y = y - 720
             originalx += 1
             mapGrid[originalx][originaly] = 1  
+
+# OVERLAPPING TEST (BUGGED)
+        if randomNum == 1:
+            if mapGrid[originalx][originaly + 1] == 1:
+                while randomNum == 1:
+                    randomNum = random.randint(1, 4)   
+                if randomNum == 2:
+                    if mapGrid[originalx][originaly - 1] == 1:
+                        randomNum = random.choice([3, 4])
+                        if randomNum == 3:
+                            if mapGrid[originalx - 1][originaly] == 1:
+                                randomNum = 4
+                        if randomNum == 4:
+                            if mapGrid[originalx + 1][originaly] == 1:
+                                randomNum = 3
+
+        if randomNum == 2:
+            if mapGrid[originalx][originaly - 1] == 1:
+                while randomNum == 2:
+                    randomNum = random.randint(1, 4)
+                if randomNum == 1:
+                    if mapGrid[originalx][originaly + 1] == 1:
+                        randomNum = random.choice([3, 4])
+                        if randomNum == 3:
+                            if mapGrid[originalx - 1][originaly] == 1:
+                                randomNum = 4
+                        if randomNum == 4:
+                            if mapGrid[originalx + 1][originaly] == 1:
+                                randomNum = 3
+
+        if randomNum == 3:
+            if mapGrid[originalx - 1][originaly] == 1:
+                while randomNum == 3:
+                    randomNum = random.randint(1, 4)
+                if randomNum == 1:
+                    if mapGrid[originalx][originaly + 1] == 1:
+                        randomNum = random.choice([2, 4])
+                        if randomNum == 2:
+                            if mapGrid[originalx][originaly - 1] == 1:
+                                randomNum = 4
+                        if randomNum == 4:
+                            if mapGrid[originalx + 1][originaly] == 1:
+                                randomNum = 2
+
+        if randomNum == 4:
+            if mapGrid[originalx - 1][originaly] == 1:
+                while randomNum == 4:
+                    randomNum = random.randint(1, 4)
+                if randomNum == 1:
+                    if mapGrid[originalx][originaly + 1] == 1:
+                        randomNum = random.choice([2, 3])
+                        if randomNum == 2:
+                            if mapGrid[originalx][originaly - 1] == 1:
+                                randomNum = 3
+                        if randomNum == 3:
+                            if mapGrid[originalx - 1][originaly] == 1:
+                                randomNum = 2
+                if randomNum == 2:
+                    if mapGrid[originalx][originaly - 1] == 1:
+                        randomNum = random.choice([1, 3])
+                        if randomNum == 1:
+                            if mapGrid[originalx][originaly + 1] == 1:
+                                randomNum = 3
+                        if randomNum == 3:
+                            if mapGrid[originalx - 1][originaly] == 1:
+                                randomNum = 1
+                if randomNum == 3:
+                    if mapGrid[originalx][originaly - 1] == 1:
+                        randomNum = random.choice([1, 2])
+                        if randomNum == 1:
+                            if mapGrid[originalx][originaly + 1] == 1:
+                                randomNum = 2
+                        if randomNum == 2:
+                            if mapGrid[originalx][originaly - 1] == 1:
+                                randomNum = 1
