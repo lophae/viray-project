@@ -169,6 +169,8 @@ def mapCreate():
             x = x + 1280
             originaly += 1
             mapGrid[originalx][originaly] = 1
+            if z == level1rooms - 1:
+                randomRoom = 3
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -187,6 +189,8 @@ def mapCreate():
             x = x - 1280
             originaly -= 1
             mapGrid[originalx][originaly] = 1
+            if z == level1rooms - 1:
+                randomRoom = 3
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -205,6 +209,8 @@ def mapCreate():
             y = y - 720
             originalx -= 1
             mapGrid[originalx][originaly] = 1
+            if z == level1rooms - 1:
+                randomRoom = 3
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -222,6 +228,8 @@ def mapCreate():
             y = y + 720
             originalx += 1
             mapGrid[originalx][originaly] = 1
+            if z == level1rooms - 1:
+                randomRoom = 3
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -303,6 +311,7 @@ def mapDoors():
             y = y + 40
     print(mapx, mapy)
 mapDoors()
+#print(mapGrid)
 
 # -------- Main Program Loop -----------
 while not done:
@@ -415,10 +424,7 @@ while not done:
         for foo in wall_group:
             foo.rect.y = foo.rect.y - 720
     
-    print(mapx, mapy)
-    
-    # -- CLOSING OFF DOORS WHERE NECESSARY
-
+    #print(mapx, mapy)
 
     # -- #
     screen.fill(BLACK)
