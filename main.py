@@ -319,6 +319,12 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = pygame.mouse.get_pos()
+            b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 2, x, y)
+            all_sprites_list.add(b)
+            bullet_group.add(b)
         
     # -- MOVEMENT
     keys = pygame.key.get_pressed()
@@ -353,18 +359,13 @@ while not done:
             stamina = stamina + 1
 
     # -- SHOOTING (requires fixing)
-#    if event.type == pygame.MOUSEBUTTONDOWN: 
-#        if event.button == 1 and click == False:
-#            click = True
-#    if click: 
-#        x, y = pygame.mouse.get_pos()
-#        b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 5, x, y)
-#        bullet_group.add(b)
-#        all_sprites_list.add(b)
-#        click = False
+    for b in bullet_group:
+        b.move()
 
     # --  BULLET WALL COLLISION
-#    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
+    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
+    bulletWall2 = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
+    bulletWall3 = pygame.sprite.groupcollide(bullet_group, wall_groupDown, True, False)
 
     # -- PLAYER WALL COLLISION (requires improvement)
     player_hit = pygame.sprite.spritecollide(player, wall_group, False)
