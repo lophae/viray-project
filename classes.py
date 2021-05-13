@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.health = 200 
         
     def move(self, x_val, y_val):
-        self.rect.x += x_val
+        self.rect.x += x_val 
         self.rect.y += y_val
 
 class Bullet(pygame.sprite.Sprite):
@@ -31,6 +31,9 @@ class Bullet(pygame.sprite.Sprite):
         self.y = self.y + self.dy
         self.rect.x = int(self.x) - 5
         self.rect.y = int(self.y) - 5
+
+    def delete(self):
+        self.kill()
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self, colour, width, height, posx, posy):
@@ -54,14 +57,3 @@ class Enemy1(pygame.sprite.Sprite):
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         
-# class doorClosed(pygame.sprite.Sprite):
-#    def __init__(self, colour, width, height, posx, posy):
-#        super().__init__()
-#        self.image = pygame.Surface([width, height])
-#        self.image.fill(colour)
-#        self.rect = self.image.get_rect()
-#        self.rect.x = posx
-#        self.rect.y = posy
-    
-    # def delete():
-    #    self.kill()
