@@ -10,5 +10,5 @@ YELLOW = (255, 255, 0)
 
 # screen
 size = (1280, 720)
-screen = pygame.display.set_mode((size), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((size)) #, pygame.FULLSCREEN)
 pygame.display.set_caption("Test1")
