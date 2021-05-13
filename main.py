@@ -66,6 +66,8 @@ def mapCreate():
     x = 0
     y = 0
     z = 0
+    global originalx
+    global originaly
     originalx = 13
     originaly = 13
     
@@ -254,11 +256,8 @@ def mapCreate():
                  
         z += 1
 mapCreate()
-for row in mapGrid:
-    for col in row:
-        if col == 1:
-            pass
-            #print("f")
+#print(originalx, originaly)
+#mapCreate()
 
 def mapDoors():
     x = 0
@@ -309,7 +308,7 @@ def mapDoors():
                 x = x + 40
             x = 0
             y = y + 40
-    print(mapx, mapy)
+    #print(mapx, mapy)
 mapDoors()
 #print(mapGrid)
 
@@ -355,10 +354,10 @@ while not done:
         player.move(0,2)
         stamina = stamina - 2
     if not keys[pygame.K_j]:
-        if stamina != 150:
+        if stamina != 300:
             stamina = stamina + 1
 
-    # -- SHOOTING (requires fixing)
+    # -- SHOOTING
     for b in bullet_group:
         b.move()
 
@@ -370,20 +369,20 @@ while not done:
     # -- PLAYER WALL COLLISION (requires improvement)
     player_hit = pygame.sprite.spritecollide(player, wall_group, False)
     for foo in player_hit:
-        player.move(0, 0)
+        #player.move(0, 0)
         player.rect.x = player_old_x
         player.rect.y = player_old_y
     
     player_hitDoor = pygame.sprite.spritecollide(player, door_group, False)
     for foo in player_hitDoor:
-        player.move(0, 0)
+        #player.move(0, 0)
         player.rect.x = player_old_x
         player.rect.y = player_old_y
 
     player_old_x = player.rect.x
     player_old_y = player.rect.y
 
-    # -- PLAYER DOOR COLLISION (BUGGED IN THE CORNERS)
+    # -- PLAYER DOOR COLLISION
     # Right
     player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
     for foo in player_doorRight:
@@ -394,6 +393,8 @@ while not done:
         mapDoors()
         for foo in wall_group:
             foo.rect.x = foo.rect.x - 1280
+        for foo in bullet_group:
+            foo.delete()
     # Left
     player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
     for foo in player_doorLeft:
@@ -404,6 +405,8 @@ while not done:
         mapDoors()
         for foo in wall_group:
             foo.rect.x = foo.rect.x + 1280
+        for foo in bullet_group:
+            foo.delete()
     # Up
     player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
     for foo in player_doorUp:
@@ -414,6 +417,8 @@ while not done:
         mapDoors() 
         for foo in wall_group:
             foo.rect.y = foo.rect.y + 720
+        for foo in bullet_group:
+            foo.delete()
     # Down
     player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
     for foo in player_doorDown:
@@ -424,6 +429,8 @@ while not done:
         mapDoors()
         for foo in wall_group:
             foo.rect.y = foo.rect.y - 720
+        for foo in bullet_group:
+            foo.delete()
     
     #print(mapx, mapy)
 
