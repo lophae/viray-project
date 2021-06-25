@@ -46,9 +46,6 @@ class Wall(pygame.sprite.Sprite):
 
     def delete(self):
         self.kill()
-    
-    def update(self):
-        pass
 
 class Enemy1(pygame.sprite.Sprite):
     def __init__(self, colour):
