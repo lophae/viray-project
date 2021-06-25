@@ -228,3 +228,22 @@ def closeDoor2():
                 w = Wall(YELLOW, 40, 10, x, y + 30)
                 all_sprites_list.add(w)
                 wall_groupDown.add(w)
+
+ class doorClosed(pygame.sprite.Sprite):
+    def __init__(self, colour, width, height, posx, posy):
+        super().__init__()
+        self.image = pygame.Surface([width, height])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = posx
+        self.rect.y = posy
+    
+     def delete():
+        self.kill()
+
+
+
+
+    
+    player.rect.x = player_old_x
+        player.rect.y = player_old_y
