@@ -21,6 +21,7 @@ bullet_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
 door_group = pygame.sprite.Group()
+
 wall_groupRight = pygame.sprite.Group()
 wall_groupLeft = pygame.sprite.Group()
 wall_groupUp = pygame.sprite.Group()
@@ -38,7 +39,7 @@ def spawnRoom():
                 wall_group.add(w)
             x = x + 40
         x = 0
-        y = y + 40
+        y = y + 40  
 
     # right
     w = Wall(YELLOW, 10, 240, 1270, 240)
@@ -59,6 +60,7 @@ def spawnRoom():
     w = Wall(YELLOW, 240, 10, 520, 710)
     all_sprites_list.add(w)
     wall_groupDown.add(w)
+
 spawnRoom()
 
 # -- MAP GENERATION
@@ -257,7 +259,6 @@ def mapCreate():
         z += 1
 mapCreate()
 #print(originalx, originaly)
-#mapCreate()
 
 def mapDoors():
     x = 0
@@ -338,8 +339,8 @@ while not done:
     
     # -- temporary quit
     if keys[pygame.K_p]:
-            done = True
-    
+        done = True
+
     # -- STAMINA
     if keys[pygame.K_a] and keys[pygame.K_j] and stamina > 1: 
         player.move(-2,0)
@@ -353,7 +354,7 @@ while not done:
     if keys[pygame.K_s] and keys[pygame.K_j] and stamina > 1:
         player.move(0,2)
         stamina = stamina - 2
-    if not keys[pygame.K_j]:
+    if not keys[pygame.K_j] or (keys[pygame.K_j] and (not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s])):
         if stamina != 300:
             stamina = stamina + 1
 
@@ -372,6 +373,7 @@ while not done:
         #player.move(0, 0)
         player.rect.x = player_old_x
         player.rect.y = player_old_y
+        
     
     player_hitDoor = pygame.sprite.spritecollide(player, door_group, False)
     for foo in player_hitDoor:
