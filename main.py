@@ -321,6 +321,7 @@ def game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
+                quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
@@ -340,8 +341,7 @@ def game():
             player.move(0,1)
         
         # -- temporary quit
-        if keys[pygame.K_l]:
-            done = True
+        #pass
 
         # -- STAMINA
         if keys[pygame.K_a] and keys[pygame.K_j] and stamina > 1: 
@@ -436,8 +436,6 @@ def game():
             for foo in bullet_group:
                 foo.delete()
         
-        #print(mapx, mapy)
-
         # -- #
         screen.fill(BLACK)
         font = pygame.font.Font(None, 25)
@@ -451,23 +449,38 @@ def game():
         pygame.display.flip()
     
         clock.tick(240)
-#game()
 
 def mainMenu():
     menu = True
     screen.fill(BLACK)
     font = pygame.font.Font(None, 100)
     txt = font.render("[main menu]", True, WHITE)
-    screen.blit(txt, (100, 100))
+    starttxt = font.render("[start]", True, BLACK)
+    quittxt = font.render("[quit]", True, BLACK)
+    buttonStart = pygame.Rect(100, 300, 450, 100)
+    buttonQuit = pygame.Rect(100, 550, 450, 100)
+
     while menu is True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 menu = False
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_k]:
-            menu = False
+                quit()
+                
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                if buttonStart.collidepoint(mouse_pos):
+                    game()
+                elif buttonQuit.collidepoint(mouse_pos):
+                    menu = False
+        
+        pygame.draw.rect(screen, [255, 255, 255], buttonStart)
+        pygame.draw.rect(screen, [255, 255, 255], buttonQuit)
+        screen.blit(starttxt, (100, 310))
+        screen.blit(quittxt, (100, 560))
+        screen.blit(txt, (100, 100))
         pygame.display.flip()
         clock.tick(240)
+
 mainMenu()
 
 pygame.quit()
