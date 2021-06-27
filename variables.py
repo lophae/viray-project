@@ -1,6 +1,7 @@
 import pygame
 
 done = False
+done2 = False
 click = False
 stamina = 300
 
