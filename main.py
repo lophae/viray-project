@@ -309,9 +309,10 @@ def mapDoors():
                 x = x + 40
             x = 0
             y = y + 40
-    #print(mapx, mapy)
 mapDoors()
-#print(mapGrid)
+
+def pause():
+    pass 
 
 # -------- Main Program Loop -----------
 def game():
@@ -340,23 +341,23 @@ def game():
         if keys[pygame.K_s]:
             player.move(0,1)
         
-        # -- temporary quit
-        #pass
+        # -- pause
+        #pause()
 
         # -- STAMINA
-        if keys[pygame.K_a] and keys[pygame.K_j] and stamina > 1: 
+        if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and stamina > 1: 
             player.move(-2,0)
             stamina = stamina - 2
-        if keys[pygame.K_d] and keys[pygame.K_j] and stamina > 1:
+        if keys[pygame.K_d] and keys[pygame.K_LSHIFT] and stamina > 1:
             player.move(2,0)
             stamina = stamina - 2
-        if keys[pygame.K_w] and keys[pygame.K_j] and stamina > 1:
+        if keys[pygame.K_w] and keys[pygame.K_LSHIFT] and stamina > 1:
             player.move(0,-2)
             stamina = stamina - 2
-        if keys[pygame.K_s] and keys[pygame.K_j] and stamina > 1:
+        if keys[pygame.K_s] and keys[pygame.K_LSHIFT] and stamina > 1:
             player.move(0,2)
             stamina = stamina - 2
-        if not keys[pygame.K_j] or (keys[pygame.K_j] and (not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s])):
+        if not keys[pygame.K_LSHIFT] or (keys[pygame.K_LSHIFT] and (not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s])):
             if stamina != 300:
                 stamina = stamina + 1
 
