@@ -456,9 +456,9 @@ def game():
 def mainMenu():
     menu = True
     screen.fill(BLACK)
-    font = pygame.font.Font(None, 25)
+    font = pygame.font.Font(None, 100)
     txt = font.render("[main menu]", True, WHITE)
-    screen.blit(txt, (400, 100))
+    screen.blit(txt, (100, 100))
     while menu is True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
