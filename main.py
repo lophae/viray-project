@@ -439,13 +439,12 @@ def game():
         # -- #
         screen.fill(BLACK)
         font = pygame.font.Font(None, 25)
-        txt = font.render("stamina count: " + str(stamina), True, WHITE)
-        screen.blit(txt, (400, 100))
         
         all_sprites_list.update()
 
         all_sprites_list.draw(screen)
-    
+        txt = font.render("stamina count: " + str(stamina), True, BLACK)
+        screen.blit(txt, (10, 10))
         pygame.display.flip()
     
         clock.tick(240)
