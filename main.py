@@ -313,11 +313,6 @@ def mapDoors():
 mapDoors()
 #print(mapGrid)
 
-def mainMenu():
-    x = True
-    
-mainMenu()
-
 # -------- Main Program Loop -----------
 def game():
     global done, stamina, mapx, mapy, level1rooms, level2rooms
@@ -457,4 +452,23 @@ def game():
     
         clock.tick(240)
 #game()
+
+def mainMenu():
+    menu = True
+    screen.fill(BLACK)
+    font = pygame.font.Font(None, 25)
+    txt = font.render("[main menu]", True, WHITE)
+    screen.blit(txt, (400, 100))
+    while menu is True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                menu = False
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_k]:
+            menu = False
+        pygame.display.flip()
+        clock.tick(240)
+mainMenu()
+
 pygame.quit()
+quit()
