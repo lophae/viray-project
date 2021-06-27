@@ -457,8 +457,8 @@ def mainMenu():
     txt = font.render("[main menu]", True, WHITE)
     starttxt = font.render("[start]", True, BLACK)
     quittxt = font.render("[quit]", True, BLACK)
-    buttonStart = pygame.Rect(100, 300, 450, 100)
-    buttonQuit = pygame.Rect(100, 550, 450, 100)
+    buttonStart = pygame.Rect(100, 300, 400, 100)
+    buttonQuit = pygame.Rect(100, 550, 400, 100)
 
     while menu is True:
         for event in pygame.event.get():
