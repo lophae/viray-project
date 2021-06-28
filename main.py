@@ -312,7 +312,7 @@ def mapDoors():
 mapDoors()
 
 def pause():
-    pass
+    pygame.time.delay(3000)
 
 def inventory():
     pass
@@ -335,7 +335,7 @@ def game():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
-                    pause() 
+                    pause()
                 if event.key == pygame.K_o:
                     clocktick = 240        
             
