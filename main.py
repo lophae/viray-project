@@ -312,11 +312,14 @@ def mapDoors():
 mapDoors()
 
 def pause():
-    pass 
+    pass
+
+def inventory():
+    pass
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
@@ -329,6 +332,12 @@ def game():
                 b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 2, x, y)
                 all_sprites_list.add(b)
                 bullet_group.add(b)
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    pause() 
+                if event.key == pygame.K_o:
+                    clocktick = 240        
             
         # -- MOVEMENT
         keys = pygame.key.get_pressed()
@@ -342,7 +351,10 @@ def game():
             player.move(0,1)
         
         # -- pause
-        #pause()
+
+        # -- inventory
+        if keys[pygame.K_t]:
+            inventory()
 
         # -- STAMINA
         if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and stamina > 1: 
@@ -449,8 +461,7 @@ def game():
         txt2 = font.render("press [c] for inventory", True, BLACK)
         screen.blit(txt2, (10, 690))
         pygame.display.flip()
-    
-        clock.tick(240)
+        clock.tick(clocktick)
 
 def mainMenu():
     menu = True
