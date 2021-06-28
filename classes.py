@@ -54,3 +54,14 @@ class Enemy1(pygame.sprite.Sprite):
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         
+class Pause(pygame.sprite.Sprite):
+    def __init__(self, colour):
+        super().__init__()
+        self.image = pygame.Surface([200, 200])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = 10
+        self.rect.y = 10
+
+        
+        
