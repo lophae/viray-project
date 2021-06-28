@@ -5,6 +5,8 @@ done2 = False
 click = False
 stamina = 300
 
+clocktick = 240
+
 level1rooms = 7
 level2rooms = 9
 
