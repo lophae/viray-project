@@ -471,9 +471,7 @@ def game():
         clock.tick(clocktick)
 
 def enemySpawn():
-    e1 = Enemy1(GREEN, 50, 50, player.rect.x, player.rect.y)
-    enemy_group.add(e1)
-    all_sprites_list.add(e1)
+    pass
 
 def mainMenu():
     menu = True
