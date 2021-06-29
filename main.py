@@ -18,6 +18,7 @@ player = Player(WHITE)
 all_sprites_list.add(player)
 
 bullet_group = pygame.sprite.Group()
+enemy_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
 door_group = pygame.sprite.Group()
@@ -312,14 +313,15 @@ def mapDoors():
 mapDoors()
 
 def pause():
-    pygame.time.delay(3000)
+    global pausetime
+    pass
 
 def inventory():
     pass
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
@@ -408,6 +410,7 @@ def game():
                 foo.delete()
             mapy = mapy + 1
             mapDoors()
+            enemySpawn()
             for foo in wall_group:
                 foo.rect.x = foo.rect.x - 1280
             for foo in bullet_group:
@@ -420,6 +423,7 @@ def game():
                 foo.delete()
             mapy = mapy - 1
             mapDoors()
+            enemySpawn()
             for foo in wall_group:
                 foo.rect.x = foo.rect.x + 1280
             for foo in bullet_group:
@@ -431,7 +435,8 @@ def game():
             for foo in door_group:
                 foo.delete()
             mapx = mapx - 1
-            mapDoors() 
+            mapDoors()
+            enemySpawn() 
             for foo in wall_group:
                 foo.rect.y = foo.rect.y + 720
             for foo in bullet_group:
@@ -444,6 +449,7 @@ def game():
                 foo.delete()
             mapx = mapx + 1
             mapDoors()
+            enemySpawn()
             for foo in wall_group:
                 foo.rect.y = foo.rect.y - 720
             for foo in bullet_group:
@@ -460,8 +466,14 @@ def game():
         screen.blit(txt, (10, 10))
         txt2 = font.render("press [c] for inventory", True, BLACK)
         screen.blit(txt2, (10, 690))
+
         pygame.display.flip()
         clock.tick(clocktick)
+
+def enemySpawn():
+    e1 = Enemy1(GREEN, 50, 50, player.rect.x, player.rect.y)
+    enemy_group.add(e1)
+    all_sprites_list.add(e1)
 
 def mainMenu():
     menu = True
