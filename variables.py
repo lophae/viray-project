@@ -6,6 +6,7 @@ click = False
 stamina = 300
 
 clocktick = 240
+pausetime = 10000
 
 level1rooms = 7
 level2rooms = 9
