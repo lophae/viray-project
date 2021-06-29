@@ -48,12 +48,26 @@ class Wall(pygame.sprite.Sprite):
         self.kill()
 
 class Enemy1(pygame.sprite.Sprite):
-    def __init__(self, colour):
+    def __init__(self, colour, posx, posy, targetx, targety):
         super().__init__()
-        self.image = pygame.Surface()
+        self.image = pygame.Surface([30, 30])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
+        angle = math.atan2(targety-posy, targetx-posx)
+        self.dx = math.cos(angle)*5
+        self.dy = math.sin(angle)*5
+        self.rect.x = posx
+        self.rect.y = posy
+        self.x = posx
+        self.y = posy
+    
+    def move(self):
+        self.rect.x = self.x + self.dx
+        self.rect.y = self.y + self.dy
         
+    def delet(self):
+        self.kill()
+
 class Pause(pygame.sprite.Sprite):
     def __init__(self, colour):
         super().__init__()
