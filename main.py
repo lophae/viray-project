@@ -351,8 +351,6 @@ def game():
             player.move(0,-1)
         if keys[pygame.K_s]:
             player.move(0,1)
-        
-        # -- pause
 
         # -- inventory
         if keys[pygame.K_t]:
