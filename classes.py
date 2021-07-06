@@ -54,18 +54,20 @@ class Enemy1(pygame.sprite.Sprite):
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         angle = math.atan2(targety-posy, targetx-posx)
-        self.dx = math.cos(angle)*5
-        self.dy = math.sin(angle)*5
+        self.dx = math.cos(angle)*2
+        self.dy = math.sin(angle)*2
         self.rect.x = posx
         self.rect.y = posy
         self.x = posx
         self.y = posy
     
     def move(self):
-        self.rect.x = self.x + self.dx
-        self.rect.y = self.y + self.dy
+        self.x = self.x + self.dx
+        self.y = self.y + self.dy
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
         
-    def delet(self):
+    def delete(self):
         self.kill()
 
 class Pause(pygame.sprite.Sprite):
