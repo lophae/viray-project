@@ -321,7 +321,7 @@ def inventory():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime, player_x, player_y
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
@@ -378,6 +378,8 @@ def game():
             b.move()
 
         # -- ENEMY MOVEMENT
+        player_x = player.rect.x
+        player_y = player.rect.y
         for e in enemy_group:
             e.move()
 
@@ -473,7 +475,8 @@ def game():
         clock.tick(clocktick)
 
 def enemySpawn():
-    e = Enemy1(WHITE, 50, 50, player.rect.x, player.rect.y)
+    global player_x, player_y
+    e = Enemy1(WHITE, 50, 50, player_x, player_y)
     all_sprites_list.add(e)
     enemy_group.add(e)
 
