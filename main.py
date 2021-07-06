@@ -377,6 +377,10 @@ def game():
         for b in bullet_group:
             b.move()
 
+        # -- ENEMY MOVEMENT
+        for e in enemy_group:
+            e.move()
+
         # --  BULLET WALL COLLISION
         bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
         bulletWall2 = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
@@ -469,7 +473,10 @@ def game():
         clock.tick(clocktick)
 
 def enemySpawn():
-    pass
+    e = Enemy1(WHITE, 50, 50, player.rect.x, player.rect.y)
+    all_sprites_list.add(e)
+    enemy_group.add(e)
+
 
 def mainMenu():
     menu = True
