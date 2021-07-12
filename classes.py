@@ -1,4 +1,6 @@
 import pygame, math
+from variables import *
+from settings import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour):
@@ -47,26 +49,46 @@ class Wall(pygame.sprite.Sprite):
     def delete(self):
         self.kill()
 
+class enemyBullet(pygame.sprite.Sprite):
+    def __init__(self, posx, posy, targetx, targety):
+        super().__init__()
+        self.image = pygame.Surface([5, 5])
+        self.image.fill(GREEN)
+        self.rect = self.image.get_rect()
+        angle = math.atan2(targety-posy, targetx-posx) 
+        self.dx = math.cos(angle) * 2
+        self.dy = math.sin(angle) * 2
+        self.x = posx
+        self.y = posy
+
+    def move(self):
+        self.x = self.x + self.dx
+        self.y = self.y + self.dy
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
+
+    def delete(self):
+        self.kill() 
+
 class Enemy1(pygame.sprite.Sprite):
     def __init__(self, colour, posx, posy, targetx, targety):
         super().__init__()
         self.image = pygame.Surface([30, 30])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        angle = math.atan2(targety-posy, targetx-posx)
-        self.dx = math.cos(angle)*2
-        self.dy = math.sin(angle)*2
-        self.rect.x = posx
-        self.rect.y = posy
-        self.x = posx
-        self.y = posy
+        self.rect.x = 50
+        self.rect.y = 50
     
     def move(self):
-        self.x = self.x + self.dx
-        self.y = self.y + self.dy
-        self.rect.x = int(self.x)
-        self.rect.y = int(self.y)
-        
+        #self.x = self.x + self.dx
+        #self.y = self.y + self.dy
+        #self.rect.x = int(self.x)
+        #self.rect.y = int(self.y)
+        pass
+
+    def shoot(self):
+        pass
+
     def delete(self):
         self.kill()
 
