@@ -492,7 +492,19 @@ def mainMenu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 menu = False
-                
+            
+            if event.type == pygame.MOUSEMOTION:
+                mouse_pos = event.pos
+                if buttonStart.collidepoint(mouse_pos):
+                    starttxt = font.render("[start]", True, RED)
+                else:
+                    starttxt = font.render("[start]", True, BLACK)
+
+                if buttonQuit.collidepoint(mouse_pos):
+                    quittxt = font.render("[quit]", True, RED)
+                else:
+                    quittxt = font.render("[quit]", True, BLACK)
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if buttonStart.collidepoint(mouse_pos):
