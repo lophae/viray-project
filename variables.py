@@ -8,6 +8,8 @@ stamina = 300
 clocktick = 240
 pausetime = 10000
 
+enemyFirerate = 2000
+
 player_x = 0
 player_y = 0
 
