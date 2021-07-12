@@ -492,7 +492,6 @@ def mainMenu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 menu = False
-                quit()
                 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
