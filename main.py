@@ -467,7 +467,7 @@ def game():
         txt = font.render("stamina count: " + str(stamina), True, BLACK)
         screen.blit(txt, (10, 10))
         txt2 = font.render("press [c] for inventory", True, BLACK)
-        screen.blit(txt2, (10, 690))
+        #screen.blit(txt2, (10, 690))
 
         pygame.display.flip()
         clock.tick(clocktick)
