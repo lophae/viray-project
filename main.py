@@ -8,6 +8,8 @@ from settings import *
 from variables import *
 pygame.init()
 
+pygame.time.set_timer(pygame.USEREVENT, enemyFirerate)
+
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
@@ -19,6 +21,7 @@ all_sprites_list.add(player)
 
 bullet_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
+enemybullet_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
 door_group = pygame.sprite.Group()
@@ -456,6 +459,9 @@ def game():
                 foo.rect.y = foo.rect.y - 720
             for foo in bullet_group:
                 foo.delete()
+
+        for foo in enemy_group:
+            foo.move()
         
         # -- #
         screen.fill(BLACK)
@@ -476,7 +482,6 @@ def enemySpawn():
     e = Enemy1(PURPLE, 50, 50, player.rect.x, player.rect.y)
     all_sprites_list.add(e)
     enemy_group.add(e)
-
 
 def mainMenu():
     menu = True
