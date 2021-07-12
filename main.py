@@ -469,14 +469,13 @@ def game():
         txt = font.render("stamina count: " + str(stamina), True, BLACK)
         screen.blit(txt, (10, 10))
         txt2 = font.render("press [c] for inventory", True, BLACK)
-        screen.blit(txt2, (10, 690))
+        #screen.blit(txt2, (10, 690))
 
         pygame.display.flip()
         clock.tick(clocktick)
 
 def enemySpawn():
-    global player_x, player_y
-    e = Enemy1(WHITE, 50, 50, player_x, player_y)
+    e = Enemy1(WHITE, 50, 50, player.rect.x, player.rect.y)
     all_sprites_list.add(e)
     enemy_group.add(e)
 
