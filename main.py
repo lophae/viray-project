@@ -378,8 +378,6 @@ def game():
             b.move()
 
         # -- ENEMY MOVEMENT
-        player_x = player.rect.x
-        player_y = player.rect.y
         for e in enemy_group:
             e.move()
 
@@ -475,8 +473,7 @@ def game():
         clock.tick(clocktick)
 
 def enemySpawn():
-    global player_x, player_y
-    e = Enemy1(WHITE, 50, 50, player_x, player_y)
+    e = Enemy1(PURPLE, 50, 50, player.rect.x, player.rect.y)
     all_sprites_list.add(e)
     enemy_group.add(e)
 
