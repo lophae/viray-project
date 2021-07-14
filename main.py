@@ -322,6 +322,14 @@ def pause():
 def inventory():
     pass
 
+def enemyShoot():
+    for foo in enemy_group:
+        x = foo.rect.centerx
+        y = foo.rect.centery
+        eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
+        enemybullet_group.add(eb)
+        all_sprites_list.add(eb)
+
 # -------- Main Program Loop -----------
 def game():
     global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime, player_x, player_y
@@ -461,13 +469,14 @@ def game():
                 foo.delete()
 
         for foo in enemy_group:
-            foo.move()
+            enemyShoot()
         
         # -- #
         screen.fill(BLACK)
         font = pygame.font.Font(None, 25)
         
         all_sprites_list.update()
+        enemybullet_group.update()
 
         all_sprites_list.draw(screen)
         txt = font.render("stamina count: " + str(stamina), True, BLACK)
