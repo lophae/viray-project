@@ -322,13 +322,22 @@ def pause():
 def inventory():
     pass
 
+def enemySpawn():
+    e = Enemy1(PURPLE, 50, 50, player.rect.x, player.rect.y)
+    all_sprites_list.add(e)
+    enemy_group.add(e)
+
+
+pygame.time.set_timer(pygame.USEREVENT, 200)
 def enemyShoot():
-    for foo in enemy_group:
-        x = foo.rect.centerx
-        y = foo.rect.centery
-        eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
-        enemybullet_group.add(eb)
-        all_sprites_list.add(eb)
+    for event in pygame.event.get():
+        if event.type == pygame.USEREVENT:
+            for foo in enemy_group:
+                x = foo.rect.centerx
+                y = foo.rect.centery
+                eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
+                enemybullet_group.add(eb)
+                all_sprites_list.add(eb)
 
 # -------- Main Program Loop -----------
 def game():
@@ -351,7 +360,7 @@ def game():
                     pause()
                 if event.key == pygame.K_o:
                     clocktick = 240        
-            
+
         # -- MOVEMENT
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
@@ -397,6 +406,8 @@ def game():
         bulletWall2 = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
         bulletWall3 = pygame.sprite.groupcollide(bullet_group, wall_groupDown, True, False)
 
+        enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_group, True, False)
+
         # -- PLAYER WALL COLLISION (requires improvement)
         player_hit = pygame.sprite.spritecollide(player, wall_group, False)
         for foo in player_hit:
@@ -423,6 +434,8 @@ def game():
                 foo.delete()
             mapy = mapy + 1
             mapDoors()
+            for foo in enemy_group:
+                foo.delete()
             enemySpawn()
             for foo in wall_group:
                 foo.rect.x = foo.rect.x - 1280
@@ -436,6 +449,8 @@ def game():
                 foo.delete()
             mapy = mapy - 1
             mapDoors()
+            for foo in enemy_group:
+                foo.delete()
             enemySpawn()
             for foo in wall_group:
                 foo.rect.x = foo.rect.x + 1280
@@ -449,6 +464,8 @@ def game():
                 foo.delete()
             mapx = mapx - 1
             mapDoors()
+            for foo in enemy_group:
+                foo.delete()
             enemySpawn() 
             for foo in wall_group:
                 foo.rect.y = foo.rect.y + 720
@@ -462,14 +479,16 @@ def game():
                 foo.delete()
             mapx = mapx + 1
             mapDoors()
+            for foo in enemy_group:
+                foo.delete()
             enemySpawn()
             for foo in wall_group:
                 foo.rect.y = foo.rect.y - 720
             for foo in bullet_group:
                 foo.delete()
 
-        for foo in enemy_group:
-            enemyShoot()
+        #for foo in enemy_group:
+        enemyShoot()
         
         # -- #
         screen.fill(BLACK)
@@ -486,11 +505,6 @@ def game():
 
         pygame.display.flip()
         clock.tick(clocktick)
-
-def enemySpawn():
-    e = Enemy1(PURPLE, 50, 50, player.rect.x, player.rect.y)
-    all_sprites_list.add(e)
-    enemy_group.add(e)
 
 def mainMenu():
     menu = True
