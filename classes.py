@@ -52,12 +52,12 @@ class Wall(pygame.sprite.Sprite):
 class enemyBullet(pygame.sprite.Sprite):
     def __init__(self, posx, posy, targetx, targety):
         super().__init__()
-        self.image = pygame.Surface([5, 5])
+        self.image = pygame.Surface([10, 10])
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
         angle = math.atan2(targety-posy, targetx-posx) 
-        self.dx = math.cos(angle) * 2
-        self.dy = math.sin(angle) * 2
+        self.dx = math.cos(angle) * 1.5
+        self.dy = math.sin(angle) * 1.5
         self.x = posx
         self.y = posy
 
