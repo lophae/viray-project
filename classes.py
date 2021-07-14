@@ -61,7 +61,7 @@ class enemyBullet(pygame.sprite.Sprite):
         self.x = posx
         self.y = posy
 
-    def move(self):
+    def update(self):
         self.x = self.x + self.dx
         self.y = self.y + self.dy
         self.rect.x = int(self.x)
@@ -87,6 +87,8 @@ class Enemy1(pygame.sprite.Sprite):
         pass
 
     def shoot(self):
+        #eb = enemyBullet(self.rect.x, self.rect.y, Player.rect.x, Player.rect.y)
+        #enemybullet_group.add(eb)
         pass
 
     def delete(self):
