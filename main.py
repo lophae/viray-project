@@ -24,7 +24,6 @@ enemy_group1 = pygame.sprite.Group()
 
 enemybullet_group = pygame.sprite.Group()
 
-wall_group = pygame.sprite.Group()
 door_group = pygame.sprite.Group()
 
 wall_groupRight = pygame.sprite.Group()
@@ -350,10 +349,11 @@ def game():
                 quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 2, x, y)
-                all_sprites_list.add(b)
-                bullet_group.add(b)
+                if event.button == 1:
+                    x, y = pygame.mouse.get_pos()
+                    b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 2, x, y)
+                    all_sprites_list.add(b)
+                    bullet_group.add(b)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
