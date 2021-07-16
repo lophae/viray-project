@@ -13,3 +13,6 @@ PURPLE = (255, 0, 255)
 size = (1280, 720)
 screen = pygame.display.set_mode((size)) #, pygame.FULLSCREEN)
 pygame.display.set_caption("Test1")
+
+#other
+arraySpeed = [-1, 1]
