@@ -1,6 +1,8 @@
-import pygame, math
+import pygame, math, random
 from variables import *
 from settings import *
+
+wall_group = pygame.sprite.Group()
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour):
@@ -78,13 +80,22 @@ class Enemy1(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 50
         self.rect.y = 50
+        self.speed_x = arraySpeed[random.randint(0, 1)]
+        self.speed_y = arraySpeed[random.randint(0, 1)]
     
     def move(self):
-        self.rect.x = self.rect.x+1
+        self.rect.x = self.rect.x + self.speed_x
+        self.rect.y = self.rect.y + self.speed_y
+        enemyWall = pygame.sprite.spritecollide(self, wall_group, False)
+        for foo in enemyWall:
+            self.speed_x = 0
+            self.speed_y = 0
         
-
     def delete(self):
         self.kill()
+
+    def update(self):
+        pass
 
 class Pause(pygame.sprite.Sprite):
     def __init__(self, colour):
