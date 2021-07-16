@@ -80,16 +80,8 @@ class Enemy1(pygame.sprite.Sprite):
         self.rect.y = 50
     
     def move(self):
-        #self.x = self.x + self.dx
-        #self.y = self.y + self.dy
-        #self.rect.x = int(self.x)
-        #self.rect.y = int(self.y)
-        pass
-
-    def shoot(self):
-        #eb = enemyBullet(self.rect.x, self.rect.y, Player.rect.x, Player.rect.y)
-        #enemybullet_group.add(eb)
-        pass
+        self.rect.x = self.rect.x+1
+        
 
     def delete(self):
         self.kill()
