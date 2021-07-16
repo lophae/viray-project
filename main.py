@@ -20,7 +20,8 @@ player = Player(WHITE)
 all_sprites_list.add(player)
 
 bullet_group = pygame.sprite.Group()
-enemy_group = pygame.sprite.Group()
+enemy_group1 = pygame.sprite.Group()
+
 enemybullet_group = pygame.sprite.Group()
 
 wall_group = pygame.sprite.Group()
@@ -325,14 +326,13 @@ def inventory():
 def enemySpawn():
     e = Enemy1(PURPLE, 50, 50, player.rect.x, player.rect.y)
     all_sprites_list.add(e)
-    enemy_group.add(e)
+    enemy_group1.add(e)
 
-
-pygame.time.set_timer(pygame.USEREVENT, 200)
+pygame.time.set_timer(pygame.USEREVENT, 150)
 def enemyShoot():
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT:
-            for foo in enemy_group:
+            for foo in enemy_group1:
                 x = foo.rect.centerx
                 y = foo.rect.centery
                 eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
@@ -398,7 +398,7 @@ def game():
             b.move()
 
         # -- ENEMY MOVEMENT
-        for e in enemy_group:
+        for e in enemy_group1:
             e.move()
 
         # --  BULLET WALL COLLISION
@@ -434,7 +434,7 @@ def game():
                 foo.delete()
             mapy = mapy + 1
             mapDoors()
-            for foo in enemy_group:
+            for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
             for foo in wall_group:
@@ -449,7 +449,7 @@ def game():
                 foo.delete()
             mapy = mapy - 1
             mapDoors()
-            for foo in enemy_group:
+            for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
             for foo in wall_group:
@@ -464,7 +464,7 @@ def game():
                 foo.delete()
             mapx = mapx - 1
             mapDoors()
-            for foo in enemy_group:
+            for foo in enemy_group1:
                 foo.delete()
             enemySpawn() 
             for foo in wall_group:
@@ -479,7 +479,7 @@ def game():
                 foo.delete()
             mapx = mapx + 1
             mapDoors()
-            for foo in enemy_group:
+            for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
             for foo in wall_group:
