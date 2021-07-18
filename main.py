@@ -415,7 +415,6 @@ def game():
             player.rect.x = player_old_x
             player.rect.y = player_old_y
             
-        
         player_hitDoor = pygame.sprite.spritecollide(player, door_group, False)
         for foo in player_hitDoor:
             #player.move(0, 0)
