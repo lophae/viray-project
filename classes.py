@@ -88,8 +88,9 @@ class Enemy1(pygame.sprite.Sprite):
         self.rect.y = self.rect.y + self.speed_y
         enemyWall = pygame.sprite.spritecollide(self, wall_group, False)
         for foo in enemyWall:
-            self.speed_x = 0
-            self.speed_y = 0
+            self.speed_x = -self.speed_x
+            self.speed_y = -self.speed_y
+
         
     def delete(self):
         self.kill()
