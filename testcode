@@ -276,5 +276,3 @@ def mainMenu():
         screen.blit(txt, (100, 100))
         pygame.display.flip()
         clock.tick(240)
-
-mainMenu()
