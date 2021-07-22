@@ -73,7 +73,7 @@ class enemyBullet(pygame.sprite.Sprite):
         self.kill() 
 
 class Enemy1(pygame.sprite.Sprite):
-    def __init__(self, colour, posx, posy, targetx, targety):
+    def __init__(self, colour):
         super().__init__()
         self.image = pygame.Surface([30, 30])
         self.image.fill(colour)
@@ -97,6 +97,10 @@ class Enemy1(pygame.sprite.Sprite):
         
     def delete(self):
         self.kill()
+
+class Enemy2(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
 
 class Pause(pygame.sprite.Sprite):
     def __init__(self, colour):
