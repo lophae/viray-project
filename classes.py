@@ -1,4 +1,4 @@
-import pygame, math, random
+import pygame, math, random, sys
 from variables import *
 from settings import *
 
@@ -88,8 +88,8 @@ class Enemy1(pygame.sprite.Sprite):
         self.rect.y = self.rect.y + self.speed_y
         enemyWall = pygame.sprite.spritecollide(self, wall_group, False)
         for foo in enemyWall:
-            self.speed_x = 0
-            self.speed_y = 0
+            self.speed_x = arraySpeed[random.randint(0, 1)]
+            self.speed_y = arraySpeed[random.randint(0, 1)]
             self.rect.x = self.old_x
             self.rect.y = self.old_y
         self.old_x = self.rect.x
