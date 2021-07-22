@@ -15,4 +15,3 @@ screen = pygame.display.set_mode((size)) #, pygame.FULLSCREEN)
 pygame.display.set_caption("Test1")
 
 #other
-arraySpeed = [-1, 1]
