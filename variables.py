@@ -18,3 +18,5 @@ level2rooms = 9
 
 mapx = 13
 mapy = 13
+
+arraySpeed = [-1, 1]
