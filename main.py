@@ -1,4 +1,4 @@
-import pygame, math, random
+import pygame, math, random, sys
 from pygame.locals import *
 
 # Import Other Files
@@ -401,7 +401,7 @@ def game():
         for e in enemy_group1:
             e.move()
 
-        # --  BULLET WALL COLLISION
+        # --  BULLET WALL COLLISION 
         bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
         bulletWall2 = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
         bulletWall3 = pygame.sprite.groupcollide(bullet_group, wall_groupDown, True, False)
