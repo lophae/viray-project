@@ -398,8 +398,6 @@ def game():
             b.move()
 
         # -- ENEMY MOVEMENT
-        for e in enemy_group1:
-            e.move()
 
         # --  BULLET WALL COLLISION 
         bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
