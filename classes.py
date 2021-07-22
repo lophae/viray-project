@@ -83,7 +83,7 @@ class Enemy1(pygame.sprite.Sprite):
         self.speed_x = arraySpeed[random.randint(0, 1)]
         self.speed_y = arraySpeed[random.randint(0, 1)]
     
-    def move(self):
+    def update(self):
         self.rect.x = self.rect.x + self.speed_x
         self.rect.y = self.rect.y + self.speed_y
         enemyWall = pygame.sprite.spritecollide(self, wall_group, False)
@@ -97,9 +97,6 @@ class Enemy1(pygame.sprite.Sprite):
         
     def delete(self):
         self.kill()
-
-    def update(self):
-        pass
 
 class Pause(pygame.sprite.Sprite):
     def __init__(self, colour):
