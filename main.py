@@ -25,6 +25,7 @@ enemy_group1 = pygame.sprite.Group()
 enemybullet_group = pygame.sprite.Group()
 
 door_group = pygame.sprite.Group()
+doorclose_group = pygame.sprite.Group()
 
 wall_groupRight = pygame.sprite.Group()
 wall_groupLeft = pygame.sprite.Group()
@@ -328,7 +329,28 @@ def enemySpawn():
     enemy_group1.add(e)
 
 def doorClose():
-    pass
+    global enemyCount
+    enemyCount = 1
+
+    # right
+    w = Wall(RED, 10, 240, 1240, 240)
+    all_sprites_list.add(w)
+    doorclose_group.add(w)
+
+    # left
+    w = Wall(RED, 10, 240, 30, 240)
+    all_sprites_list.add(w)
+    doorclose_group.add(w)
+
+    # up
+    w = Wall(RED, 240, 10, 520, 30)
+    all_sprites_list.add(w)
+    doorclose_group.add(w)
+
+    # down
+    w = Wall(RED, 240, 10, 520, 680)
+    all_sprites_list.add(w)
+    doorclose_group.add(w)
 
 pygame.time.set_timer(pygame.USEREVENT, 150)
 def enemyShoot():
@@ -343,7 +365,7 @@ def enemyShoot():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime, player_x, player_y
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime, player_x, player_y, enemyCount
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
@@ -400,14 +422,20 @@ def game():
         for b in bullet_group:
             b.move()
 
-        # -- ENEMY MOVEMENT
-
         # --  BULLET WALL COLLISION 
         bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
         bulletWall2 = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
         bulletWall3 = pygame.sprite.groupcollide(bullet_group, wall_groupDown, True, False)
-
         enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_group, True, False)
+
+        # -- BULLET ENEMY COLLISION
+        enemyBulletCollide = pygame.sprite.groupcollide(bullet_group, enemy_group1, True, True)
+        for foo in enemyBulletCollide:
+            enemyCount -= 1
+
+        if enemyCount == 0:
+            for all in doorclose_group:
+                all.delete()
 
         # -- PLAYER WALL COLLISION (requires improvement)
         player_hit = pygame.sprite.spritecollide(player, wall_group, False)
@@ -434,7 +462,7 @@ def game():
                 foo.delete()
             mapy = mapy + 1
             mapDoors()
-            #doorClose()
+            doorClose()
             for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
@@ -450,7 +478,7 @@ def game():
                 foo.delete()
             mapy = mapy - 1
             mapDoors()
-            #doorClose()
+            doorClose()
             for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
@@ -466,7 +494,7 @@ def game():
                 foo.delete()
             mapx = mapx - 1
             mapDoors()
-            #doorClose()
+            doorClose()
             for foo in enemy_group1:
                 foo.delete()
             enemySpawn() 
@@ -482,7 +510,7 @@ def game():
                 foo.delete()
             mapx = mapx + 1
             mapDoors()
-            #doorClose()
+            doorClose()
             for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
