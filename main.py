@@ -327,6 +327,9 @@ def enemySpawn():
     all_sprites_list.add(e)
     enemy_group1.add(e)
 
+def doorClose():
+    pass
+
 pygame.time.set_timer(pygame.USEREVENT, 150)
 def enemyShoot():
     for event in pygame.event.get():
@@ -431,6 +434,7 @@ def game():
                 foo.delete()
             mapy = mapy + 1
             mapDoors()
+            #doorClose()
             for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
@@ -446,6 +450,7 @@ def game():
                 foo.delete()
             mapy = mapy - 1
             mapDoors()
+            #doorClose()
             for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
@@ -461,6 +466,7 @@ def game():
                 foo.delete()
             mapx = mapx - 1
             mapDoors()
+            #doorClose()
             for foo in enemy_group1:
                 foo.delete()
             enemySpawn() 
@@ -476,6 +482,7 @@ def game():
                 foo.delete()
             mapx = mapx + 1
             mapDoors()
+            #doorClose()
             for foo in enemy_group1:
                 foo.delete()
             enemySpawn()
