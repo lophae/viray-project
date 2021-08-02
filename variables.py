@@ -20,3 +20,5 @@ mapx = 13
 mapy = 13
 
 arraySpeed = [-1, 1]
+
+enemyCount = 1
