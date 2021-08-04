@@ -24,8 +24,8 @@ enemy_group1 = pygame.sprite.Group()
 
 enemybullet_group = pygame.sprite.Group()
 
-door_group = pygame.sprite.Group()
-doorclose_group = pygame.sprite.Group()
+# door_group = pygame.sprite.Group()
+# doorclose_group = pygame.sprite.Group()
 
 wall_groupRight = pygame.sprite.Group()
 wall_groupLeft = pygame.sprite.Group()
@@ -376,7 +376,7 @@ def game():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     x, y = pygame.mouse.get_pos()
-                    b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 2, x, y)
+                    b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 4, x, y)
                     all_sprites_list.add(b)
                     bullet_group.add(b)
 
@@ -449,6 +449,11 @@ def game():
             #player.move(0, 0)
             player.rect.x = player_old_x
             player.rect.y = player_old_y
+        
+        player_closeDoor = pygame.sprite.spritecollide(player, doorclose_group, False)
+        for foo in player_closeDoor:
+            player.rect.x = player_old_x
+            player.rect.y = player_old_y
 
         player_old_x = player.rect.x
         player_old_y = player.rect.y
@@ -457,7 +462,7 @@ def game():
         # Right
         player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
         for foo in player_doorRight:
-            player.rect.x = player.rect.x - 1220
+            player.rect.x = player.rect.x - 1180
             for foo in door_group:
                 foo.delete()
             mapy = mapy + 1
@@ -473,7 +478,7 @@ def game():
         # Left
         player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
         for foo in player_doorLeft:
-            player.rect.x = player.rect.x + 1220
+            player.rect.x = player.rect.x + 1180
             for foo in door_group:
                 foo.delete()
             mapy = mapy - 1
@@ -489,7 +494,7 @@ def game():
         # Up
         player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
         for foo in player_doorUp:
-            player.rect.y = player.rect.y + 660
+            player.rect.y = player.rect.y + 620
             for foo in door_group:
                 foo.delete()
             mapx = mapx - 1
@@ -505,7 +510,7 @@ def game():
         # Down
         player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
         for foo in player_doorDown:
-            player.rect.y = player.rect.y - 660
+            player.rect.y = player.rect.y - 620
             for foo in door_group:
                 foo.delete()
             mapx = mapx + 1
