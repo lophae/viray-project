@@ -3,6 +3,8 @@ from variables import *
 from settings import *
 
 wall_group = pygame.sprite.Group()
+door_group = pygame.sprite.Group()
+doorclose_group = pygame.sprite.Group()
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour):
@@ -87,11 +89,25 @@ class Enemy1(pygame.sprite.Sprite):
         self.rect.x = self.rect.x + self.speed_x
         self.rect.y = self.rect.y + self.speed_y
         enemyWall = pygame.sprite.spritecollide(self, wall_group, False)
+        enemyDoor = pygame.sprite.spritecollide(self, door_group, False)
+        enemycloseDoor = pygame.sprite.spritecollide(self, doorclose_group, False)
+
         for foo in enemyWall:
             self.speed_x = arraySpeed[random.randint(0, 1)]
             self.speed_y = arraySpeed[random.randint(0, 1)]
             self.rect.x = self.old_x
             self.rect.y = self.old_y
+        for foo in enemyDoor:
+            self.speed_x = arraySpeed[random.randint(0, 1)]
+            self.speed_y = arraySpeed[random.randint(0, 1)]
+            self.rect.x = self.old_x
+            self.rect.y = self.old_y
+        for foo in enemycloseDoor:
+            self.speed_x = arraySpeed[random.randint(0, 1)]
+            self.speed_y = arraySpeed[random.randint(0, 1)]
+            self.rect.x = self.old_x
+            self.rect.y = self.old_y
+        
         self.old_x = self.rect.x
         self.old_y = self.rect.y
         
