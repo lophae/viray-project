@@ -180,6 +180,7 @@ def mapCreate():
             mapGrid[originalx][originaly] = 1
             if z == level1rooms - 1:
                 randomRoom = 3
+                mapGrid[originalx][originaly] = 2
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -200,6 +201,7 @@ def mapCreate():
             mapGrid[originalx][originaly] = 1
             if z == level1rooms - 1:
                 randomRoom = 3
+                mapGrid[originalx][originaly] = 2
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -220,6 +222,7 @@ def mapCreate():
             mapGrid[originalx][originaly] = 1
             if z == level1rooms - 1:
                 randomRoom = 3
+                mapGrid[originalx][originaly] = 2
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -239,6 +242,7 @@ def mapCreate():
             mapGrid[originalx][originaly] = 1
             if z == level1rooms - 1:
                 randomRoom = 3
+                mapGrid[originalx][originaly] = 2
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
@@ -264,6 +268,7 @@ def mapCreate():
         z += 1
 mapCreate()
 #print(originalx, originaly)
+
 
 def mapDoors():
     x = 0
@@ -397,7 +402,7 @@ def game():
         if keys[pygame.K_s]:
             player.move(0,1)
 
-        # -- inventory
+        # -- INVENTORY
         if keys[pygame.K_t]:
             inventory()
 
@@ -433,6 +438,7 @@ def game():
         for foo in enemyBulletCollide:
             enemyCount -= 1
 
+        # -- DOOR OPEN WHEN ENEMY COUNT == 0
         if enemyCount == 0:
             for all in doorclose_group:
                 all.delete()
@@ -465,12 +471,14 @@ def game():
             player.rect.x = player.rect.x - 1180
             for foo in door_group:
                 foo.delete()
+            mapGrid[mapx][mapy] = 3
             mapy = mapy + 1
             mapDoors()
-            doorClose()
-            for foo in enemy_group1:
-                foo.delete()
-            enemySpawn()
+            if mapGrid[mapx][mapy] != 3:
+                doorClose()
+                for foo in enemy_group1:
+                    foo.delete()
+                enemySpawn()
             for foo in wall_group:
                 foo.rect.x = foo.rect.x - 1280
             for foo in bullet_group:
@@ -481,12 +489,14 @@ def game():
             player.rect.x = player.rect.x + 1180
             for foo in door_group:
                 foo.delete()
+            mapGrid[mapx][mapy] = 3
             mapy = mapy - 1
             mapDoors()
-            doorClose()
-            for foo in enemy_group1:
-                foo.delete()
-            enemySpawn()
+            if mapGrid[mapx][mapy] != 3:
+                doorClose()
+                for foo in enemy_group1:
+                    foo.delete()
+                enemySpawn()
             for foo in wall_group:
                 foo.rect.x = foo.rect.x + 1280
             for foo in bullet_group:
@@ -497,12 +507,14 @@ def game():
             player.rect.y = player.rect.y + 620
             for foo in door_group:
                 foo.delete()
+            mapGrid[mapx][mapy] = 3
             mapx = mapx - 1
             mapDoors()
-            doorClose()
-            for foo in enemy_group1:
-                foo.delete()
-            enemySpawn() 
+            if mapGrid[mapx][mapy] != 3:
+                doorClose()
+                for foo in enemy_group1:
+                    foo.delete()
+                enemySpawn() 
             for foo in wall_group:
                 foo.rect.y = foo.rect.y + 720
             for foo in bullet_group:
@@ -513,18 +525,22 @@ def game():
             player.rect.y = player.rect.y - 620
             for foo in door_group:
                 foo.delete()
+            mapGrid[mapx][mapy] = 3
             mapx = mapx + 1
             mapDoors()
-            doorClose()
-            for foo in enemy_group1:
-                foo.delete()
-            enemySpawn()
+            if mapGrid[mapx][mapy] != 3:
+                doorClose()
+                for foo in enemy_group1:
+                    foo.delete()
+                enemySpawn()
             for foo in wall_group:
                 foo.rect.y = foo.rect.y - 720
             for foo in bullet_group:
                 foo.delete()
 
-        #for foo in enemy_group:
+        # -- 
+
+        # -- ENEMY 1 SHOOTING
         enemyShoot()
         
         # -- #
