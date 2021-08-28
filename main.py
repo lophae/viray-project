@@ -20,12 +20,11 @@ player = Player(WHITE)
 all_sprites_list.add(player)
 
 bullet_group = pygame.sprite.Group()
-enemy_group1 = pygame.sprite.Group()
-
 enemybullet_group = pygame.sprite.Group()
 
-# door_group = pygame.sprite.Group()
-# doorclose_group = pygame.sprite.Group()
+enemy_group1 = pygame.sprite.Group()
+boss_group1 = pygame.sprite.Group()
+
 
 wall_groupRight = pygame.sprite.Group()
 wall_groupLeft = pygame.sprite.Group()
@@ -265,8 +264,6 @@ def mapCreate():
                  
         z += 1
 
-#print(originalx, originaly)
-
 def mapDoors():
     x = 0
     y = 0
@@ -325,6 +322,13 @@ def enemySpawn():
     all_sprites_list.add(e)
     enemy_group1.add(e)
 
+def bossSpawn():
+    b = Boss1(PURPLE)
+    all_sprites_list.add(b)
+    boss_group1.add(b)
+    doorClose()
+
+
 def projectileCollision():
     bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
     bulletWall = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
@@ -378,9 +382,10 @@ def enemyShoot():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime, player_x, player_y, enemyCount
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime, player_x, player_y, enemyCount, mapGrid
     mapGrid = mapGridReset
     spawnRoom(), mapCreate(), mapDoors()
+    #print(mapGrid)
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
@@ -471,6 +476,7 @@ def game():
         player_old_y = player.rect.y
 
         # -- PLAYER DOOR COLLISION
+        # 1 = unvisited, 2 = boss, 3 = visited
         # Right
         player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
         for foo in player_doorRight:
@@ -480,11 +486,14 @@ def game():
             mapGrid[mapx][mapy] = 3
             mapy = mapy + 1
             mapDoors()
-            if mapGrid[mapx][mapy] != 3:
+            if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                 doorClose()
                 for foo in enemy_group1:
                     foo.delete()
                 enemySpawn()
+            else:
+                bossSpawn()
+
             for foo in wall_group:
                 foo.rect.x = foo.rect.x - 1280
             for foo in bullet_group:
@@ -498,11 +507,14 @@ def game():
             mapGrid[mapx][mapy] = 3
             mapy = mapy - 1
             mapDoors()
-            if mapGrid[mapx][mapy] != 3:
+            if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                 doorClose()
                 for foo in enemy_group1:
                     foo.delete()
                 enemySpawn()
+            else:
+                bossSpawn()
+
             for foo in wall_group:
                 foo.rect.x = foo.rect.x + 1280
             for foo in bullet_group:
@@ -516,11 +528,14 @@ def game():
             mapGrid[mapx][mapy] = 3
             mapx = mapx - 1
             mapDoors()
-            if mapGrid[mapx][mapy] != 3:
+            if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                 doorClose()
                 for foo in enemy_group1:
                     foo.delete()
                 enemySpawn() 
+            else:
+                bossSpawn()
+
             for foo in wall_group:
                 foo.rect.y = foo.rect.y + 720
             for foo in bullet_group:
@@ -530,15 +545,18 @@ def game():
         for foo in player_doorDown:
             player.rect.y = player.rect.y - 620
             for foo in door_group:
-                foo.delete()
+                foo.delete()               
             mapGrid[mapx][mapy] = 3
             mapx = mapx + 1
             mapDoors()
-            if mapGrid[mapx][mapy] != 3:
+            if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                 doorClose()
                 for foo in enemy_group1:
                     foo.delete()
-                enemySpawn()
+                enemySpawn()    
+            else:
+                bossSpawn()           
+
             for foo in wall_group:
                 foo.rect.y = foo.rect.y - 720
             for foo in bullet_group:
