@@ -66,8 +66,6 @@ def spawnRoom():
     all_sprites_list.add(w)
     wall_groupDown.add(w)
 
-spawnRoom()
-
 # -- MAP GENERATION
 def mapCreate():
     x = 0
@@ -266,9 +264,8 @@ def mapCreate():
             y = y - 720
                  
         z += 1
-mapCreate()
-#print(originalx, originaly)
 
+#print(originalx, originaly)
 
 def mapDoors():
     x = 0
@@ -319,11 +316,6 @@ def mapDoors():
                 x = x + 40
             x = 0
             y = y + 40
-mapDoors()
-
-def pause():
-    global pausetime
-    pass
 
 def inventory():
     pass
@@ -371,6 +363,8 @@ def enemyShoot():
 # -------- Main Program Loop -----------
 def game():
     global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime, player_x, player_y, enemyCount
+    mapGrid = mapGridReset
+    spawnRoom(), mapCreate(), mapDoors()
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
@@ -384,12 +378,6 @@ def game():
                     b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 4, x, y)
                     all_sprites_list.add(b)
                     bullet_group.add(b)
-
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_p:
-                    pause()
-                if event.key == pygame.K_o:
-                    clocktick = 240        
 
         # -- MOVEMENT
         keys = pygame.key.get_pressed()
@@ -405,6 +393,10 @@ def game():
         # -- INVENTORY
         if keys[pygame.K_t]:
             inventory()
+        
+        # -- MENU
+        if keys[pygame.K_p]:
+            quit()
 
         # -- STAMINA
         if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and stamina > 1: 
@@ -551,10 +543,14 @@ def game():
         enemybullet_group.update()
 
         all_sprites_list.draw(screen)
+        pygame.draw.rect(screen, BLACK, (1280,0,384,720))
+        
         txt = font.render("stamina count: " + str(stamina), True, BLACK)
         screen.blit(txt, (10, 10))
         txt2 = font.render("press [c] for inventory", True, BLACK)
         #screen.blit(txt2, (10, 690))
+        txt3 = font.render("press [p] to quit", True, WHITE)
+        screen.blit(txt3, (1284, 700))
 
         pygame.display.flip()
         clock.tick(clocktick)
