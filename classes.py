@@ -20,6 +20,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += x_val 
         self.rect.y += y_val
 
+    def delete(self):
+        self.kill()
+
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, colour, posx, posy, width, height, speed, targetx, targety):
         super().__init__()
@@ -118,14 +121,6 @@ class Enemy2(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-class Pause(pygame.sprite.Sprite):
-    def __init__(self, colour):
-        super().__init__()
-        self.image = pygame.Surface([200, 200])
-        self.image.fill(colour)
-        self.rect = self.image.get_rect()
-        self.rect.x = 10
-        self.rect.y = 10
 
         
         
