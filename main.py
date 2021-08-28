@@ -388,6 +388,7 @@ def game():
                 done = True
                 quit()
 
+            # -- PLAYER SHOOT
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     x, y = pygame.mouse.get_pos()
