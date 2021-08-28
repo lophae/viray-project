@@ -325,6 +325,22 @@ def enemySpawn():
     all_sprites_list.add(e)
     enemy_group1.add(e)
 
+def projectileCollision():
+    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
+    bulletWall = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
+    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_groupDown, True, False)
+    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_groupLeft, True, False)
+    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_groupRight, True, False)
+    bulletWall = pygame.sprite.groupcollide(bullet_group, wall_groupUp, True, False)
+    bulletWall = pygame.sprite.groupcollide(bullet_group, doorclose_group, True, False)
+    enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_group, True, False)
+    enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, door_group, True, False)
+    enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_groupDown, True, False)
+    enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_groupLeft, True, False)
+    enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_groupRight, True, False)
+    enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_groupUp, True, False)
+    enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, doorclose_group, True, False)
+    
 def doorClose():
     global enemyCount
     enemyCount = 1
@@ -420,11 +436,8 @@ def game():
             b.move()
 
         # --  BULLET WALL COLLISION 
-        bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
-        bulletWall2 = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
-        bulletWall3 = pygame.sprite.groupcollide(bullet_group, wall_groupDown, True, False)
-        enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_group, True, False)
-
+        projectileCollision()
+        
         # -- BULLET ENEMY COLLISION
         enemyBulletCollide = pygame.sprite.groupcollide(bullet_group, enemy_group1, True, True)
         for foo in enemyBulletCollide:
