@@ -121,6 +121,15 @@ class Enemy2(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
+class Boss1(pygame.sprite.Sprite):
+    def __init__(self, colour):
+        super().__init__()
+        self.image = pygame.Surface([60, 60])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = 50
+        self.rect.y = 50
+
 
         
         
