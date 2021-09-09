@@ -491,7 +491,7 @@ def game():
                 for foo in enemy_group1:
                     foo.delete()
                 enemySpawn()
-            else:
+            elif mapGrid[mapx][mapy] == 2:
                 bossSpawn()
 
             for foo in wall_group:
@@ -512,7 +512,7 @@ def game():
                 for foo in enemy_group1:
                     foo.delete()
                 enemySpawn()
-            else:
+            elif mapGrid[mapx][mapy] == 2:
                 bossSpawn()
 
             for foo in wall_group:
@@ -533,7 +533,7 @@ def game():
                 for foo in enemy_group1:
                     foo.delete()
                 enemySpawn() 
-            else:
+            elif mapGrid[mapx][mapy] == 2:
                 bossSpawn()
 
             for foo in wall_group:
@@ -554,15 +554,13 @@ def game():
                 for foo in enemy_group1:
                     foo.delete()
                 enemySpawn()    
-            else:
+            elif mapGrid[mapx][mapy] == 2:
                 bossSpawn()           
 
             for foo in wall_group:
                 foo.rect.y = foo.rect.y - 720
             for foo in bullet_group:
                 foo.delete()
-
-        # -- 
 
         # -- ENEMY 1 SHOOTING
         enemyShoot()
