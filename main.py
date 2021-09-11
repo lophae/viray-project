@@ -382,8 +382,9 @@ def enemyShoot():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, pausetime, player_x, player_y, enemyCount, mapGrid
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, mapGrid, pausetext
     mapGrid = mapGridReset
+    running = True
     spawnRoom(), mapCreate(), mapDoors()
     #print(mapGrid)
     while not done:
@@ -392,195 +393,207 @@ def game():
             if event.type == pygame.QUIT:
                 done = True
                 quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_l: running = False
+                if event.key == pygame.K_m: running = True
 
-            # -- PLAYER SHOOT
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    x, y = pygame.mouse.get_pos()
-                    b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 4, x, y)
-                    all_sprites_list.add(b)
-                    bullet_group.add(b)
+            if running == True:
 
-        # -- MOVEMENT
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]:
-            player.move(-1,0)
-        if keys[pygame.K_d]:
-            player.move(1,0)
-        if keys[pygame.K_w]:
-            player.move(0,-1)
-        if keys[pygame.K_s]:
-            player.move(0,1)
+                # -- PLAYER SHOOT
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if event.button == 1:
+                            x, y = pygame.mouse.get_pos()
+                            b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 4, x, y)
+                            all_sprites_list.add(b)
+                            bullet_group.add(b)
 
-        # -- INVENTORY
-        if keys[pygame.K_t]:
-            inventory()
-        
-        # -- MENU
-        if keys[pygame.K_p]:
-            quit()
+                # -- MOVEMENT
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_a]:
+                    player.move(-1,0)
+                if keys[pygame.K_d]:
+                    player.move(1,0)
+                if keys[pygame.K_w]:
+                    player.move(0,-1)
+                if keys[pygame.K_s]:
+                    player.move(0,1)
 
-        # -- STAMINA
-        if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and stamina > 1: 
-            player.move(-2,0)
-            stamina = stamina - 2
-        if keys[pygame.K_d] and keys[pygame.K_LSHIFT] and stamina > 1:
-            player.move(2,0)
-            stamina = stamina - 2
-        if keys[pygame.K_w] and keys[pygame.K_LSHIFT] and stamina > 1:
-            player.move(0,-2)
-            stamina = stamina - 2
-        if keys[pygame.K_s] and keys[pygame.K_LSHIFT] and stamina > 1:
-            player.move(0,2)
-            stamina = stamina - 2
-        if not keys[pygame.K_LSHIFT] or (keys[pygame.K_LSHIFT] and (not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s])):
-            if stamina != 300:
-                stamina = stamina + 1
+                # -- INVENTORY
+                if keys[pygame.K_t]:
+                    inventory()
+                
+                # -- MENU
+                if keys[pygame.K_p]:
+                    quit()
 
-        # -- SHOOTING
-        for b in bullet_group:
-            b.move()
+                # -- STAMINA
+                if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and stamina > 1: 
+                    player.move(-2,0)
+                    stamina = stamina - 2
+                if keys[pygame.K_d] and keys[pygame.K_LSHIFT] and stamina > 1:
+                    player.move(2,0)
+                    stamina = stamina - 2
+                if keys[pygame.K_w] and keys[pygame.K_LSHIFT] and stamina > 1:
+                    player.move(0,-2)
+                    stamina = stamina - 2
+                if keys[pygame.K_s] and keys[pygame.K_LSHIFT] and stamina > 1:
+                    player.move(0,2)
+                    stamina = stamina - 2
+                if not keys[pygame.K_LSHIFT] or (keys[pygame.K_LSHIFT] and (not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s])):
+                    if stamina != 300:
+                        stamina = stamina + 1
 
-        # --  BULLET WALL COLLISION 
-        projectileCollision()
-        
-        # -- BULLET ENEMY COLLISION
-        enemyBulletCollide = pygame.sprite.groupcollide(bullet_group, enemy_group1, True, True)
-        for foo in enemyBulletCollide:
-            enemyCount -= 1
+                # -- SHOOTING
+                for b in bullet_group:
+                    b.move()
 
-        # -- DOOR OPEN WHEN ENEMY COUNT == 0
-        if enemyCount == 0:
-            for all in doorclose_group:
-                all.delete()
+                # --  BULLET WALL COLLISION 
+                projectileCollision()
+                
+                # -- BULLET ENEMY COLLISION
+                enemyBulletCollide = pygame.sprite.groupcollide(bullet_group, enemy_group1, True, True)
+                for foo in enemyBulletCollide:
+                    enemyCount -= 1
 
-        # -- PLAYER WALL COLLISION (requires improvement)
-        player_hit = pygame.sprite.spritecollide(player, wall_group, False)
-        for foo in player_hit:
-            #player.move(0, 0)
-            player.rect.x = player_old_x
-            player.rect.y = player_old_y
-            
-        player_hitDoor = pygame.sprite.spritecollide(player, door_group, False)
-        for foo in player_hitDoor:
-            #player.move(0, 0)
-            player.rect.x = player_old_x
-            player.rect.y = player_old_y
-        
-        player_closeDoor = pygame.sprite.spritecollide(player, doorclose_group, False)
-        for foo in player_closeDoor:
-            player.rect.x = player_old_x
-            player.rect.y = player_old_y
+                # -- DOOR OPEN WHEN ENEMY COUNT == 0
+                if enemyCount == 0:
+                    for all in doorclose_group:
+                        all.delete()
 
-        player_old_x = player.rect.x
-        player_old_y = player.rect.y
+                # -- PLAYER WALL COLLISION (requires improvement)
+                player_hit = pygame.sprite.spritecollide(player, wall_group, False)
+                for foo in player_hit:
+                    #player.move(0, 0)
+                    player.rect.x = player_old_x
+                    player.rect.y = player_old_y
+                    
+                player_hitDoor = pygame.sprite.spritecollide(player, door_group, False)
+                for foo in player_hitDoor:
+                    #player.move(0, 0)
+                    player.rect.x = player_old_x
+                    player.rect.y = player_old_y
+                
+                player_closeDoor = pygame.sprite.spritecollide(player, doorclose_group, False)
+                for foo in player_closeDoor:
+                    player.rect.x = player_old_x
+                    player.rect.y = player_old_y
 
-        # -- PLAYER DOOR COLLISION
-        # 1 = unvisited, 2 = boss, 3 = visited
-        # Right
-        player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
-        for foo in player_doorRight:
-            player.rect.x = player.rect.x - 1180
-            for foo in door_group:
-                foo.delete()
-            mapGrid[mapx][mapy] = 3
-            mapy = mapy + 1
-            mapDoors()
-            if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
-                doorClose()
-                for foo in enemy_group1:
-                    foo.delete()
-                enemySpawn()
-            elif mapGrid[mapx][mapy] == 2:
-                bossSpawn()
+                player_old_x = player.rect.x
+                player_old_y = player.rect.y
 
-            for foo in wall_group:
-                foo.rect.x = foo.rect.x - 1280
-            for foo in bullet_group:
-                foo.delete()
-        # Left
-        player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
-        for foo in player_doorLeft:
-            player.rect.x = player.rect.x + 1180
-            for foo in door_group:
-                foo.delete()
-            mapGrid[mapx][mapy] = 3
-            mapy = mapy - 1
-            mapDoors()
-            if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
-                doorClose()
-                for foo in enemy_group1:
-                    foo.delete()
-                enemySpawn()
-            elif mapGrid[mapx][mapy] == 2:
-                bossSpawn()
+                # -- PLAYER DOOR COLLISION
+                # 1 = unvisited, 2 = boss, 3 = visited
+                # Right
+                player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
+                for foo in player_doorRight:
+                    player.rect.x = player.rect.x - 1180
+                    for foo in door_group:
+                        foo.delete()
+                    mapGrid[mapx][mapy] = 3
+                    mapy = mapy + 1
+                    mapDoors()
+                    if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
+                        doorClose()
+                        for foo in enemy_group1:
+                            foo.delete()
+                        enemySpawn()
+                    elif mapGrid[mapx][mapy] == 2:
+                        bossSpawn()
 
-            for foo in wall_group:
-                foo.rect.x = foo.rect.x + 1280
-            for foo in bullet_group:
-                foo.delete()
-        # Up
-        player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
-        for foo in player_doorUp:
-            player.rect.y = player.rect.y + 620
-            for foo in door_group:
-                foo.delete()
-            mapGrid[mapx][mapy] = 3
-            mapx = mapx - 1
-            mapDoors()
-            if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
-                doorClose()
-                for foo in enemy_group1:
-                    foo.delete()
-                enemySpawn() 
-            elif mapGrid[mapx][mapy] == 2:
-                bossSpawn()
+                    for foo in wall_group:
+                        foo.rect.x = foo.rect.x - 1280
+                    for foo in bullet_group:
+                        foo.delete()
+                # Left
+                player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
+                for foo in player_doorLeft:
+                    player.rect.x = player.rect.x + 1180
+                    for foo in door_group:
+                        foo.delete()
+                    mapGrid[mapx][mapy] = 3
+                    mapy = mapy - 1
+                    mapDoors()
+                    if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
+                        doorClose()
+                        for foo in enemy_group1:
+                            foo.delete()
+                        enemySpawn()
+                    elif mapGrid[mapx][mapy] == 2:
+                        bossSpawn()
 
-            for foo in wall_group:
-                foo.rect.y = foo.rect.y + 720
-            for foo in bullet_group:
-                foo.delete()
-        # Down
-        player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
-        for foo in player_doorDown:
-            player.rect.y = player.rect.y - 620
-            for foo in door_group:
-                foo.delete()               
-            mapGrid[mapx][mapy] = 3
-            mapx = mapx + 1
-            mapDoors()
-            if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
-                doorClose()
-                for foo in enemy_group1:
-                    foo.delete()
-                enemySpawn()    
-            elif mapGrid[mapx][mapy] == 2:
-                bossSpawn()           
+                    for foo in wall_group:
+                        foo.rect.x = foo.rect.x + 1280
+                    for foo in bullet_group:
+                        foo.delete()
+                # Up
+                player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
+                for foo in player_doorUp:
+                    player.rect.y = player.rect.y + 620
+                    for foo in door_group:
+                        foo.delete()
+                    mapGrid[mapx][mapy] = 3
+                    mapx = mapx - 1
+                    mapDoors()
+                    if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
+                        doorClose()
+                        for foo in enemy_group1:
+                            foo.delete()
+                        enemySpawn() 
+                    elif mapGrid[mapx][mapy] == 2:
+                        bossSpawn()
 
-            for foo in wall_group:
-                foo.rect.y = foo.rect.y - 720
-            for foo in bullet_group:
-                foo.delete()
+                    for foo in wall_group:
+                        foo.rect.y = foo.rect.y + 720
+                    for foo in bullet_group:
+                        foo.delete()
+                # Down
+                player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
+                for foo in player_doorDown:
+                    player.rect.y = player.rect.y - 620
+                    for foo in door_group:
+                        foo.delete()               
+                    mapGrid[mapx][mapy] = 3
+                    mapx = mapx + 1
+                    mapDoors()
+                    if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
+                        doorClose()
+                        for foo in enemy_group1:
+                            foo.delete()
+                        enemySpawn()    
+                    elif mapGrid[mapx][mapy] == 2:
+                        bossSpawn()           
 
-        # -- ENEMY 1 SHOOTING
-        enemyShoot()
-        
-        # -- #
-        screen.fill(BLACK)
-        font = pygame.font.Font(None, 25)
-        
-        all_sprites_list.update()
-        enemybullet_group.update()
+                    for foo in wall_group:
+                        foo.rect.y = foo.rect.y - 720
+                    for foo in bullet_group:
+                        foo.delete()
 
-        all_sprites_list.draw(screen)
-        pygame.draw.rect(screen, BLACK, (1280,0,384,720))
-        
-        txt = font.render("stamina count: " + str(stamina), True, BLACK)
-        screen.blit(txt, (10, 10))
-        txt2 = font.render("press [c] for inventory", True, BLACK)
-        #screen.blit(txt2, (10, 690))
-        txt3 = font.render("press [p] to quit", True, WHITE)
-        screen.blit(txt3, (1284, 700))
+                # -- ENEMY 1 SHOOTING
+                enemyShoot()
+                
+                # -- #
+                screen.fill(BLACK)
+                font = pygame.font.Font(None, 25)
+                
+                all_sprites_list.update()
+                enemybullet_group.update()
+
+                all_sprites_list.draw(screen)
+                pygame.draw.rect(screen, BLACK, (1280,0,384,720))
+                
+                txt = font.render("stamina count: " + str(stamina), True, BLACK)
+                screen.blit(txt, (10, 10))
+                txt2 = font.render("press [c] for inventory", True, BLACK)
+                #screen.blit(txt2, (10, 690))
+                txt3 = font.render("press [p] to quit", True, WHITE)
+                screen.blit(txt3, (1284, 700))
+
+            elif running == False:
+                font = pygame.font.Font(None, 25)
+                pausetext = font.render("PAUSED", True, WHITE)
+                screen.fill(BLACK)
+                screen.blit(pausetext, (10, 10))
 
         pygame.display.flip()
         clock.tick(clocktick)
