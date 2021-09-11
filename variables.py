@@ -1,4 +1,5 @@
 import pygame
+from settings import *
 
 done = False
 done2 = False
@@ -6,7 +7,6 @@ click = False
 stamina = 300
 
 clocktick = 240
-pausetime = 10000
 
 enemyFirerate = 2000
 
