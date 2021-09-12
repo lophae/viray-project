@@ -382,7 +382,7 @@ def enemyShoot():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, mapGrid, pausetext
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, mapGrid
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors()
