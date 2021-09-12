@@ -373,6 +373,7 @@ pygame.time.set_timer(pygame.USEREVENT, 150)
 def enemyShoot():
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT:
+            print("True")
             for foo in enemy_group1:
                 x = foo.rect.centerx
                 y = foo.rect.centery
