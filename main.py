@@ -318,7 +318,7 @@ def inventory():
     pass
 
 def enemySpawn():
-    e = Enemy1(PURPLE, 50, 50, player.rect.x, player.rect.y)
+    e = Enemy1(PURPLE)
     all_sprites_list.add(e)
     enemy_group1.add(e)
 
