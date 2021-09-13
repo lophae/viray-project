@@ -6,7 +6,7 @@ done2 = False
 click = False
 stamina = 300
 
-clocktick = 240
+clocktick = 140
 
 enemyFirerate = 2000
 
