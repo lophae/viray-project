@@ -381,7 +381,6 @@ def enemyShoot():
                 enemybullet_group.add(eb)
                 all_sprites_list.add(eb)
 
-
 def bossAttack1():
     for foo in boss_group1:
         foo.attack(player.rect.x, player.rect.y)
