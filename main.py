@@ -383,7 +383,7 @@ def enemyShoot():
 
 def bossAttack1():
     for foo in boss_group1:
-        foo.attack()
+        foo.attack(player.rect.x, player.rect.y)
 
 # -------- Main Program Loop -----------
 def game():
