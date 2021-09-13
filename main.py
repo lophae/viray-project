@@ -373,7 +373,7 @@ pygame.time.set_timer(pygame.USEREVENT, 150)
 def enemyShoot():
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT:
-            print("True")
+            #print("True")
             for foo in enemy_group1:
                 x = foo.rect.centerx
                 y = foo.rect.centery
@@ -382,8 +382,14 @@ def enemyShoot():
                 all_sprites_list.add(eb)
 
 def bossAttack1():
+    bossWall = pygame.sprite.groupcollide(boss_group1, wall_group, False, False)
+    bossWall2 = pygame.sprite.groupcollide(boss_group1, doorclose_group, False, False)
     for foo in boss_group1:
-        foo.attack(player.rect.x, player.rect.y)
+        foo.attack()
+        for x in bossWall:
+            foo.stop(player.rect.y, player.rect.x)
+        for y in bossWall2:
+            foo.stop(player.rect.y, player.rect.x)
 
 # -------- Main Program Loop -----------
 def game():
@@ -575,6 +581,7 @@ def game():
 
             # -- ENEMY attack
             enemyShoot()
+            
             bossAttack1()
             
             # -- #
