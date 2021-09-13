@@ -122,13 +122,23 @@ class Enemy2(pygame.sprite.Sprite):
         super().__init__()
 
 class Boss1(pygame.sprite.Sprite):
-    def __init__(self, colour):
+    def __init__(self, colour, targety, targetx):
         super().__init__()
         self.image = pygame.Surface([60, 60])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         self.rect.x = 50
         self.rect.y = 50
+        self.target_x = targetx
+        self.target_y = targety
+        self.speed = 3
+
+    def attack(self):
+        angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
+        self.dx = math.cos(angle) * 1.5
+        self.dy = math.sin(angle) * 1.5
+        self.rect.x = self.rect.x + self.dx
+        self.rect.y = self.rect.y + self.dy
 
 
         
