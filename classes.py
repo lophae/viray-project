@@ -139,7 +139,3 @@ class Boss1(pygame.sprite.Sprite):
         self.dy = math.sin(angle) * self.speed
         self.rect.x = self.rect.x + self.dx
         self.rect.y = self.rect.y + self.dy
-
-
-        
-        
