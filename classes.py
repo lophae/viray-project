@@ -127,15 +127,15 @@ class Boss1(pygame.sprite.Sprite):
         self.image = pygame.Surface([60, 60])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = 60
-        self.rect.y = 60
-        self.x = 60
-        self.y = 60
+        self.rect.x = 640
+        self.rect.y = 360
+        self.x = 580
+        self.y = 300
         self.target_x = targetx
         self.target_y = targety
         angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
-        self.dx = math.cos(angle) * 3
-        self.dy = math.sin(angle) * 3
+        self.dx = math.cos(angle) * 3.5
+        self.dy = math.sin(angle) * 3.5
 
     def attack(self):
         self.x = self.x + self.dx
@@ -145,12 +145,7 @@ class Boss1(pygame.sprite.Sprite):
     
     def stop(self, targety, targetx):
         angle = math.atan2(targety-self.rect.y, targetx-self.rect.x)
-
         self.dx = 0
         self.dy = 0
-        # self.x = 60
-        # self.y = 60
-
         self.dx = math.cos(angle) * 3
         self.dy = math.sin(angle) * 3
-        self.attack()
