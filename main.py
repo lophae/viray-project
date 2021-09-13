@@ -323,7 +323,7 @@ def enemySpawn():
     enemy_group1.add(e)
 
 def bossSpawn():
-    b = Boss1(PURPLE)
+    b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
     all_sprites_list.add(b)
     boss_group1.add(b)
     doorClose()
@@ -380,6 +380,10 @@ def enemyShoot():
                 eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
                 enemybullet_group.add(eb)
                 all_sprites_list.add(eb)
+
+def bossAttack1():
+    for foo in boss_group1:
+        foo.attack()
 
 # -------- Main Program Loop -----------
 def game():
@@ -569,8 +573,9 @@ def game():
                 for foo in bullet_group:
                     foo.delete()
 
-            # -- ENEMY 1 SHOOTING
+            # -- ENEMY attack
             enemyShoot()
+            bossAttack1()
             
             # -- #
             screen.fill(BLACK)
