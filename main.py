@@ -328,7 +328,6 @@ def bossSpawn():
     boss_group1.add(b)
     doorClose()
 
-
 def projectileCollision():
     bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
     bulletWall = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
@@ -464,6 +463,12 @@ def game():
             enemyBulletCollide = pygame.sprite.groupcollide(bullet_group, enemy_group1, True, True)
             for foo in enemyBulletCollide:
                 enemyCount -= 1
+
+            # -- BULLET BOSS COLLISION
+            bossBulletCollide = pygame.sprite.groupcollide(bullet_group, boss_group1, True, False)
+            for foo in bossBulletCollide:
+                for x in boss_group1:
+                    x.health = x.health - 1
 
             # -- DOOR OPEN WHEN ENEMY COUNT == 0
             if enemyCount == 0:
