@@ -152,5 +152,9 @@ class Boss1(pygame.sprite.Sprite):
         self.dy = math.sin(angle) * 3
     
     def update(self):
+        font = pygame.font.Font(None, 25)
         if self.health == 0:
             self.kill()
+        elif self.health > 0:
+            txt = font.render("boss health: " + str(self.health), True, WHITE)
+            screen.blit(txt, (60, 200))
