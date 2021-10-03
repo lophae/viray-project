@@ -323,6 +323,8 @@ def enemySpawn():
     enemy_group1.add(e)
 
 def bossSpawn():
+    global bossCount
+    bossCount = 1
     b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
     all_sprites_list.add(b)
     boss_group1.add(b)
@@ -391,7 +393,7 @@ def bossAttack1():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, mapGrid
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors()
@@ -474,6 +476,13 @@ def game():
             if enemyCount == 0:
                 for all in doorclose_group:
                     all.delete()
+
+            # -- DOOR OPEN AND TELEPORTER WHEN BOSS COUNT == 0
+            for all in boss_group1:
+                if all.health == 0:
+                    bossCount = 0
+                    for all in doorclose_group:
+                        all.delete()
 
             # -- PLAYER WALL COLLISION (requires improvement)
             player_hit = pygame.sprite.spritecollide(player, wall_group, False)
@@ -597,6 +606,9 @@ def game():
 
             all_sprites_list.draw(screen)
             pygame.draw.rect(screen, BLACK, (1280,0,384,720))
+
+            if bossCount == 0:
+                pygame.draw.rect(screen, YELLOW, (640, 360, 20, 20))
             
             txt = font.render("stamina count: " + str(stamina), True, BLACK)
             screen.blit(txt, (10, 10))
