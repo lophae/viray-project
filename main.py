@@ -25,11 +25,12 @@ enemybullet_group = pygame.sprite.Group()
 enemy_group1 = pygame.sprite.Group()
 boss_group1 = pygame.sprite.Group()
 
-
 wall_groupRight = pygame.sprite.Group()
 wall_groupLeft = pygame.sprite.Group()
 wall_groupUp = pygame.sprite.Group()
 wall_groupDown = pygame.sprite.Group()
+
+teleporter_group = pygame.sprite.Group()
 
 # -- SPAWN ROOM CREATION
 def spawnRoom():
@@ -345,7 +346,7 @@ def projectileCollision():
     enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_groupRight, True, False)
     enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_groupUp, True, False)
     enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, doorclose_group, True, False)
-    
+
 def doorClose():
     global enemyCount
     enemyCount = 1
@@ -484,7 +485,7 @@ def game():
                     for all in doorclose_group:
                         all.delete()
 
-            # -- PLAYER WALL COLLISION (requires improvement)
+            # -- PLAYER WALL COLLISION 
             player_hit = pygame.sprite.spritecollide(player, wall_group, False)
             for foo in player_hit:
                 #player.move(0, 0)
@@ -526,6 +527,8 @@ def game():
 
                 for foo in wall_group:
                     foo.rect.x = foo.rect.x - 1280
+                for foo in teleporter_group:
+                    foo.rect.x = foo.rect.x - 1280
                 for foo in bullet_group:
                     foo.delete()
             # Left
@@ -546,6 +549,8 @@ def game():
                     bossSpawn()
 
                 for foo in wall_group:
+                    foo.rect.x = foo.rect.x + 1280
+                for foo in teleporter_group:
                     foo.rect.x = foo.rect.x + 1280
                 for foo in bullet_group:
                     foo.delete()
@@ -568,6 +573,8 @@ def game():
 
                 for foo in wall_group:
                     foo.rect.y = foo.rect.y + 720
+                for foo in teleporter_group:
+                    foo.rect.y = foo.rect.y + 720
                 for foo in bullet_group:
                     foo.delete()
             # Down
@@ -589,8 +596,15 @@ def game():
 
                 for foo in wall_group:
                     foo.rect.y = foo.rect.y - 720
+                for foo in teleporter_group:
+                    foo.rect.y = foo.rect.y - 720
                 for foo in bullet_group:
                     foo.delete()
+            
+            # -- PLAYER TELEPORTER COLLISION
+            playerTeleport = pygame.sprite.spritecollide(player, teleporter_group, False)
+            for foo in playerTeleport:
+                print("tele")
 
             # -- ENEMY attack
             enemyShoot()
@@ -608,8 +622,11 @@ def game():
             pygame.draw.rect(screen, BLACK, (1280,0,384,720))
 
             if bossCount == 0:
-                pygame.draw.rect(screen, YELLOW, (640, 360, 20, 20))
-            
+                t = Teleporter()
+                all_sprites_list.add(t)
+                teleporter_group.add(t)
+                bossCount = 1
+
             txt = font.render("stamina count: " + str(stamina), True, BLACK)
             screen.blit(txt, (10, 10))
             txt2 = font.render("press [c] for inventory", True, BLACK)
