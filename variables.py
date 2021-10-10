@@ -16,7 +16,7 @@ player_y = 0
 bossx = 0
 bossy = 0
 
-level1rooms = 6
+level1rooms = 1
 level2rooms = 9
 
 mapx = 13
