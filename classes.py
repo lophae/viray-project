@@ -56,6 +56,15 @@ class Wall(pygame.sprite.Sprite):
     def delete(self):
         self.kill()
 
+class Teleporter(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.Surface([20,20])
+        self.image.fill(YELLOW)
+        self.rect = self.image.get_rect()
+        self.rect.x = 630
+        self.rect.y = 360
+
 class enemyBullet(pygame.sprite.Sprite):
     def __init__(self, posx, posy, targetx, targety):
         super().__init__()
@@ -134,8 +143,8 @@ class Boss1(pygame.sprite.Sprite):
         self.target_x = targetx
         self.target_y = targety
         angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
-        self.dx = math.cos(angle) * 3.5
-        self.dy = math.sin(angle) * 3.5
+        self.dx = math.cos(angle) * 4
+        self.dy = math.sin(angle) * 4
         self.health = 25
 
     def attack(self):
