@@ -64,6 +64,9 @@ class Teleporter(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 630
         self.rect.y = 360
+    
+    def delete(self):
+        self.kill()
 
 class enemyBullet(pygame.sprite.Sprite):
     def __init__(self, posx, posy, targetx, targety):
