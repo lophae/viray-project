@@ -608,7 +608,6 @@ def game():
 
             # -- ENEMY attack
             enemyShoot()
-            
             bossAttack1()
             
             # -- #
