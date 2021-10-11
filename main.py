@@ -604,7 +604,7 @@ def game():
             # -- PLAYER TELEPORTER COLLISION
             playerTeleport = pygame.sprite.spritecollide(player, teleporter_group, False)
             for foo in playerTeleport:
-                print("tele")
+                print("teleport")
 
             # -- ENEMY attack
             enemyShoot()
