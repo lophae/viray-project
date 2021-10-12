@@ -148,7 +148,7 @@ class Boss1(pygame.sprite.Sprite):
         angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
         self.dx = math.cos(angle) * 4
         self.dy = math.sin(angle) * 4
-        self.health = 25
+        self.health = 1
 
     def attack(self):
         self.x = self.x + self.dx
