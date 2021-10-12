@@ -382,8 +382,9 @@ def deleteWall():
 ]
 
 def teleport():
-    global mapx, mapy
-    
+    global mapx, mapy, level1rooms
+
+    level1rooms += 3
     mapx = 13
     mapy = 13
     player.rect.x = 620
@@ -391,7 +392,6 @@ def teleport():
     player.health = 200
 
     deleteWall()
-    print(mapGrid)
     spawnRoom(), mapCreate(), mapDoors()
 
 def projectileCollision():
