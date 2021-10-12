@@ -393,6 +393,7 @@ def teleport():
 
     deleteWall()
     spawnRoom(), mapCreate(), mapDoors()
+    print(mapGrid)
 
 def projectileCollision():
     bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
