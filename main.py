@@ -379,17 +379,18 @@ def deleteWall():
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-]
+    ]
 
 def teleport():
     global mapx, mapy, level1rooms
 
     level1rooms += 3
-    mapx = 13
-    mapy = 13
     player.rect.x = 620
     player.rect.y = 340
     player.health = 200
+
+    # mapx = 13
+    # mapy = 13
 
     deleteWall()
     spawnRoom(), mapCreate(), mapDoors()
