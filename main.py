@@ -389,12 +389,12 @@ def teleport():
     player.rect.y = 340
     player.health = 200
 
-    # mapx = 13
-    # mapy = 13
+    mapx = 13
+    mapy = 13
 
     deleteWall()
     spawnRoom(), mapCreate(), mapDoors()
-    print(mapGrid)
+    #print(mapGrid)
 
 def projectileCollision():
     bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
@@ -463,7 +463,7 @@ def game():
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors()
-    #print(mapGrid)
+    print(mapGrid)
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
