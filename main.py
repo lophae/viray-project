@@ -463,7 +463,7 @@ def game():
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors()
-    print(mapGrid)
+    #print(mapGrid)
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
@@ -576,6 +576,7 @@ def game():
             # Right
             player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
             for foo in player_doorRight:
+                print("TrueR")
                 player.rect.x = player.rect.x - 1180
                 for foo in door_group:
                     foo.delete()
@@ -599,6 +600,7 @@ def game():
             # Left
             player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
             for foo in player_doorLeft:
+                print("TrueL")
                 player.rect.x = player.rect.x + 1180
                 for foo in door_group:
                     foo.delete()
@@ -622,6 +624,7 @@ def game():
             # Up
             player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
             for foo in player_doorUp:
+                print("TrueU")
                 player.rect.y = player.rect.y + 620
                 for foo in door_group:
                     foo.delete()
@@ -645,6 +648,7 @@ def game():
             # Down
             player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
             for foo in player_doorDown:
+                print("TrueD")
                 player.rect.y = player.rect.y - 620
                 for foo in door_group:
                     foo.delete()               
@@ -671,6 +675,7 @@ def game():
             for foo in playerTeleport:
                 print("teleport")
                 teleport()
+                print(mapGrid)
 
             # -- ENEMY attack
             enemyShoot()
@@ -707,7 +712,7 @@ def game():
 
         pygame.display.flip()
         clock.tick(clocktick)
-
+    
 def mainMenu():
     menu = True
     screen.fill(BLACK)
