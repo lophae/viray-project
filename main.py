@@ -345,11 +345,14 @@ def deleteWall():
     for foo in wall_groupDown:
         foo.delete()
     for foo in wall_groupLeft:
-        foo.delete
+        foo.delete()
     for foo in wall_groupUp:
         foo.delete()
     for foo in wall_groupRight:
         foo.delete()
+    
+    for foo in wall_groupRight:
+        print("CountLl")
     
     mapGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -384,7 +387,7 @@ def deleteWall():
 def teleport():
     global mapx, mapy, level1rooms
 
-    level1rooms += 3
+    level1rooms += 0
     player.rect.x = 620
     player.rect.y = 340
     player.health = 200
@@ -394,6 +397,15 @@ def teleport():
 
     deleteWall()
     spawnRoom(), mapCreate(), mapDoors()
+    for foo in wall_groupLeft:
+        print("countL")
+    for foo in wall_groupRight:
+        print("countR")
+    for foo in wall_groupUp:
+        print("countU")
+    for foo in wall_groupDown:
+        print("countD")
+    
     #print(mapGrid)
 
 def projectileCollision():
@@ -602,10 +614,11 @@ def game():
             for foo in player_doorLeft:
                 print("TrueL")
                 player.rect.x = player.rect.x + 1180
+                print(player.rect.x)
                 for foo in door_group:
                     foo.delete()
                 mapGrid[mapx][mapy] = 3
-                mapy = mapy - 1
+                mapy = mapy - 1 
                 mapDoors()
                 if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                     doorClose()
