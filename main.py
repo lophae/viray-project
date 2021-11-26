@@ -586,7 +586,7 @@ def game():
             player_old_y = player.rect.y
 
             # -- PLAYER ENEMY COLLISION
-            player_hitE = pygame.sprite.spritecollide(player, enemybullet_group, False)
+            player_hitE = pygame.sprite.spritecollide(player, enemybullet_group, True)
             for foo in player_hitE:
                 player.health -= 1
             
@@ -715,21 +715,15 @@ def game():
             all_sprites_list.draw(screen)
             pygame.draw.rect(screen, BLACK, (1280,0,384,720))
 
-            # if bossCount == 0:
-            #     t = Teleporter()
-            #     all_sprites_list.add(t)
-            #     teleporter_group.add(t)
-            #     bossCount = 1
-
-            txt = font.render("stamina count: " + str(stamina), True, BLACK)
-            screen.blit(txt, (10, 10))
-            txt2 = font.render("press [c] for inventory", True, BLACK)
-            #screen.blit(txt2, (10, 690))
-            txt3 = font.render("press [p] to quit", True, WHITE)
-            screen.blit(txt3, (1284, 700))
             txthealth = font.render("Health: " + str(player.health), True, WHITE)
             screen.blit(txthealth,(1284, 10))
-
+            txtsta = font.render("Stamina: " + str(stamina), True, WHITE)
+            screen.blit(txtsta, (1284, 30))
+            txtinv = font.render("press [c] for inventory", True, BLACK)
+            #screen.blit(txtinv, (10, 690))
+            txtq = font.render("press [p] to quit", True, WHITE)
+            screen.blit(txtq, (1284, 700))
+            
         elif running == False:
             font = pygame.font.Font(None, 25)
             pausetext = font.render("PAUSED", True, WHITE)
