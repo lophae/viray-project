@@ -428,8 +428,6 @@ def projectileCollision():
     enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, doorclose_group, True, False)
 
 def doorClose():
-    global enemyCount
-
     # right
     w = Wall(RED, 10, 240, 1240, 240)
     all_sprites_list.add(w)
