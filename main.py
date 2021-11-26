@@ -319,13 +319,16 @@ def inventory():
     pass
 
 def enemySpawn():
-    e = Enemy1(PURPLE)
-    all_sprites_list.add(e)
-    enemy_group1.add(e)
+    global enemyCount
+    enemyCount = random.randint(1,3)
+    for foo in range(enemyCount):
+        e = Enemy1(PURPLE)
+        all_sprites_list.add(e)
+        enemy_group1.add(e)
 
 def bossSpawn():
-    global bossCount
-    bossCount = 1
+    global enemyCount
+    enemyCount = 1
     b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
     all_sprites_list.add(b)
     boss_group1.add(b)
@@ -390,7 +393,7 @@ def teleport():
     level1rooms += 0
     player.rect.x = 620
     player.rect.y = 340
-    player.health = 200
+    #player.health = 200
 
     mapx = 13
     mapy = 13
@@ -426,7 +429,6 @@ def projectileCollision():
 
 def doorClose():
     global enemyCount
-    enemyCount = 1
 
     # right
     w = Wall(RED, 10, 240, 1240, 240)
@@ -558,7 +560,9 @@ def game():
             # -- DOOR OPEN AND TELEPORTER WHEN BOSS COUNT == 0
             for all in boss_group1:
                 if all.health == 0:
-                    bossCount = 0
+                    t = Teleporter()
+                    all_sprites_list.add(t)
+                    teleporter_group.add(t)
                     for all in doorclose_group:
                         all.delete()
 
@@ -582,6 +586,15 @@ def game():
 
             player_old_x = player.rect.x
             player_old_y = player.rect.y
+
+            # -- PLAYER ENEMY COLLISION
+            player_hitE = pygame.sprite.spritecollide(player, enemybullet_group, False)
+            for foo in player_hitE:
+                player.health -= 1
+            
+            player_hitB = pygame.sprite.spritecollide(player, boss_group1, False)
+            for foo in player_hitB:
+                player.health -= 1
 
             # -- PLAYER DOOR COLLISION
             # 1 = unvisited, 2 = boss, 3 = visited
@@ -704,11 +717,11 @@ def game():
             all_sprites_list.draw(screen)
             pygame.draw.rect(screen, BLACK, (1280,0,384,720))
 
-            if bossCount == 0:
-                t = Teleporter()
-                all_sprites_list.add(t)
-                teleporter_group.add(t)
-                bossCount = 1
+            # if bossCount == 0:
+            #     t = Teleporter()
+            #     all_sprites_list.add(t)
+            #     teleporter_group.add(t)
+            #     bossCount = 1
 
             txt = font.render("stamina count: " + str(stamina), True, BLACK)
             screen.blit(txt, (10, 10))
@@ -716,6 +729,8 @@ def game():
             #screen.blit(txt2, (10, 690))
             txt3 = font.render("press [p] to quit", True, WHITE)
             screen.blit(txt3, (1284, 700))
+            txthealth = font.render("Health: " + str(player.health), True, WHITE)
+            screen.blit(txthealth,(1284, 10))
 
         elif running == False:
             font = pygame.font.Font(None, 25)
