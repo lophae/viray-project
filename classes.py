@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 620
         self.rect.y = 340
-        self.health = 200 
+        self.health = 5
         
     def move(self, x_val, y_val):
         self.rect.x += x_val 
@@ -95,8 +95,8 @@ class Enemy1(pygame.sprite.Sprite):
         self.image = pygame.Surface([30, 30])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = 50
-        self.rect.y = 50
+        self.rect.x = random.randint(600,680)
+        self.rect.y = random.randint(320,400)
         self.speed_x = arraySpeed[random.randint(0, 1)]
         self.speed_y = arraySpeed[random.randint(0, 1)]
     
@@ -146,8 +146,8 @@ class Boss1(pygame.sprite.Sprite):
         self.target_x = targetx
         self.target_y = targety
         angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
-        self.dx = math.cos(angle) * 4
-        self.dy = math.sin(angle) * 4
+        self.dx = math.cos(angle) * 3
+        self.dy = math.sin(angle) * 3
         self.health = 1
 
     def attack(self):
