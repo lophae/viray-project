@@ -390,7 +390,7 @@ def deleteWall():
 def teleport():
     global mapx, mapy, level1rooms
 
-    level1rooms += 0
+    level1rooms += 2
     player.rect.x = 620
     player.rect.y = 340
     #player.health = 200
@@ -408,8 +408,7 @@ def teleport():
         print("countU")
     for foo in wall_groupDown:
         print("countD")
-    
-    #print(mapGrid)
+
 
 def projectileCollision():
     bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
@@ -471,7 +470,7 @@ def bossAttack1():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, collision_immune, collision_time, collision_det
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors()
@@ -586,13 +585,33 @@ def game():
             player_old_y = player.rect.y
 
             # -- PLAYER ENEMY COLLISION
-            player_hitE = pygame.sprite.spritecollide(player, enemybullet_group, True)
-            for foo in player_hitE:
-                player.health -= 1
+            if collision_immune == False:
+                player_hitEb = pygame.sprite.spritecollide(player, enemybullet_group, True)
+                for foo in player_hitEb:
+                    player.health -= 1
+                    collision_immune = True
+                    collision_det = True
+                
+                player_hitB = pygame.sprite.spritecollide(player, boss_group1, False)
+                for foo in player_hitB:
+                    player.health -= 1
+                    collision_immune = True
+                    collision_det = True
+
+                player_hitE = pygame.sprite.spritecollide(player, enemy_group1, False)
+                for foo in player_hitE:
+                    player.health -= 1
+                    collision_immune = True
+                    collision_det = True
             
-            player_hitB = pygame.sprite.spritecollide(player, boss_group1, False)
-            for foo in player_hitB:
-                player.health -= 1
+            if (pygame.time.get_ticks() - collision_time) > 3000:
+                collision_immune = False
+                player.image.fill(WHITE)
+            
+            if collision_det == True:
+                collision_time = pygame.time.get_ticks()
+                player.image.fill(RED)
+                collision_det = False
 
             # -- PLAYER DOOR COLLISION
             # 1 = unvisited, 2 = boss, 3 = visited
