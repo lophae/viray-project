@@ -55,3 +55,7 @@ arraySpeed = [-1, 1]
 
 enemyCount = 1
 bossCount = 1
+
+collision_immune = False
+collision_det = False
+collision_time = 999999999
