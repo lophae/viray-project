@@ -586,23 +586,30 @@ def game():
 
             # -- PLAYER ENEMY COLLISION
             if collision_immune == False:
+
                 player_hitEb = pygame.sprite.spritecollide(player, enemybullet_group, True)
                 for foo in player_hitEb:
-                    player.health -= 1
                     collision_immune = True
                     collision_det = True
+                    player.health -= 1
+                    print("hitB")
                 
                 player_hitB = pygame.sprite.spritecollide(player, boss_group1, False)
                 for foo in player_hitB:
-                    player.health -= 1
                     collision_immune = True
                     collision_det = True
+                    player.health -= 1
 
                 player_hitE = pygame.sprite.spritecollide(player, enemy_group1, False)
                 for foo in player_hitE:
-                    player.health -= 1
                     collision_immune = True
                     collision_det = True
+                    player.health -= 1
+                    print("hitE")
+
+                enemy_hitP = pygame.sprite.spritecollide(player, enemy_group1, True)
+                for foo in enemy_hitP:
+                    enemyCount -= 1
             
             if (pygame.time.get_ticks() - collision_time) > 3000:
                 collision_immune = False
