@@ -2,6 +2,7 @@ import pygame, math, random, sys
 from variables import *
 from settings import *
 
+# -- other sprite list
 wall_group = pygame.sprite.Group()
 door_group = pygame.sprite.Group()
 doorclose_group = pygame.sprite.Group()
@@ -122,7 +123,7 @@ class Enemy1(pygame.sprite.Sprite):
             self.speed_y = arraySpeed[random.randint(0, 1)]
             self.rect.x = self.old_x
             self.rect.y = self.old_y
-        
+
         self.old_x = self.rect.x
         self.old_y = self.rect.y
         
