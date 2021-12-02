@@ -741,9 +741,14 @@ def game():
             pygame.draw.rect(screen, BLACK, (1280,0,384,720))
 
             txthealth = font.render("Health: " + str(player.health), True, WHITE)
-            screen.blit(txthealth,(1284, 200))
+            screen.blit(txthealth,(1286, 200))
             txtsta = font.render("Stamina: " + str(stamina), True, WHITE)
-            screen.blit(txtsta, (1284, 220))
+            screen.blit(txtsta, (1286, 220))
+            txtmon = font.render("Coins: ~~~", True, WHITE)
+            screen.blit(txtmon, (1286, 240))
+            txtsc = font.render("Score: ~~~", True, WHITE)
+            screen.blit(txtsc, (1286, 280))
+
             txtinv = font.render("press [c] for inventory", True, BLACK)
             #screen.blit(txtinv, (10, 690))
             txtq = font.render("press [p] to quit", True, WHITE)
