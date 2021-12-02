@@ -732,6 +732,7 @@ def game():
             screen.fill(BLACK)
             font = pygame.font.Font(None, 25)
             font2 = pygame.font.Font(None, 60)
+            fonttest = pygame.font.Font(None, 100)
             
             all_sprites_list.update()
             enemybullet_group.update()
@@ -746,7 +747,10 @@ def game():
             txtinv = font.render("press [c] for inventory", True, BLACK)
             #screen.blit(txtinv, (10, 690))
             txtq = font.render("press [p] to quit", True, WHITE)
-            screen.blit(txtq, (1284, 700))
+            screen.blit(txtq, (1284, 700))#
+
+            minitest = fonttest.render('"Mini-Map"', True, WHITE)
+            screen.blit(minitest,(1290, 50))
 
             txtdeath = font2.render("YOU DIED", True, RED)
 
