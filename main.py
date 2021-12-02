@@ -734,6 +734,7 @@ def game():
             # -- #
             screen.fill(BLACK)
             font = pygame.font.Font(None, 25)
+            font2 = pygame.font.Font(None, 60)
             
             all_sprites_list.update()
             enemybullet_group.update()
@@ -749,6 +750,13 @@ def game():
             #screen.blit(txtinv, (10, 690))
             txtq = font.render("press [p] to quit", True, WHITE)
             screen.blit(txtq, (1284, 700))
+
+            txtdeath = font2.render("YOU DIED", True, RED)
+
+            # -- PLAYER DEATH
+            if player.health == 0:
+                player.delete()
+                screen.blit(txtdeath, (640, 360))
             
         elif running == False:
             font = pygame.font.Font(None, 25)
