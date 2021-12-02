@@ -600,15 +600,11 @@ def game():
                     collision_det = True
                     player.health -= 1
 
-                player_hitE = pygame.sprite.spritecollide(player, enemy_group1, False)
+                player_hitE = pygame.sprite.spritecollide(player, enemy_group1, True)
                 for foo in player_hitE:
                     collision_immune = True
                     collision_det = True
                     player.health -= 1
-                    print("hitE")
-
-                enemy_hitP = pygame.sprite.spritecollide(player, enemy_group1, True)
-                for foo in enemy_hitP:
                     enemyCount -= 1
             
             if (pygame.time.get_ticks() - collision_time) > 3000:
@@ -754,9 +750,9 @@ def game():
             txtdeath = font2.render("YOU DIED", True, RED)
 
             # -- PLAYER DEATH
-            if player.health == 0:
+            if player.health < 1:
                 player.delete()
-                screen.blit(txtdeath, (640, 360))
+                screen.blit(txtdeath, (540, 360))
             
         elif running == False:
             font = pygame.font.Font(None, 25)
