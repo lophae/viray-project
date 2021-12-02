@@ -733,6 +733,7 @@ def game():
             font = pygame.font.Font(None, 25)
             font2 = pygame.font.Font(None, 60)
             fonttest = pygame.font.Font(None, 100)
+            fonttest2 = pygame.font.Font(None, 40)
             
             all_sprites_list.update()
             enemybullet_group.update()
@@ -741,21 +742,25 @@ def game():
             pygame.draw.rect(screen, BLACK, (1280,0,384,720))
 
             txthealth = font.render("Health: " + str(player.health), True, WHITE)
-            screen.blit(txthealth,(1286, 200))
+            screen.blit(txthealth,(1286, 220))
             txtsta = font.render("Stamina: " + str(stamina), True, WHITE)
-            screen.blit(txtsta, (1286, 220))
+            screen.blit(txtsta, (1286, 240))
             txtmon = font.render("Coins: ~~~", True, WHITE)
-            screen.blit(txtmon, (1286, 240))
+            screen.blit(txtmon, (1286, 260))
             txtsc = font.render("Score: ~~~", True, WHITE)
-            screen.blit(txtsc, (1286, 280))
+            screen.blit(txtsc, (1286, 300))
 
-            txtinv = font.render("press [c] for inventory", True, BLACK)
+            #txtinv = font.render("press [c] for inventory", True, BLACK)
             #screen.blit(txtinv, (10, 690))
             txtq = font.render("press [p] to quit", True, WHITE)
-            screen.blit(txtq, (1284, 700))#
+            screen.blit(txtq, (1284, 700))
+            txtp = font.render("press [l] to pause", True, WHITE)
+            screen.blit(txtp, (1284, 680))
 
             minitest = fonttest.render('"Mini-Map"', True, WHITE)
             screen.blit(minitest,(1290, 50))
+            abilitytest = fonttest2.render('"Stats + Abilities"', True, WHITE)
+            screen.blit(abilitytest,(1350, 460))
 
             txtdeath = font2.render("YOU DIED", True, RED)
 
@@ -767,10 +772,12 @@ def game():
                 collision_immune = True
 
         elif running == False:
-            font = pygame.font.Font(None, 25)
+            font = pygame.font.Font(None, 50)
             pausetext = font.render("PAUSED", True, WHITE)
+            txtu = font.render("press [m] to un-pause", True, WHITE)
             screen.fill(BLACK)
             screen.blit(pausetext, (10, 10))
+            screen.blit(txtu, (10, 50))
         
         pygame.display.flip()
         clock.tick(clocktick)
