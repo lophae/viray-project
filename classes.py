@@ -171,3 +171,10 @@ class Boss1(pygame.sprite.Sprite):
         elif self.health > 0:
             txt = font.render("boss health: " + str(self.health), True, WHITE)
             screen.blit(txt, (60, 200))
+
+class MiniMap(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+    
+    def update(self):
+        pass
