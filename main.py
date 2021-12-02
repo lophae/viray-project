@@ -607,7 +607,7 @@ def game():
                     player.health -= 1
                     enemyCount -= 1
             
-            if (pygame.time.get_ticks() - collision_time) > 3000:
+            if (pygame.time.get_ticks() - collision_time) > 1500:
                 collision_immune = False
                 player.image.fill(WHITE)
             
