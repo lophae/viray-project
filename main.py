@@ -740,9 +740,9 @@ def game():
             pygame.draw.rect(screen, BLACK, (1280,0,384,720))
 
             txthealth = font.render("Health: " + str(player.health), True, WHITE)
-            screen.blit(txthealth,(1284, 10))
+            screen.blit(txthealth,(1284, 200))
             txtsta = font.render("Stamina: " + str(stamina), True, WHITE)
-            screen.blit(txtsta, (1284, 30))
+            screen.blit(txtsta, (1284, 220))
             txtinv = font.render("press [c] for inventory", True, BLACK)
             #screen.blit(txtinv, (10, 690))
             txtq = font.render("press [p] to quit", True, WHITE)
@@ -753,14 +753,16 @@ def game():
             # -- PLAYER DEATH
             if player.health < 1:
                 player.delete()
+                player.health = 0
                 screen.blit(txtdeath, (540, 360))
-            
+                collision_immune = True
+
         elif running == False:
             font = pygame.font.Font(None, 25)
             pausetext = font.render("PAUSED", True, WHITE)
             screen.fill(BLACK)
             screen.blit(pausetext, (10, 10))
-
+        
         pygame.display.flip()
         clock.tick(clocktick)
     
