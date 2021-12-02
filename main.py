@@ -614,6 +614,7 @@ def game():
             if collision_det == True:
                 collision_time = pygame.time.get_ticks()
                 player.image.fill(RED)
+                collision_immune = True
                 collision_det = False
 
             # -- PLAYER DOOR COLLISION
