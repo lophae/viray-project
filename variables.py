@@ -59,3 +59,5 @@ bossCount = 1
 collision_immune = False
 collision_det = False
 collision_time = 999999999
+
+coins = 0
