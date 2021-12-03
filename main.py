@@ -470,7 +470,8 @@ def bossAttack1():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, collision_immune, collision_time, collision_det, coins
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, collision_immune, collision_time, collision_det, coins, reloadT, reloadB
+    global reloading
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors()
@@ -488,6 +489,7 @@ def game():
             if running == True:
                 # -- PLAYER SHOOT
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    player.ammo -= 1
                     if event.button == 1:
                         x, y = pygame.mouse.get_pos()
                         b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 4, x, y)
@@ -535,6 +537,10 @@ def game():
             for b in bullet_group:
                 b.move()
 
+            # -- PLAYER RELOAD
+            if player.ammo == 0:
+                pass
+            
             # --  BULLET WALL COLLISION 
             projectileCollision()
             
@@ -747,13 +753,17 @@ def game():
             screen.blit(txthealth,(1286, 220))
             txtsta = font.render("Stamina: " + str(stamina), True, WHITE)
             screen.blit(txtsta, (1286, 240))
+            txtamm = font.render("Ammo: " + str(player.ammo), True, WHITE)
+            screen.blit(txtamm, (1286, 260))
             txtmon = font.render("Coins: " + str(coins), True, WHITE)
-            screen.blit(txtmon, (1286, 260))
+            screen.blit(txtmon, (1286, 280))
             txtsc = font.render("Score: ", True, WHITE)
-            screen.blit(txtsc, (1286, 300))
+            screen.blit(txtsc, (1286, 320))
 
             #txtinv = font.render("press [c] for inventory", True, BLACK)
             #screen.blit(txtinv, (10, 690))
+            txtrel = font.render("press [r] to reload", True, WHITE)
+            screen.blit(txtrel, (1284, 660))
             txtq = font.render("press [p] to quit", True, WHITE)
             screen.blit(txtq, (1284, 700))
             txtp = font.render("press [l] to pause", True, WHITE)
