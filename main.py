@@ -470,7 +470,7 @@ def bossAttack1():
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, collision_immune, collision_time, collision_det
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, collision_immune, collision_time, collision_det, coins
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors()
@@ -542,6 +542,7 @@ def game():
             enemyBulletCollide = pygame.sprite.groupcollide(bullet_group, enemy_group1, True, True)
             for foo in enemyBulletCollide:
                 enemyCount -= 1
+                coins += 1
 
             # -- BULLET BOSS COLLISION
             bossBulletCollide = pygame.sprite.groupcollide(bullet_group, boss_group1, True, False)
@@ -557,6 +558,7 @@ def game():
             # -- DOOR OPEN AND TELEPORTER WHEN BOSS COUNT == 0
             for all in boss_group1:
                 if all.health == 0:
+                    coins += 4
                     t = Teleporter()
                     all_sprites_list.add(t)
                     teleporter_group.add(t)
@@ -745,9 +747,9 @@ def game():
             screen.blit(txthealth,(1286, 220))
             txtsta = font.render("Stamina: " + str(stamina), True, WHITE)
             screen.blit(txtsta, (1286, 240))
-            txtmon = font.render("Coins: ~~~", True, WHITE)
+            txtmon = font.render("Coins: " + str(coins), True, WHITE)
             screen.blit(txtmon, (1286, 260))
-            txtsc = font.render("Score: ~~~", True, WHITE)
+            txtsc = font.render("Score: ", True, WHITE)
             screen.blit(txtsc, (1286, 300))
 
             #txtinv = font.render("press [c] for inventory", True, BLACK)
