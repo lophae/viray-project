@@ -16,6 +16,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = 620
         self.rect.y = 340
         self.health = 6
+        self.ammo = 5
+        self.reloadTime = 3500
         
     def move(self, x_val, y_val):
         self.rect.x += x_val 
