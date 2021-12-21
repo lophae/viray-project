@@ -542,7 +542,10 @@ def game():
             # -- PLAYER RELOAD
             if player.ammo < 1:
                 reloading = True
-            
+                if keys[pygame.K_r]:
+                    player.ammo = 5
+                    reloading = False
+
             # --  BULLET WALL COLLISION 
             projectileCollision()
             
