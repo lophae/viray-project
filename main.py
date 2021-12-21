@@ -551,7 +551,6 @@ def game():
                     reloadT = pygame.time.get_ticks()
                     reload_det = True
                     
-                    
             # --  BULLET WALL COLLISION 
             projectileCollision()
             
