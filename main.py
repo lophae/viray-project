@@ -547,9 +547,8 @@ def game():
 
             if player.ammo < 1 and reload_det == False:
                 reloading = True
-                if keys[pygame.K_r]:
-                    reloadT = pygame.time.get_ticks()
-                    reload_det = True
+                reloadT = pygame.time.get_ticks()
+                reload_det = True
                     
             # --  BULLET WALL COLLISION 
             projectileCollision()
