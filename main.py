@@ -472,10 +472,9 @@ def bossAttack1():
 def game():
     global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins
     global collision_immune, collision_time, collision_det
-    global reloading, reloadT, reloadB
+    global reloading, reloadT, reload_det
     mapGrid = mapGridReset
     running = True
-    reloading = False
     spawnRoom(), mapCreate(), mapDoors()
     #print(mapGrid)
     while not done:
@@ -540,12 +539,19 @@ def game():
                 b.move()
 
             # -- PLAYER RELOAD
-            if player.ammo < 1:
-                reloading = True
-                if keys[pygame.K_r]:
+            if reload_det == True:
+                if (pygame.time.get_ticks() - reloadT) > 1500:
                     player.ammo = 5
                     reloading = False
+                    reload_det = False
 
+            if player.ammo < 1 and reload_det == False:
+                reloading = True
+                if keys[pygame.K_r]:
+                    reloadT = pygame.time.get_ticks()
+                    reload_det = True
+                    
+                    
             # --  BULLET WALL COLLISION 
             projectileCollision()
             
