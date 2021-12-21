@@ -62,6 +62,6 @@ collision_time = 999999999
 
 coins = 0
 
-reloadB = False
+reload_det = False
 reloading = False
 reloadT = 9999999
