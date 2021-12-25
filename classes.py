@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 620
         self.rect.y = 340
-        self.health = 6
+        self.health = 1
         self.ammo = 5
         self.reloadTime = 3500
         
