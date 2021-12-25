@@ -486,6 +486,7 @@ def game():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_l: running = False
                 if event.key == pygame.K_m: running = True
+                if event.key == pygame.K_p: quit()
 
             if running == True and reloading == False:
                 # -- PLAYER SHOOT
@@ -513,10 +514,6 @@ def game():
             if keys[pygame.K_t]:
                 inventory()
             
-            # -- MENU
-            if keys[pygame.K_p]:
-                quit()
-
             # -- STAMINA
             if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and stamina > 1: 
                 player.move(-2,0)
@@ -795,17 +792,19 @@ def game():
             if player.health < 1:
                 player.delete()
                 player.health = 0
-                screen.blit(txtdeath, (540, 360))
-                collision_immune = True
+                running = False
 
         elif running == False:
-            font = pygame.font.Font(None, 50)
-            pausetext = font.render("PAUSED", True, WHITE)
-            txtu = font.render("press [m] to un-pause", True, WHITE)
-            screen.fill(BLACK)
-            screen.blit(pausetext, (10, 10))
-            screen.blit(txtu, (10, 50))
-        
+            if player.health < 1:       
+                screen.blit(txtdeath, (540, 360))
+            else:
+                font = pygame.font.Font(None, 50)
+                pausetext = font.render("PAUSED", True, WHITE)
+                txtu = font.render("press [m] to un-pause", True, WHITE)
+                screen.fill(BLACK)
+                screen.blit(pausetext, (10, 10))
+                screen.blit(txtu, (10, 50))
+    
         pygame.display.flip()
         clock.tick(clocktick)
     
