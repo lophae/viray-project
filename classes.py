@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 620
         self.rect.y = 340
-        self.health = 1
+        self.health = 6
         self.ammo = 5
         self.reloadTime = 3500
         
@@ -175,8 +175,25 @@ class Boss1(pygame.sprite.Sprite):
             screen.blit(txt, (60, 200))
 
 class MiniMap(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, colour, xc, yc):
         super().__init__()
-    
-    def update(self):
-        pass
+        self.image = pygame.Surface([30, 20])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = xc
+        self.rect.y = yc
+
+    def delete(self):
+        self.kill()
+
+class MiniPlayer(pygame.sprite.Sprite):
+    def __init__(self, colour, xc, yc):
+        super().__init__()
+        self.image = pygame.Surface([10, 10])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = xc
+        self.rect.y = yc
+
+    def delete(self):
+        self.kill()
