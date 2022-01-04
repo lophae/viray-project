@@ -32,6 +32,12 @@ wall_groupDown = pygame.sprite.Group()
 
 teleporter_group = pygame.sprite.Group()
 
+map_group = pygame.sprite.Group()
+mapP_group = pygame.sprite.Group()
+
+p = MiniPlayer(BLUE, minipx, minipy)
+mapP_group.add(p)
+
 # -- SPAWN ROOM CREATION
 def spawnRoom():
     x = 0
@@ -353,9 +359,8 @@ def deleteWall():
         foo.delete()
     for foo in wall_groupRight:
         foo.delete()
-    
-    for foo in wall_groupRight:
-        print("CountLl")
+    for foo in map_group:
+        foo.delete()
     
     mapGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -393,21 +398,15 @@ def teleport():
     level1rooms += 2
     player.rect.x = 620
     player.rect.y = 340
+    p.rect.x = 1470
+    p.rect.y = 85
     #player.health = 200
 
     mapx = 13
     mapy = 13
 
     deleteWall()
-    spawnRoom(), mapCreate(), mapDoors()
-    for foo in wall_groupLeft:
-        print("countL")
-    for foo in wall_groupRight:
-        print("countR")
-    for foo in wall_groupUp:
-        print("countU")
-    for foo in wall_groupDown:
-        print("countD")
+    spawnRoom(), mapCreate(), mapDoors(), miniMap(0)
 
 
 def projectileCollision():
@@ -467,6 +466,40 @@ def bossAttack1():
             foo.stop(player.rect.y, player.rect.x)
         for y in bossWall2:
             foo.stop(player.rect.y, player.rect.x)
+    
+def miniMap(direction):
+    global minimapx, minimapy, minipx, minipy
+
+    if direction == 0:
+        minimapx = 1460
+        minimapy = 80
+        m = MiniMap(WHITE, 1460, 80)
+        map_group.add(m)
+
+    if direction == 1:
+        minimapx += 40
+        m = MiniMap(WHITE, minimapx, minimapy)
+        map_group.add(m)
+        p.rect.x += 40
+
+    if direction == 2:
+        minimapx -= 40
+        m = MiniMap(WHITE, minimapx, minimapy)
+        map_group.add(m)
+        p.rect.x -= 40
+
+    if direction == 3:
+        minimapy -= 30
+        m = MiniMap(WHITE, minimapx, minimapy)
+        map_group.add(m)
+        p.rect.y -= 30
+
+    if direction == 4:
+        minimapy += 30
+        m = MiniMap(WHITE, minimapx, minimapy)
+        map_group.add(m)
+        p.rect.y += 30
+
 
 # -------- Main Program Loop -----------
 def game():
@@ -475,7 +508,7 @@ def game():
     global reloading, reloadT, reload_det
     mapGrid = mapGridReset
     running = True
-    spawnRoom(), mapCreate(), mapDoors()
+    spawnRoom(), mapCreate(), mapDoors(), miniMap(0)
     #print(mapGrid)
     while not done:
         # --- Main event loop
@@ -642,8 +675,8 @@ def game():
             # Right
             player_doorRight = pygame.sprite.spritecollide(player, wall_groupRight, False)
             for foo in player_doorRight:
-                print("TrueR")
                 player.rect.x = player.rect.x - 1180
+                miniMap(1)
                 for foo in door_group:
                     foo.delete()
                 mapGrid[mapx][mapy] = 3
@@ -666,9 +699,8 @@ def game():
             # Left
             player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
             for foo in player_doorLeft:
-                print("TrueL")
                 player.rect.x = player.rect.x + 1180
-                print(player.rect.x)
+                miniMap(2)
                 for foo in door_group:
                     foo.delete()
                 mapGrid[mapx][mapy] = 3
@@ -691,8 +723,8 @@ def game():
             # Up
             player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
             for foo in player_doorUp:
-                print("TrueU")
                 player.rect.y = player.rect.y + 620
+                miniMap(3) 
                 for foo in door_group:
                     foo.delete()
                 mapGrid[mapx][mapy] = 3
@@ -715,8 +747,8 @@ def game():
             # Down
             player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
             for foo in player_doorDown:
-                print("TrueD")
                 player.rect.y = player.rect.y - 620
+                miniMap(4)
                 for foo in door_group:
                     foo.delete()               
                 mapGrid[mapx][mapy] = 3
@@ -747,7 +779,7 @@ def game():
             # -- ENEMY attack
             enemyShoot()
             bossAttack1()
-            
+
             # -- #
             screen.fill(BLACK)
             font = pygame.font.Font(None, 25)
@@ -760,6 +792,8 @@ def game():
 
             all_sprites_list.draw(screen)
             pygame.draw.rect(screen, BLACK, (1280,0,384,720))
+            map_group.draw(screen)
+            mapP_group.draw(screen)
 
             txthealth = font.render("Health: " + str(player.health), True, WHITE)
             screen.blit(txthealth,(1286, 220))
@@ -781,8 +815,6 @@ def game():
             txtp = font.render("press [l] to pause", True, WHITE)
             screen.blit(txtp, (1284, 680))
 
-            minitest = fonttest.render('"Mini-Map"', True, WHITE)
-            screen.blit(minitest,(1290, 50))
             abilitytest = fonttest2.render('"Stats + Abilities"', True, WHITE)
             screen.blit(abilitytest,(1350, 460))
 
