@@ -68,5 +68,3 @@ reloadT = 9999999
 
 minimapx = 1460
 minimapy = 80
-minipx = 1470
-minipy = 85
