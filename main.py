@@ -35,7 +35,7 @@ teleporter_group = pygame.sprite.Group()
 map_group = pygame.sprite.Group()
 mapP_group = pygame.sprite.Group()
 
-p = MiniPlayer(BLUE, minipx, minipy)
+p = MiniPlayer(BLUE, 1470, 85)
 mapP_group.add(p)
 
 # -- SPAWN ROOM CREATION
@@ -468,7 +468,7 @@ def bossAttack1():
             foo.stop(player.rect.y, player.rect.x)
     
 def miniMap(direction):
-    global minimapx, minimapy, minipx, minipy
+    global minimapx, minimapy
 
     if direction == 0:
         minimapx = 1460
