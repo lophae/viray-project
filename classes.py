@@ -201,3 +201,12 @@ class MiniPlayer(pygame.sprite.Sprite):
 
     def delete(self):
         self.kill()
+
+class Chest(pygame.sprite.Sprite):
+    def __init__(self, colour):
+        super().__init__()
+        self.image = pygame.Surface([20,20])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = 630
+        self.rect.y = 350
