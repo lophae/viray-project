@@ -363,6 +363,8 @@ def deleteWall():
         foo.delete()
     for foo in map_group:
         foo.delete()
+    for foo in chest_group:
+        foo.delete()
     
     mapGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -545,7 +547,7 @@ def miniMap(direction):
 
 def createChest():
     global chestA
-    chance = random.randint(1,3)
+    chance = random.randint(1,2)
     if chance == 1:
         c = Chest(BROWN)
         all_sprites_list.add(c)
@@ -739,7 +741,7 @@ def game():
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
                 spriteLocate(1)
-                
+
             # Left
             player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
             for foo in player_doorLeft:
