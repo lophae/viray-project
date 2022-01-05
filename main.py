@@ -35,7 +35,7 @@ teleporter_group = pygame.sprite.Group()
 map_group = pygame.sprite.Group()
 mapP_group = pygame.sprite.Group()
 
-p = MiniPlayer(BLUE, 1470, 85)
+p = MiniPlayer(BLUE, 1470, 105)
 mapP_group.add(p)
 
 # -- SPAWN ROOM CREATION
@@ -472,8 +472,8 @@ def miniMap(direction):
 
     if direction == 0:
         minimapx = 1460
-        minimapy = 80
-        m = MiniMap(WHITE, 1460, 80)
+        minimapy = 100
+        m = MiniMap(WHITE, 1460, 100)
         map_group.add(m)
 
     if direction == 1:
@@ -796,18 +796,16 @@ def game():
             mapP_group.draw(screen)
 
             txthealth = font.render("Health: " + str(player.health) + " / " + str(player.healthMax), True, WHITE)
-            screen.blit(txthealth,(1286, 220))
+            screen.blit(txthealth,(1286, 260))
             txtsta = font.render("Stamina: " + str(player.stamina) + " / " + str(player.staminaMax), True, WHITE)
-            screen.blit(txtsta, (1286, 240))
+            screen.blit(txtsta, (1286, 280))
             txtamm = font.render("Ammo: " + str(player.ammo) + " / " + str(player.ammoMax), True, WHITE)
-            screen.blit(txtamm, (1286, 260))
+            screen.blit(txtamm, (1286, 300))
             txtmon = font.render("Coins: " + str(coins), True, WHITE)
-            screen.blit(txtmon, (1286, 280))
+            screen.blit(txtmon, (1286, 320))
             txtsc = font.render("Score: ", True, WHITE)
-            screen.blit(txtsc, (1286, 320))
+            screen.blit(txtsc, (1286, 340))
 
-            #txtinv = font.render("press [c] for inventory", True, BLACK)
-            #screen.blit(txtinv, (10, 690))
             txtrel = font.render("press [r] to reload", True, WHITE)
             screen.blit(txtrel, (1284, 660))
             txtq = font.render("press [p] to quit", True, WHITE)
