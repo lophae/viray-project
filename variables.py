@@ -4,7 +4,6 @@ from settings import *
 done = False
 done2 = False
 click = False
-stamina = 300
 
 clocktick = 140
 
