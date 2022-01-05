@@ -66,11 +66,11 @@ class Wall(pygame.sprite.Sprite):
 class Teleporter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface([20,20])
+        self.image = pygame.Surface([40,40])
         self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
-        self.rect.x = 630
-        self.rect.y = 360
+        self.rect.x = 620
+        self.rect.y = 340
     
     def delete(self):
         self.kill()
@@ -210,3 +210,6 @@ class Chest(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 630
         self.rect.y = 350
+    
+    def delete(self):
+        self.kill()
