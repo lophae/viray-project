@@ -35,6 +35,8 @@ teleporter_group = pygame.sprite.Group()
 map_group = pygame.sprite.Group()
 mapP_group = pygame.sprite.Group()
 
+chest_group = pygame.sprite.Group()
+
 p = MiniPlayer(BLUE, 1470, 105)
 mapP_group.add(p)
 
@@ -399,7 +401,7 @@ def teleport():
     player.rect.x = 620
     player.rect.y = 340
     p.rect.x = 1470
-    p.rect.y = 85
+    p.rect.y = 105
     #player.health = 200
 
     mapx = 13
@@ -445,6 +447,47 @@ def doorClose():
     w = Wall(RED, 240, 10, 520, 680)
     all_sprites_list.add(w)
     doorclose_group.add(w)
+
+def spriteLocate(direction):
+    if direction == 1:
+        for foo in wall_group:
+            foo.rect.x = foo.rect.x - 1280
+        for foo in teleporter_group:
+            foo.rect.x = foo.rect.x - 1280
+        for foo in chest_group:
+            foo.rect.x = foo.rect.x - 1280
+        for foo in bullet_group:
+            foo.delete()
+
+    if direction == 2:
+        for foo in wall_group:
+            foo.rect.x = foo.rect.x + 1280
+        for foo in teleporter_group:
+            foo.rect.x = foo.rect.x + 1280
+        for foo in chest_group:
+            foo.rect.x = foo.rect.x + 1280
+        for foo in bullet_group:
+            foo.delete()
+
+    if direction == 3:
+        for foo in wall_group:
+            foo.rect.y = foo.rect.y + 720
+        for foo in teleporter_group:
+            foo.rect.y = foo.rect.y + 720
+        for foo in chest_group:
+            foo.rect.y = foo.rect.y + 720
+        for foo in bullet_group:
+            foo.delete()
+
+    if direction == 4:
+        for foo in wall_group:
+            foo.rect.y = foo.rect.y - 720
+        for foo in teleporter_group:
+            foo.rect.y = foo.rect.y - 720
+        for foo in chest_group:
+            foo.rect.y = foo.rect.y - 720
+        for foo in bullet_group:
+            foo.delete()
 
 pygame.time.set_timer(pygame.USEREVENT, 150)
 def enemyShoot():
@@ -500,16 +543,25 @@ def miniMap(direction):
         map_group.add(m)
         p.rect.y += 30
 
+def createChest():
+    global chestA
+    chance = random.randint(1,3)
+    if chance == 1:
+        c = Chest(BROWN)
+        all_sprites_list.add(c)
+        chest_group.add(c)
+    chestA = False
+
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins
+    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins, chestA
     global collision_immune, collision_time, collision_det
     global reloading, reloadT, reload_det
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors(), miniMap(0)
-    #print(mapGrid)
+
     while not done:
         # --- Main event loop
         for event in pygame.event.get():
@@ -542,10 +594,6 @@ def game():
                 player.move(0,-1)
             if keys[pygame.K_s]:
                 player.move(0,1)
-
-            # -- INVENTORY
-            if keys[pygame.K_t]:
-                inventory()
             
             # -- STAMINA
             if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and player.stamina > 1: 
@@ -605,6 +653,8 @@ def game():
             if enemyCount == 0:
                 for all in doorclose_group:
                     all.delete()
+                enemyCount = 1
+                chestA = True
 
             # -- DOOR OPEN AND TELEPORTER WHEN BOSS COUNT == 0
             for all in boss_group1:
@@ -645,7 +695,6 @@ def game():
                     collision_immune = True
                     collision_det = True
                     player.health -= 1
-                    print("hitB")
                 
                 player_hitB = pygame.sprite.spritecollide(player, boss_group1, False)
                 for foo in player_hitB:
@@ -689,13 +738,8 @@ def game():
                     enemySpawn()
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
-
-                for foo in wall_group:
-                    foo.rect.x = foo.rect.x - 1280
-                for foo in teleporter_group:
-                    foo.rect.x = foo.rect.x - 1280
-                for foo in bullet_group:
-                    foo.delete()
+                spriteLocate(1)
+                
             # Left
             player_doorLeft = pygame.sprite.spritecollide(player, wall_groupLeft, False)
             for foo in player_doorLeft:
@@ -713,13 +757,8 @@ def game():
                     enemySpawn()
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
+                spriteLocate(2)
 
-                for foo in wall_group:
-                    foo.rect.x = foo.rect.x + 1280
-                for foo in teleporter_group:
-                    foo.rect.x = foo.rect.x + 1280
-                for foo in bullet_group:
-                    foo.delete()
             # Up
             player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
             for foo in player_doorUp:
@@ -737,13 +776,8 @@ def game():
                     enemySpawn() 
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
+                spriteLocate(3)
 
-                for foo in wall_group:
-                    foo.rect.y = foo.rect.y + 720
-                for foo in teleporter_group:
-                    foo.rect.y = foo.rect.y + 720
-                for foo in bullet_group:
-                    foo.delete()
             # Down
             player_doorDown = pygame.sprite.spritecollide(player, wall_groupDown, False)
             for foo in player_doorDown:
@@ -760,15 +794,9 @@ def game():
                         foo.delete()
                     enemySpawn()    
                 elif mapGrid[mapx][mapy] == 2:
-                    bossSpawn()           
+                    bossSpawn()
+                spriteLocate(4)           
 
-                for foo in wall_group:
-                    foo.rect.y = foo.rect.y - 720
-                for foo in teleporter_group:
-                    foo.rect.y = foo.rect.y - 720
-                for foo in bullet_group:
-                    foo.delete()
-            
             # -- PLAYER TELEPORTER COLLISION
             playerTeleport = pygame.sprite.spritecollide(player, teleporter_group, False)
             for foo in playerTeleport:
@@ -823,6 +851,10 @@ def game():
                 player.delete()
                 player.health = 0
                 running = False
+            
+            # -- PLAYER CHEST / ITEM
+            if chestA == True:
+                createChest()
 
         elif running == False:
             if player.health < 1:       
