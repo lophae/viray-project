@@ -67,3 +67,5 @@ reloadT = 9999999
 
 minimapx = 1460
 minimapy = 100
+
+chestA = False
