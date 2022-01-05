@@ -548,21 +548,21 @@ def game():
                 inventory()
             
             # -- STAMINA
-            if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and stamina > 1: 
+            if keys[pygame.K_a] and keys[pygame.K_LSHIFT] and player.stamina > 1: 
                 player.move(-2,0)
-                stamina = stamina - 2
-            if keys[pygame.K_d] and keys[pygame.K_LSHIFT] and stamina > 1:
+                player.stamina = player.stamina - 2
+            if keys[pygame.K_d] and keys[pygame.K_LSHIFT] and player.stamina > 1:
                 player.move(2,0)
-                stamina = stamina - 2
-            if keys[pygame.K_w] and keys[pygame.K_LSHIFT] and stamina > 1:
+                player.stamina = player.stamina - 2
+            if keys[pygame.K_w] and keys[pygame.K_LSHIFT] and player.stamina > 1:
                 player.move(0,-2)
-                stamina = stamina - 2
-            if keys[pygame.K_s] and keys[pygame.K_LSHIFT] and stamina > 1:
+                player.stamina = player.stamina - 2
+            if keys[pygame.K_s] and keys[pygame.K_LSHIFT] and player.stamina > 1:
                 player.move(0,2)
-                stamina = stamina - 2
+                player.stamina = player.stamina - 2
             if not keys[pygame.K_LSHIFT] or (keys[pygame.K_LSHIFT] and (not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s])):
-                if stamina != 300:
-                    stamina = stamina + 1
+                if player.stamina != 300:
+                    player.stamina = player.stamina + 1
 
             # -- SHOOTING
             for b in bullet_group:
@@ -795,11 +795,11 @@ def game():
             map_group.draw(screen)
             mapP_group.draw(screen)
 
-            txthealth = font.render("Health: " + str(player.health), True, WHITE)
+            txthealth = font.render("Health: " + str(player.health) + " / " + str(player.healthMax), True, WHITE)
             screen.blit(txthealth,(1286, 220))
-            txtsta = font.render("Stamina: " + str(stamina), True, WHITE)
+            txtsta = font.render("Stamina: " + str(player.stamina) + " / " + str(player.staminaMax), True, WHITE)
             screen.blit(txtsta, (1286, 240))
-            txtamm = font.render("Ammo: " + str(player.ammo), True, WHITE)
+            txtamm = font.render("Ammo: " + str(player.ammo) + " / " + str(player.ammoMax), True, WHITE)
             screen.blit(txtamm, (1286, 260))
             txtmon = font.render("Coins: " + str(coins), True, WHITE)
             screen.blit(txtmon, (1286, 280))
