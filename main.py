@@ -648,7 +648,7 @@ def game():
                 reloadT = pygame.time.get_ticks()
                 reload_det = True
             
-            if player.ammo < 5 and player.ammo > 0:
+            if player.ammo < player.ammoMax and player.ammo > 0:
                 if keys[pygame.K_r]:
                     reloading = True
                     reloadT = pygame.time.get_ticks()
