@@ -547,13 +547,21 @@ def miniMap(direction):
 
 def createChest():
     global chestA
-    chance = random.randint(1,2)
+    chance = random.randint(1,1)
     if chance == 1:
         c = Chest(BROWN)
         all_sprites_list.add(c)
         chest_group.add(c)
     chestA = False
 
+def abilities():
+    randomAbility = random.randint(1,2)
+    if randomAbility == 1: # +1 to max health
+        player.healthMax += 1
+    if randomAbility == 2:
+        if player.health < player.healthMax:
+            player.health += 1 # +1 to current health, but if health is max, does nothing
+        
 
 # -------- Main Program Loop -----------
 def game():
@@ -857,6 +865,11 @@ def game():
             # -- PLAYER CHEST / ITEM
             if chestA == True:
                 createChest()
+
+            # -- ITEMS AND ABILITIES FROM CHESTS
+            chest_buy = pygame.sprite.spritecollide(player, chest_group, True)
+            for foo in chest_buy:
+                abilities()
 
         elif running == False:
             if player.health < 1:       
