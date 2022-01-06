@@ -59,8 +59,6 @@ collision_immune = False
 collision_det = False
 collision_time = 999999999
 
-coins = 0
-
 reload_det = False
 reloading = False
 reloadT = 9999999
@@ -68,4 +66,5 @@ reloadT = 9999999
 minimapx = 1460
 minimapy = 100
 
+coins = 0
 chestA = False
