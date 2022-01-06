@@ -555,12 +555,20 @@ def createChest():
     chestA = False
 
 def abilities():
-    randomAbility = random.randint(1,2)
+    global coins
+    randomAbility = random.randint(1,10)
+    coins -= 5
     if randomAbility == 1: # +1 to max health
         player.healthMax += 1
-    if randomAbility == 2:
+    if randomAbility == 2 or randomAbility == 3 or randomAbility == 4:
         if player.health < player.healthMax:
             player.health += 1 # +1 to current health, but if health is max, does nothing
+    if randomAbility == 5 or randomAbility == 6:
+        player.ammoMax += 1 # +1 to max ammo
+    if randomAbility == 7 or randomAbility == 8:
+        player.staminaMax += 50 # increase to stamina
+    if randomAbility == 10:
+        pass # teleport ability
         
 
 # -------- Main Program Loop -----------
@@ -619,7 +627,7 @@ def game():
                 player.move(0,2)
                 player.stamina = player.stamina - 2
             if not keys[pygame.K_LSHIFT] or (keys[pygame.K_LSHIFT] and (not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s])):
-                if player.stamina != 300:
+                if player.stamina != player.staminaMax:
                     player.stamina = player.stamina + 1
 
             # -- SHOOTING
@@ -629,7 +637,7 @@ def game():
             # -- PLAYER RELOAD
             if reload_det == True:
                 if (pygame.time.get_ticks() - reloadT) > 1500:
-                    player.ammo = 5
+                    player.ammo = player.ammoMax
                     reloading = False
                     reload_det = False
 
@@ -839,7 +847,7 @@ def game():
             screen.blit(txtsta, (1286, 280))
             txtamm = font.render("Ammo: " + str(player.ammo) + " / " + str(player.ammoMax), True, WHITE)
             screen.blit(txtamm, (1286, 300))
-            txtmon = font.render("Coins: " + str(coins), True, WHITE)
+            txtmon = font.render("Coins: " + str(coins) + "                      (5 coins to open a chest)", True, WHITE)
             screen.blit(txtmon, (1286, 320))
             txtsc = font.render("Score: ", True, WHITE)
             screen.blit(txtsc, (1286, 340))
@@ -867,9 +875,10 @@ def game():
                 createChest()
 
             # -- ITEMS AND ABILITIES FROM CHESTS
-            chest_buy = pygame.sprite.spritecollide(player, chest_group, True)
-            for foo in chest_buy:
-                abilities()
+            if coins > 5:
+                chest_buy = pygame.sprite.spritecollide(player, chest_group, True)
+                for foo in chest_buy:
+                    abilities()
 
         elif running == False:
             if player.health < 1:       
