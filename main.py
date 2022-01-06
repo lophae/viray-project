@@ -556,13 +556,15 @@ def createChest():
 
 def abilities():
     global coins
-    randomAbility = random.randint(1,10)
+    randomAbility = random.randint(1,8)
     coins -= 5
     if randomAbility == 1: # +1 to max health
         player.healthMax += 1
     if randomAbility == 2 or randomAbility == 3 or randomAbility == 4:
         if player.health < player.healthMax:
             player.health += 1 # +1 to current health, but if health is max, does nothing
+        else:
+            abilities() # re-roll the number to get a different item
     if randomAbility == 5 or randomAbility == 6:
         player.ammoMax += 1 # +1 to max ammo
     if randomAbility == 7 or randomAbility == 8:
@@ -859,8 +861,8 @@ def game():
             txtp = font.render("press [l] to pause", True, WHITE)
             screen.blit(txtp, (1284, 680))
 
-            abilitytest = fonttest2.render('"Stats + Abilities"', True, WHITE)
-            screen.blit(abilitytest,(1350, 460))
+            #abilitytest = fonttest2.render('"Stats + Abilities"', True, WHITE)
+            #screen.blit(abilitytest,(1350, 460))
 
             txtdeath = font2.render("YOU DIED", True, RED)
 
