@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
 
         self.teleport = False
         self.teleportCount = 0
+        self.teleportCountMax = 0
         
     def move(self, x_val, y_val):
         self.rect.x += x_val 
