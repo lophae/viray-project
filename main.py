@@ -554,10 +554,10 @@ def createChest():
         chest_group.add(c)
     chestA = False
 
-def abilities():
+def abilities(): # from room chests
     global coins
     randomAbility = random.randint(1,8)
-    coins -= 5
+    coins = coins - 5
     if randomAbility == 1: # +1 to max health
         player.healthMax += 1
     if randomAbility == 2 or randomAbility == 3 or randomAbility == 4:
@@ -569,8 +569,15 @@ def abilities():
         player.ammoMax += 1 # +1 to max ammo
     if randomAbility == 7 or randomAbility == 8:
         player.staminaMax += 50 # increase to stamina
-    if randomAbility == 10:
-        pass # teleport ability
+    
+    if coins < 0: # bug fix
+        coins = 0
+
+def abilitiesBoss(): # from boss drops
+    randomItem = random.randint(1,1)
+
+    if randomItem == 1:
+        player.teleport = True
         
 
 # -------- Main Program Loop -----------
@@ -596,12 +603,18 @@ def game():
             if running == True and reloading == False:
                 # -- PLAYER SHOOT
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    player.ammo -= 1
                     if event.button == 1:
+                        player.ammo -= 1
                         x, y = pygame.mouse.get_pos()
                         b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 4, x, y)
                         all_sprites_list.add(b)
                         bullet_group.add(b)
+            
+            # EXTRA ABILITY (teleport)
+            if player.teleport == True:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 2:
+                        print("2")
 
         if running == True:
             # -- MOVEMENT
@@ -653,6 +666,9 @@ def game():
                     reloading = True
                     reloadT = pygame.time.get_ticks()
                     reload_det = True
+
+            # -- EXTRA ITEMS
+
                     
             # --  BULLET WALL COLLISION 
             projectileCollision()
@@ -676,7 +692,7 @@ def game():
                 enemyCount = 1
                 chestA = True
 
-            # -- DOOR OPEN AND TELEPORTER WHEN BOSS COUNT == 0
+            # -- DOOR OPEN AND TELEPORTER WHEN BOSS DIES
             for all in boss_group1:
                 if all.health == 0:
                     coins += 4
