@@ -877,7 +877,7 @@ def game():
                 createChest()
 
             # -- ITEMS AND ABILITIES FROM CHESTS
-            if coins > 5:
+            if coins > 4:
                 chest_buy = pygame.sprite.spritecollide(player, chest_group, True)
                 for foo in chest_buy:
                     abilities()
