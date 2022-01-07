@@ -578,6 +578,8 @@ def abilitiesBoss(): # from boss drops
 
     if randomItem == 1:
         player.teleport = True
+        player.teleportCountMax += 1
+        player.teleportCount += 1
         
 
 # -------- Main Program Loop -----------
@@ -603,7 +605,7 @@ def game():
             if running == True and reloading == False:
                 # -- PLAYER SHOOT
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
+                    if event.button == 1: # left click
                         player.ammo -= 1
                         x, y = pygame.mouse.get_pos()
                         b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 4, x, y)
@@ -613,8 +615,16 @@ def game():
             # EXTRA ABILITY (teleport)
             if player.teleport == True:
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 2:
-                        print("2")
+                    if event.button == 3 and player.teleportCount > 0: # right click
+                        player.teleportCount -= 1
+                        x, y = pygame.mouse.get_pos()
+                        player.rect.x = x
+                        player.rect.y = y
+                        oldx = player.rect.x
+                        oldy = player.rect.y
+                        if player.rect.x == oldx and player.rect.y == oldy and player.teleportCount < (player.teleportCountMax + 1):
+                            player.teleportCount += 1
+                        
 
         if running == True:
             # -- MOVEMENT
@@ -696,6 +706,8 @@ def game():
             for all in boss_group1:
                 if all.health == 0:
                     coins += 4
+                    abilitiesBoss()
+
                     t = Teleporter()
                     all_sprites_list.add(t)
                     teleporter_group.add(t)
