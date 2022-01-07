@@ -617,12 +617,12 @@ def game():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 3 and player.teleportCount > 0: # right click
                         x, y = pygame.mouse.get_pos()
-                        if x < 1280:
+                        if (x < 1280): # or (player.rect.x != oldx and player.rect.y != oldy): 
                             player.teleportCount -= 1
-                            player.rect.x = x
-                            player.rect.y = y
                             oldx = player.rect.x
                             oldy = player.rect.y
+                            player.rect.x = x
+                            player.rect.y = y
                             if (player.rect.x == oldx and player.rect.y == oldy and player.teleportCount < (player.teleportCountMax + 1)):
                                 player.teleportCount += 1
                             
@@ -890,8 +890,12 @@ def game():
             txtp = font.render("press [l] to pause", True, WHITE)
             screen.blit(txtp, (1284, 680))
 
-            #abilitytest = fonttest2.render('"Stats + Abilities"', True, WHITE)
-            #screen.blit(abilitytest,(1350, 460))
+            # -- ITEM SIMPLE DISPLAY
+            txtItems = fonttest2.render("Items", True, WHITE)
+            screen.blit(txtItems, (1435, 380))
+            txtTeleport = font.render("teleport [rightclick]: " + str(player.teleportCount) + " / " + str(player.teleportCountMax), True, WHITE)
+            if player.teleport == True:
+                screen.blit(txtTeleport, (1286, 410))
 
             txtdeath = font2.render("YOU DIED", True, RED)
 
