@@ -22,6 +22,9 @@ class Player(pygame.sprite.Sprite):
         self.stamina = 300
         self.staminaMax = 300
         self.reloadTime = 3500
+
+        self.teleport = False
+        self.teleportCount = 0
         
     def move(self, x_val, y_val):
         self.rect.x += x_val 
