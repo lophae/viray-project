@@ -616,15 +616,16 @@ def game():
             if player.teleport == True:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 3 and player.teleportCount > 0: # right click
-                        player.teleportCount -= 1
                         x, y = pygame.mouse.get_pos()
-                        player.rect.x = x
-                        player.rect.y = y
-                        oldx = player.rect.x
-                        oldy = player.rect.y
-                        if player.rect.x == oldx and player.rect.y == oldy and player.teleportCount < (player.teleportCountMax + 1):
-                            player.teleportCount += 1
-                        
+                        if x < 1280:
+                            player.teleportCount -= 1
+                            player.rect.x = x
+                            player.rect.y = y
+                            oldx = player.rect.x
+                            oldy = player.rect.y
+                            if (player.rect.x == oldx and player.rect.y == oldy and player.teleportCount < (player.teleportCountMax + 1)):
+                                player.teleportCount += 1
+                            
 
         if running == True:
             # -- MOVEMENT
