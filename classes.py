@@ -21,6 +21,9 @@ class Player(pygame.sprite.Sprite):
         self.ammoMax = 5
         self.stamina = 300
         self.staminaMax = 300
+
+        self.reloadItem = False
+        self.reloadItemCount = 0
         self.reloadTime = 3500
 
         self.teleport = False
