@@ -335,7 +335,7 @@ def bossSpawn():
     global enemyCount
     enemyCount = 1
     b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
-    b.health = b.health + (level1rooms)
+    b.health = b.health + (level1rooms + 1)
     all_sprites_list.add(b)
     boss_group1.add(b)
     doorClose()
@@ -576,7 +576,7 @@ def abilities(): # from room chests
         coins = 0
 
 def abilitiesBoss(): # from boss drops
-    randomItem = random.randint(3,3)
+    randomItem = random.randint(1,3)
 
     if randomItem == 1: # teleport ability on-click 
         player.teleport = True
