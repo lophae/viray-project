@@ -404,7 +404,8 @@ def teleport():
     player.rect.y = 340
     p.rect.x = 1470
     p.rect.y = 105
-    #player.health = 200
+    
+    player.teleportCount = player.teleportCountMax # reset teleport after each level
 
     mapx = 13
     mapy = 13
@@ -562,7 +563,7 @@ def abilities(): # from room chests
         player.healthMax += 1
     if randomAbility == 2 or randomAbility == 3 or randomAbility == 4:
         if player.health < player.healthMax:
-            player.health += 1 # +1 to current health, but if health is max, does nothing
+            player.health += 1 # +1 to current health
         else:
             abilities() # re-roll the number to get a different item
     if randomAbility == 5 or randomAbility == 6:
