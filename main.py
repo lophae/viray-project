@@ -614,18 +614,20 @@ def game():
             
             # EXTRA ABILITY (teleport)
             if player.teleport == True:
+                teleportCollide = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 3 and player.teleportCount > 0: # right click
-                        x, y = pygame.mouse.get_pos()
-                        if (x < 1280): # or (player.rect.x != oldx and player.rect.y != oldy): 
-                            player.teleportCount -= 1
-                            oldx = player.rect.x
-                            oldy = player.rect.y
-                            player.rect.x = x
-                            player.rect.y = y
-                            if (player.rect.x == oldx and player.rect.y == oldy and player.teleportCount < (player.teleportCountMax + 1)):
-                                player.teleportCount += 1
-                            
+                        for wall in wall_group:
+                            if wall.rect.collidepoint(event.pos):
+                                teleportCollide = True
+                        if teleportCollide == False:
+                            x, y = pygame.mouse.get_pos()
+                            if (x < 1280):
+                                player.teleportCount -= 1
+                                oldx = player.rect.x
+                                oldy = player.rect.y
+                                player.rect.x = x
+                                player.rect.y = y
 
         if running == True:
             # -- MOVEMENT
