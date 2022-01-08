@@ -323,9 +323,6 @@ def mapDoors():
             x = 0
             y = y + 40
 
-def inventory():
-    pass
-
 def enemySpawn():
     global enemyCount
     enemyCount = random.randint(1,3)
@@ -579,7 +576,7 @@ def abilities(): # from room chests
         coins = 0
 
 def abilitiesBoss(): # from boss drops
-    randomItem = random.randint(1,2)
+    randomItem = random.randint(3,3)
 
     if randomItem == 1: # teleport ability on-click 
         player.teleport = True
@@ -592,8 +589,14 @@ def abilitiesBoss(): # from boss drops
         else:
             abilitiesBoss() # re-roll
     
-    if randomItem == 3:
-        pass
+    if randomItem == 3: # reduce reload time
+        if player.reloadTime > 500:
+            player.reloadItem = True
+            player.reloadItemCount += 1
+            player.reloadTime -= 500
+            print(player.reloadTime)
+        else:
+            abilitiesBoss()
         
 
 # -------- Main Program Loop -----------
@@ -676,7 +679,7 @@ def game():
 
             # -- PLAYER RELOAD
             if reload_det == True:
-                if (pygame.time.get_ticks() - reloadT) > 1500:
+                if (pygame.time.get_ticks() - reloadT) > player.reloadTime:
                     player.ammo = player.ammoMax
                     reloading = False
                     reload_det = False
@@ -928,12 +931,14 @@ def game():
 
             txtTeleport = font.render("--> teleport [rightclick]: " + str(player.teleportCount) + " / " + str(player.teleportCountMax), True, WHITE)
             txtDamage = font.render("--> double damage", True, WHITE)
+            txtReload = font.render("--> reduce reload x" + str(player.reloadItemCount), True, WHITE)
 
             if player.teleport == True:
                 screen.blit(txtTeleport, (1286, 410))
             if player.doubleDam == True:
                 screen.blit(txtDamage, (1286, 430))
-
+            if player.reloadItem == True:
+                screen.blit(txtReload, (1286, 450))
 
             # -- PLAYER DEATH
             txtdeath = font2.render("YOU DIED", True, RED)
