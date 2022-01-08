@@ -338,7 +338,7 @@ def bossSpawn():
     global enemyCount
     enemyCount = 1
     b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
-    b.health = b.health + (level1rooms - 3)
+    b.health = b.health + (level1rooms)
     all_sprites_list.add(b)
     boss_group1.add(b)
     doorClose()
@@ -562,13 +562,16 @@ def abilities(): # from room chests
     coins = coins - 5
     if randomAbility == 1: # +1 to max health
         player.healthMax += 1
+
     if randomAbility == 2 or randomAbility == 3 or randomAbility == 4:
         if player.health < player.healthMax:
             player.health += 1 # +1 to current health
         else:
             abilities() # re-roll the number to get a different item
+
     if randomAbility == 5 or randomAbility == 6:
         player.ammoMax += 1 # +1 to max ammo
+
     if randomAbility == 7 or randomAbility == 8:
         player.staminaMax += 50 # increase to stamina
     
@@ -576,15 +579,21 @@ def abilities(): # from room chests
         coins = 0
 
 def abilitiesBoss(): # from boss drops
-    randomItem = random.randint(2,2)
+    randomItem = random.randint(1,2)
 
     if randomItem == 1: # teleport ability on-click 
         player.teleport = True
         player.teleportCountMax += 1
         player.teleportCount += 1
     
-    if randomItem == 2:
-        player.doubleDam = True
+    if randomItem == 2: # damage from player bullet is doubled
+        if player.doubleDam == False:
+            player.doubleDam = True
+        else:
+            abilitiesBoss() # re-roll
+    
+    if randomItem == 3:
+        pass
         
 
 # -------- Main Program Loop -----------
