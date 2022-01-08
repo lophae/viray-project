@@ -338,6 +338,7 @@ def bossSpawn():
     global enemyCount
     enemyCount = 1
     b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
+    b.health = b.health + (level1rooms - 3)
     all_sprites_list.add(b)
     boss_group1.add(b)
     doorClose()
@@ -776,6 +777,8 @@ def game():
                 player.rect.x = player.rect.x - 1180
                 miniMap(1)
                 score += 2
+                if player.health == player.healthMax:
+                    score += 3
 
                 for foo in door_group:
                     foo.delete()
@@ -798,6 +801,8 @@ def game():
                 player.rect.x = player.rect.x + 1180
                 miniMap(2)
                 score += 2
+                if player.health == player.healthMax:
+                    score += 3
 
                 for foo in door_group:
                     foo.delete()
@@ -821,6 +826,8 @@ def game():
                 player.rect.y = player.rect.y + 620
                 miniMap(3) 
                 score += 2
+                if player.health == player.healthMax:
+                    score += 3
 
                 for foo in door_group:
                     foo.delete()
@@ -844,6 +851,8 @@ def game():
                 player.rect.y = player.rect.y - 620
                 miniMap(4)
                 score += 2
+                if player.health == player.healthMax:
+                    score += 3
 
                 for foo in door_group:
                     foo.delete()               
