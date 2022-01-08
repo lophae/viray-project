@@ -559,6 +559,7 @@ def abilities(): # from room chests
     coins = coins - 5
     if randomAbility == 1: # +1 to max health
         player.healthMax += 1
+        player.health == player.healthMax
 
     if randomAbility == 2 or randomAbility == 3 or randomAbility == 4:
         if player.health < player.healthMax:
@@ -597,6 +598,9 @@ def abilitiesBoss(): # from boss drops
             print(player.reloadTime)
         else:
             abilitiesBoss()
+    
+    if randomItem == 4:
+        pass
         
 
 # -------- Main Program Loop -----------
