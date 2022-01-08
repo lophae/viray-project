@@ -916,13 +916,19 @@ def game():
             # -- ITEM SIMPLE DISPLAY
             txtItems = fonttest2.render("Items", True, WHITE)
             screen.blit(txtItems, (1435, 380))
-            txtTeleport = font.render("teleport [rightclick]: " + str(player.teleportCount) + " / " + str(player.teleportCountMax), True, WHITE)
+
+            txtTeleport = font.render("--> teleport [rightclick]: " + str(player.teleportCount) + " / " + str(player.teleportCountMax), True, WHITE)
+            txtDamage = font.render("--> double damage", True, WHITE)
+
             if player.teleport == True:
                 screen.blit(txtTeleport, (1286, 410))
+            if player.doubleDam == True:
+                screen.blit(txtDamage, (1286, 430))
 
-            txtdeath = font2.render("YOU DIED", True, RED)
 
             # -- PLAYER DEATH
+            txtdeath = font2.render("YOU DIED", True, RED)
+
             if player.health < 1:
                 player.delete()
                 player.health = 0
