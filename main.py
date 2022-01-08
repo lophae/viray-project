@@ -576,11 +576,15 @@ def abilities(): # from room chests
         coins = 0
 
 def abilitiesBoss(): # from boss drops
-    randomItem = random.randint(1,1)
-    if randomItem == 1:
+    randomItem = random.randint(2,2)
+
+    if randomItem == 1: # teleport ability on-click 
         player.teleport = True
         player.teleportCountMax += 1
         player.teleportCount += 1
+    
+    if randomItem == 2:
+        player.doubleDam = True
         
 
 # -------- Main Program Loop -----------
@@ -678,9 +682,6 @@ def game():
                     reloading = True
                     reloadT = pygame.time.get_ticks()
                     reload_det = True
-
-            # -- EXTRA ITEMS
-
                     
             # --  BULLET WALL COLLISION 
             projectileCollision()
@@ -695,19 +696,28 @@ def game():
             bossBulletCollide = pygame.sprite.groupcollide(bullet_group, boss_group1, True, False)
             for foo in bossBulletCollide:
                 for x in boss_group1:
-                    x.health = x.health - 1
+                    if player.doubleDam == True:
+                        x.health = x.health - 2
+                    else:
+                        x.health = x.health - 1
 
             # -- DOOR OPEN WHEN ENEMY COUNT == 0
             if enemyCount == 0:
                 for all in doorclose_group:
                     all.delete()
                 enemyCount = 1
+                score += 2
+                if player.health == player.healthMax:
+                    score += 3
                 chestA = True
 
             # -- DOOR OPEN AND TELEPORTER WHEN BOSS DIES
             for all in boss_group1:
-                if all.health == 0:
-                    coins += 4
+                if all.health <= 0:
+                    coins += 5
+                    score += 3
+                    if player.health == player.healthMax:
+                        score += 4
                     abilitiesBoss()
 
                     t = Teleporter()
@@ -776,9 +786,6 @@ def game():
             for foo in player_doorRight:
                 player.rect.x = player.rect.x - 1180
                 miniMap(1)
-                score += 2
-                if player.health == player.healthMax:
-                    score += 3
 
                 for foo in door_group:
                     foo.delete()
@@ -800,9 +807,6 @@ def game():
             for foo in player_doorLeft:
                 player.rect.x = player.rect.x + 1180
                 miniMap(2)
-                score += 2
-                if player.health == player.healthMax:
-                    score += 3
 
                 for foo in door_group:
                     foo.delete()
@@ -824,10 +828,7 @@ def game():
             player_doorUp = pygame.sprite.spritecollide(player, wall_groupUp, False)
             for foo in player_doorUp:
                 player.rect.y = player.rect.y + 620
-                miniMap(3) 
-                score += 2
-                if player.health == player.healthMax:
-                    score += 3
+                miniMap(3)  
 
                 for foo in door_group:
                     foo.delete()
@@ -850,9 +851,6 @@ def game():
             for foo in player_doorDown:
                 player.rect.y = player.rect.y - 620
                 miniMap(4)
-                score += 2
-                if player.health == player.healthMax:
-                    score += 3
 
                 for foo in door_group:
                     foo.delete()               
@@ -874,7 +872,7 @@ def game():
             playerTeleport = pygame.sprite.spritecollide(player, teleporter_group, False)
             for foo in playerTeleport:
                 print("teleport")
-                score += 5
+                score += 1
                 teleport()
                 #print(mapGrid)
 
