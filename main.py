@@ -548,7 +548,7 @@ def miniMap(direction):
 
 def createChest():
     global chestA
-    chance = random.randint(1,1)
+    chance = random.randint(1,2)
     if chance == 1:
         c = Chest(BROWN)
         all_sprites_list.add(c)
@@ -584,7 +584,7 @@ def abilitiesBoss(): # from boss drops
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, level2rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins, chestA
+    global done, stamina, mapx, mapy, level1rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins, chestA, score
     global collision_immune, collision_time, collision_det
     global reloading, reloadT, reload_det
     mapGrid = mapGridReset
@@ -775,11 +775,14 @@ def game():
             for foo in player_doorRight:
                 player.rect.x = player.rect.x - 1180
                 miniMap(1)
+                score += 2
+
                 for foo in door_group:
                     foo.delete()
                 mapGrid[mapx][mapy] = 3
                 mapy = mapy + 1
                 mapDoors()
+
                 if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                     doorClose()
                     for foo in enemy_group1:
@@ -794,11 +797,14 @@ def game():
             for foo in player_doorLeft:
                 player.rect.x = player.rect.x + 1180
                 miniMap(2)
+                score += 2
+
                 for foo in door_group:
                     foo.delete()
                 mapGrid[mapx][mapy] = 3
                 mapy = mapy - 1 
                 mapDoors()
+
                 if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                     doorClose()
                     for foo in enemy_group1:
@@ -806,6 +812,7 @@ def game():
                     enemySpawn()
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
+
                 spriteLocate(2)
 
             # Up
@@ -813,11 +820,14 @@ def game():
             for foo in player_doorUp:
                 player.rect.y = player.rect.y + 620
                 miniMap(3) 
+                score += 2
+
                 for foo in door_group:
                     foo.delete()
                 mapGrid[mapx][mapy] = 3
                 mapx = mapx - 1
                 mapDoors()
+
                 if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                     doorClose()
                     for foo in enemy_group1:
@@ -825,6 +835,7 @@ def game():
                     enemySpawn() 
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
+
                 spriteLocate(3)
 
             # Down
@@ -832,11 +843,14 @@ def game():
             for foo in player_doorDown:
                 player.rect.y = player.rect.y - 620
                 miniMap(4)
+                score += 2
+
                 for foo in door_group:
                     foo.delete()               
                 mapGrid[mapx][mapy] = 3
                 mapx = mapx + 1
                 mapDoors()
+
                 if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                     doorClose()
                     for foo in enemy_group1:
@@ -844,14 +858,16 @@ def game():
                     enemySpawn()    
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
+
                 spriteLocate(4)           
 
             # -- PLAYER TELEPORTER COLLISION
             playerTeleport = pygame.sprite.spritecollide(player, teleporter_group, False)
             for foo in playerTeleport:
                 print("teleport")
+                score += 5
                 teleport()
-                print(mapGrid)
+                #print(mapGrid)
 
             # -- ENEMY attack
             enemyShoot()
@@ -880,8 +896,8 @@ def game():
             screen.blit(txtamm, (1286, 300))
             txtmon = font.render("Coins: " + str(coins) + "                      (5 coins to open a chest)", True, WHITE)
             screen.blit(txtmon, (1286, 320))
-            txtsc = font.render("Score: ", True, WHITE)
-            screen.blit(txtsc, (1286, 340))
+            txtsc = font.render("Score: " + str(score), True, WHITE)
+            screen.blit(txtsc, (1286, 360))
 
             txtrel = font.render("press [r] to reload", True, WHITE)
             screen.blit(txtrel, (1284, 660))
