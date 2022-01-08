@@ -575,7 +575,6 @@ def abilities(): # from room chests
 
 def abilitiesBoss(): # from boss drops
     randomItem = random.randint(1,1)
-
     if randomItem == 1:
         player.teleport = True
         player.teleportCountMax += 1
@@ -617,15 +616,13 @@ def game():
                 teleportCollide = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 3 and player.teleportCount > 0: # right click
-                        for wall in wall_group:
+                        for wall in all_sprites_list: #wall_group:
                             if wall.rect.collidepoint(event.pos):
                                 teleportCollide = True
                         if teleportCollide == False:
                             x, y = pygame.mouse.get_pos()
                             if (x < 1280):
                                 player.teleportCount -= 1
-                                oldx = player.rect.x
-                                oldy = player.rect.y
                                 player.rect.x = x
                                 player.rect.y = y
 
