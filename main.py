@@ -599,7 +599,10 @@ def abilitiesBoss(): # from boss drops
         else:
             abilitiesBoss()
     
-    if randomItem == 4:
+    if randomItem == 4: # player bullet size increase
+        pass
+
+    if randomItem == 5: # gain passive - if health is 1, do double damage (stacks with normal double damage)
         pass
         
 
