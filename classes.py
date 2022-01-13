@@ -30,6 +30,8 @@ class Player(pygame.sprite.Sprite):
         self.teleportCount = 0
         self.teleportCountMax = 0
 
+        self.bulletSpeedUp = False
+
         self.doubleDam = False
         
     def move(self, x_val, y_val):
@@ -40,9 +42,9 @@ class Player(pygame.sprite.Sprite):
         self.kill()
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, colour, posx, posy, width, height, speed, targetx, targety):
+    def __init__(self, colour, posx, posy, targetx, targety, speed):
         super().__init__()
-        self.image = pygame.Surface([width, height])
+        self.image = pygame.Surface([10, 10])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         angle = math.atan2(targety-posy, targetx-posx) # get angle to target in radians
@@ -164,7 +166,7 @@ class Boss1(pygame.sprite.Sprite):
         angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
         self.dx = math.cos(angle) * 3
         self.dy = math.sin(angle) * 3
-        self.health = 12
+        self.health = 1
 
     def attack(self):
         self.x = self.x + self.dx
