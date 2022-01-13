@@ -578,7 +578,7 @@ def abilities(): # from room chests
 
 def abilitiesBoss(): # from boss drops
     global bulletSpeed
-    randomItem = random.randint(7,7)
+    randomItem = random.randint(1,7)
 
     if randomItem == 1: # teleport ability on-click 
         player.teleport = True
