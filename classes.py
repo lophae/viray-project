@@ -30,9 +30,13 @@ class Player(pygame.sprite.Sprite):
         self.teleportCount = 0
         self.teleportCountMax = 0
 
+        self.passive = False
+
         self.bulletSpeedUp = False
+        self.bulletSizeUp = False
 
         self.doubleDam = False
+        self.damage = 1
         
     def move(self, x_val, y_val):
         self.rect.x += x_val 
@@ -42,9 +46,9 @@ class Player(pygame.sprite.Sprite):
         self.kill()
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, colour, posx, posy, targetx, targety, speed):
+    def __init__(self, colour, posx, posy, targetx, targety, speed, width, height):
         super().__init__()
-        self.image = pygame.Surface([10, 10])
+        self.image = pygame.Surface([width, height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         angle = math.atan2(targety-posy, targetx-posx) # get angle to target in radians
