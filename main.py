@@ -577,7 +577,8 @@ def abilities(): # from room chests
         coins = 0
 
 def abilitiesBoss(): # from boss drops
-    randomItem = random.randint(1,3)
+    global bulletSpeed
+    randomItem = random.randint(5,5)
 
     if randomItem == 1: # teleport ability on-click 
         player.teleport = True
@@ -590,7 +591,7 @@ def abilitiesBoss(): # from boss drops
         else:
             abilitiesBoss() # re-roll
     
-    if randomItem == 3: # reduce reload time
+    if randomItem == 3 or randomItem == 4: # reduce reload time
         if player.reloadTime > 500:
             player.reloadItem = True
             player.reloadItemCount += 1
@@ -599,16 +600,18 @@ def abilitiesBoss(): # from boss drops
         else:
             abilitiesBoss()
     
-    if randomItem == 4: # player bullet size increase
-        pass
+    if randomItem == 5: # player bullet speed increase
+        player.bulletSpeedUp = True
+        if bulletSpeed == 8:
+            abilitiesBoss() # re-roll
 
-    if randomItem == 5: # gain passive - if health is 1, do double damage (stacks with normal double damage)
+    if randomItem == 6: # gain passive - if health is 1, do double damage (stacks with normal double damage)
         pass
         
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins, chestA, score
+    global done, stamina, mapx, mapy, level1rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins, chestA, score, bulletSpeed
     global collision_immune, collision_time, collision_det
     global reloading, reloadT, reload_det
     mapGrid = mapGridReset
@@ -630,9 +633,13 @@ def game():
                 # -- PLAYER SHOOT
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1: # left click
+                        if player.bulletSpeedUp == True:
+                            bulletSpeed = 8
+                        else:
+                            bulletSpeed = 4
                         player.ammo -= 1
                         x, y = pygame.mouse.get_pos()
-                        b = Bullet(WHITE, player.rect.centerx, player.rect.centery, 10, 10, 4, x, y)
+                        b = Bullet(WHITE, player.rect.centerx, player.rect.centery, x, y, bulletSpeed)
                         all_sprites_list.add(b)
                         bullet_group.add(b)
             
@@ -939,6 +946,7 @@ def game():
             txtTeleport = font.render("--> teleport [rightclick]: " + str(player.teleportCount) + " / " + str(player.teleportCountMax), True, WHITE)
             txtDamage = font.render("--> double damage", True, WHITE)
             txtReload = font.render("--> reduce reload x" + str(player.reloadItemCount), True, WHITE)
+            txtBulletSpeed = font.render("--> bullet speed doubled", True, WHITE)
 
             if player.teleport == True:
                 screen.blit(txtTeleport, (1286, 410))
@@ -946,6 +954,8 @@ def game():
                 screen.blit(txtDamage, (1286, 430))
             if player.reloadItem == True:
                 screen.blit(txtReload, (1286, 450))
+            if player.bulletSpeedUp == True:
+                screen.blit(txtBulletSpeed, (1286, 470))
 
             # -- PLAYER DEATH
             txtdeath = font2.render("YOU DIED", True, RED)
