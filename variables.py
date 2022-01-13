@@ -68,4 +68,7 @@ minimapy = 100
 coins = 0
 score = 0
 chestA = False
+
 bulletSpeed = 4
+bulletWidth = 10
+bulletHeight = 10
