@@ -578,7 +578,7 @@ def abilities(): # from room chests
 
 def abilitiesBoss(): # from boss drops
     global bulletSpeed
-    randomItem = random.randint(5,5)
+    randomItem = random.randint(7,7)
 
     if randomItem == 1: # teleport ability on-click 
         player.teleport = True
@@ -606,14 +606,24 @@ def abilitiesBoss(): # from boss drops
             abilitiesBoss() # re-roll
 
     if randomItem == 6: # gain passive - if health is 1, do double damage (stacks with normal double damage)
-        pass
+        if player.passive == False:
+            player.passive = True
+        else:
+            abilitiesBoss()
+
+    if randomItem == 7: # bullet size increase
+        player.bulletSizeUp = True
+        if bulletWidth == 20:
+            abilitiesBoss()
         
 
 # -------- Main Program Loop -----------
 def game():
-    global done, stamina, mapx, mapy, level1rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins, chestA, score, bulletSpeed
+    global done, stamina, mapx, mapy, level1rooms, clocktick, player_x, player_y, enemyCount, bossCount, mapGrid, coins, chestA, score
     global collision_immune, collision_time, collision_det
     global reloading, reloadT, reload_det
+    global bulletSpeed, bulletWidth, bulletHeight
+
     mapGrid = mapGridReset
     running = True
     spawnRoom(), mapCreate(), mapDoors(), miniMap(0)
@@ -633,13 +643,19 @@ def game():
                 # -- PLAYER SHOOT
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1: # left click
+                        bulletWidth = 10
+                        bulletHeight = 10
+                        bulletSpeed = 4
+
                         if player.bulletSpeedUp == True:
                             bulletSpeed = 8
-                        else:
-                            bulletSpeed = 4
+                        if player.bulletSizeUp == True:
+                            bulletWidth = 20
+                            bulletHeight = 20
+                            
                         player.ammo -= 1
                         x, y = pygame.mouse.get_pos()
-                        b = Bullet(WHITE, player.rect.centerx, player.rect.centery, x, y, bulletSpeed)
+                        b = Bullet(WHITE, player.rect.centerx, player.rect.centery, x, y, bulletSpeed, bulletWidth, bulletHeight)
                         all_sprites_list.add(b)
                         bullet_group.add(b)
             
@@ -718,14 +734,25 @@ def game():
                 enemyCount -= 1
                 coins += 1
 
+            # -- PLAYER DAMAGE
+            if player.doubleDam == True and player.passive == True:
+                if player.health == 1:
+                    player.damage = 4 
+                else:
+                    player.damage = 2
+
+            if player.doubleDam == True:
+                player.damage = 2
+
+            if player.passive == True:
+                if player.health == 1:
+                    player.damage = 2
+
             # -- BULLET BOSS COLLISION
             bossBulletCollide = pygame.sprite.groupcollide(bullet_group, boss_group1, True, False)
             for foo in bossBulletCollide:
                 for x in boss_group1:
-                    if player.doubleDam == True:
-                        x.health = x.health - 2
-                    else:
-                        x.health = x.health - 1
+                    x.health = x.health - player.damage
 
             # -- DOOR OPEN WHEN ENEMY COUNT == 0
             if enemyCount == 0:
@@ -910,7 +937,6 @@ def game():
             screen.fill(BLACK)
             font = pygame.font.Font(None, 25)
             font2 = pygame.font.Font(None, 60)
-            fonttest = pygame.font.Font(None, 100)
             fonttest2 = pygame.font.Font(None, 40)
             
             all_sprites_list.update()
@@ -947,6 +973,8 @@ def game():
             txtDamage = font.render("--> double damage", True, WHITE)
             txtReload = font.render("--> reduce reload x" + str(player.reloadItemCount), True, WHITE)
             txtBulletSpeed = font.render("--> bullet speed doubled", True, WHITE)
+            txtBulletSize = font.render("--> bullet size doubled", True, WHITE)
+            txtPassive = font.render("--> damage doubled if health = 1", True, WHITE)
 
             if player.teleport == True:
                 screen.blit(txtTeleport, (1286, 410))
@@ -956,6 +984,10 @@ def game():
                 screen.blit(txtReload, (1286, 450))
             if player.bulletSpeedUp == True:
                 screen.blit(txtBulletSpeed, (1286, 470))
+            if player.bulletSizeUp == True:
+                screen.blit(txtBulletSize, (1286, 490))
+            if player.passive == True:
+                screen.blit(txtPassive, (1286, 510))
 
             # -- PLAYER DEATH
             txtdeath = font2.render("YOU DIED", True, RED)
