@@ -7,6 +7,9 @@ wall_group = pygame.sprite.Group()
 door_group = pygame.sprite.Group()
 doorclose_group = pygame.sprite.Group()
 
+arraySpeed = [-1, 1] # for basic enemies
+bossArraySpeed = [-4, 4] # for boss type 2
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour):
         super().__init__()
@@ -152,8 +155,21 @@ class Enemy1(pygame.sprite.Sprite):
         self.kill()
 
 class Enemy2(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, colour):
         super().__init__()
+        self.image = pygame.Surface([30, 30])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(600,680)
+        self.rect.y = random.randint(320,400)
+        self.speed_x = arraySpeed[random.randint(0, 1)]
+        self.speed_y = arraySpeed[random.randint(0, 1)]
+
+    def update(self):
+        pass
+
+    def delete(self):
+        self.kill()
 
 class Boss1(pygame.sprite.Sprite):
     def __init__(self, colour, targety, targetx):
@@ -192,6 +208,55 @@ class Boss1(pygame.sprite.Sprite):
         elif self.health > 0:
             txt = font.render("boss health: " + str(self.health), True, WHITE)
             screen.blit(txt, (60, 200))
+
+class Boss2(pygame.sprite.Sprite):
+    def __init__(self, colour):
+        super().__init__()
+        self.image = pygame.Surface([70, 70])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = 640
+        self.rect.y = 360
+        self.speed_x = bossArraySpeed[random.randint(0, 1)]
+        self.speed_y = bossArraySpeed[random.randint(0, 1)]
+        self.health = 1
+
+
+    def update(self):
+        self.rect.x = self.rect.x + self.speed_x
+        self.rect.y = self.rect.y + self.speed_y
+        bossWall = pygame.sprite.spritecollide(self, wall_group, False)
+        bossDoor = pygame.sprite.spritecollide(self, door_group, False)
+        bosscloseDoor = pygame.sprite.spritecollide(self, doorclose_group, False)
+
+        for foo in bossWall:
+            self.speed_x = bossArraySpeed[random.randint(0,1)]
+            self.speed_y = bossArraySpeed[random.randint(0,1)]
+            self.rect.x = self.old_x
+            self.rect.y = self.old_y
+        for foo in bossDoor:
+            self.speed_x = bossArraySpeed[random.randint(0,1)]
+            self.speed_y = bossArraySpeed[random.randint(0,1)]
+            self.rect.x = self.old_x
+            self.rect.y = self.old_y
+        for foo in bosscloseDoor:
+            self.speed_x = bossArraySpeed[random.randint(0,1)]
+            self.speed_y = bossArraySpeed[random.randint(0,1)]
+            self.rect.x = self.old_x
+            self.rect.y = self.old_y
+        
+        self.old_x = self.rect.x
+        self.old_y = self.rect.y
+
+        font = pygame.font.Font(None, 25)
+        if self.health == 0:
+            self.kill()
+        elif self.health > 0:
+            txt = font.render("boss health: " + str(self.health), True, WHITE)
+            screen.blit(txt, (60, 200))  
+
+    def attack(self):
+        pass  
 
 class MiniMap(pygame.sprite.Sprite):
     def __init__(self, colour, xc, yc):
