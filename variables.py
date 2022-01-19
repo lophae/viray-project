@@ -49,8 +49,6 @@ mapGridReset = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
-arraySpeed = [-1, 1]
-
 enemyCount = 1
 bossCount = 1
 
