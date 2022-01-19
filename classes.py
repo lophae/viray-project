@@ -221,7 +221,6 @@ class Boss2(pygame.sprite.Sprite):
         self.speed_y = bossArraySpeed[random.randint(0, 1)]
         self.health = 1
 
-
     def update(self):
         self.rect.x = self.rect.x + self.speed_x
         self.rect.y = self.rect.y + self.speed_y
