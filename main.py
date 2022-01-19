@@ -334,10 +334,19 @@ def enemySpawn():
 def bossSpawn():
     global enemyCount
     enemyCount = 1
-    b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
-    b.health = b.health + (level1rooms + 1)
-    all_sprites_list.add(b)
-    boss_group1.add(b)
+    randomBoss = random.randint(2,2)
+
+    if randomBoss == 1:
+        b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
+        b.health = b.health + (level1rooms + 1)
+        all_sprites_list.add(b)
+        boss_group1.add(b)
+    if randomBoss == 2:
+        b = Boss2(BROWN)
+        b.health = b.health + (level1rooms + 1)
+        all_sprites_list.add(b)
+        boss_group1.add(b)
+
     doorClose()
 
 def deleteWall():
