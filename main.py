@@ -24,6 +24,8 @@ enemybullet_group = pygame.sprite.Group()
 
 enemy_group1 = pygame.sprite.Group()
 boss_group1 = pygame.sprite.Group()
+boss_group2 = pygame.sprite.Group()
+boss_group3 = pygame.sprite.Group()
 
 wall_groupRight = pygame.sprite.Group()
 wall_groupLeft = pygame.sprite.Group()
@@ -345,11 +347,16 @@ def bossSpawn():
         b = Boss2(BROWN)
         b.health = b.health + (level1rooms + 1)
         all_sprites_list.add(b)
-        boss_group1.add(b)
+        boss_group2.add(b)
         b2 = Boss2(BROWN)
         b2.health = b2.health + (level1rooms + 1)
         all_sprites_list.add(b2)
-        boss_group1.add(b2)
+        boss_group2.add(b2)
+    if randomBoss == 3:
+        b = Boss3(YELLOW)
+        b.health = b.health + (level1rooms + 1)
+        all_sprites_list.add(b)
+        boss_group3.add(b)
 
     doorClose()
 
@@ -767,6 +774,16 @@ def game():
                 for x in boss_group1:
                     x.health = x.health - player.damage
 
+            bossBulletCollide2 = pygame.sprite.groupcollide(bullet_group, boss_group2, True, False)
+            for foo in bossBulletCollide2:
+                for x in boss_group2:
+                    x.health = x.health - player.damage
+            
+            bossBulletCollide3 = pygame.sprite.groupcollide(bullet_group, boss_group3, True, False)
+            for foo in bossBulletCollide3:
+                for x in boss_group3:
+                    x.health = x.health - player.damage
+
             # -- DOOR OPEN WHEN ENEMY COUNT == 0
             if enemyCount == 0:
                 for all in doorclose_group:
@@ -779,6 +796,35 @@ def game():
 
             # -- DOOR OPEN AND TELEPORTER WHEN BOSS DIES
             for all in boss_group1:
+                if all.health <= 0:
+                    coins += 5
+                    score += 3
+                    if player.health == player.healthMax:
+                        score += 4
+                    abilitiesBoss()
+
+                    t = Teleporter()
+                    all_sprites_list.add(t)
+                    teleporter_group.add(t)
+                    for all in doorclose_group:
+                        all.delete()
+            
+            for all in boss_group2:
+                if all.health <= 0:
+                    coins += 5
+                    score += 3
+                    if player.health == player.healthMax:
+                        score += 4
+                    abilitiesBoss()
+
+                    t = Teleporter()
+                    all_sprites_list.add(t)
+                    teleporter_group.add(t)
+                    for all in doorclose_group:
+                        all.delete()
+                    break 
+
+            for all in boss_group3:
                 if all.health <= 0:
                     coins += 5
                     score += 3
@@ -824,6 +870,18 @@ def game():
                 
                 player_hitB = pygame.sprite.spritecollide(player, boss_group1, False)
                 for foo in player_hitB:
+                    collision_immune = True
+                    collision_det = True
+                    player.health -= 1
+
+                player_hitB2 = pygame.sprite.spritecollide(player, boss_group2, False)
+                for foo in player_hitB2:
+                    collision_immune = True
+                    collision_det = True
+                    player.health -= 1
+                
+                player_hitB3 = pygame.sprite.spritecollide(player, boss_group3, False)
+                for foo in player_hitB3:
                     collision_immune = True
                     collision_det = True
                     player.health -= 1
