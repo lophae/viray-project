@@ -8,7 +8,7 @@ door_group = pygame.sprite.Group()
 doorclose_group = pygame.sprite.Group()
 
 arraySpeed = [-1, 1] # for basic enemies
-bossArraySpeed = [-4, 4] # for boss type 2
+bossArraySpeed = [-3, 3] # for boss type 2
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour):
@@ -186,7 +186,7 @@ class Boss1(pygame.sprite.Sprite):
         angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
         self.dx = math.cos(angle) * 3
         self.dy = math.sin(angle) * 3
-        self.health = 1
+        self.health = 12
 
     def attack(self):
         self.x = self.x + self.dx
@@ -256,6 +256,29 @@ class Boss2(pygame.sprite.Sprite):
 
     def attack(self):
         pass  
+
+class Boss3(pygame.sprite.Sprite):
+    def __init__(self, colour):
+        super().__init__()
+        self.image = pygame.Surface([65, 65])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = 640
+        self.rect.y = 360
+        self.health = 1
+
+    def update(self):
+        randomT = random.randint(1,100)
+        if randomT == 50:
+            self.rect.x = random.randrange(200, 1080)
+            self.rect.y = random.randrange(200, 580)
+
+        font = pygame.font.Font(None, 25)
+        if self.health == 0:
+            self.kill()
+        elif self.health > 0:
+            txt = font.render("boss health: " + str(self.health), True, WHITE)
+            screen.blit(txt, (60, 200))  
 
 class MiniMap(pygame.sprite.Sprite):
     def __init__(self, colour, xc, yc):
