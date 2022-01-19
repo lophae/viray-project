@@ -336,7 +336,7 @@ def enemySpawn():
 def bossSpawn():
     global enemyCount
     enemyCount = 1
-    randomBoss = random.randint(2,2)
+    randomBoss = random.randint(3,3)
 
     if randomBoss == 1:
         b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
@@ -530,6 +530,16 @@ def bossAttack1():
             foo.stop(player.rect.y, player.rect.x)
         for y in bossWall2:
             foo.stop(player.rect.y, player.rect.x)
+
+def bossAttack3():
+    randomShoot = random.randint(1,100)
+    if randomShoot == 100:
+        for foo in boss_group3:
+            x = foo.rect.centerx
+            y = foo.rect.centery
+            eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
+            enemybullet_group.add(eb)
+            all_sprites_list.add(eb)
     
 def miniMap(direction):
     global minimapx, minimapy
@@ -1003,6 +1013,7 @@ def game():
             # -- ENEMY attack
             enemyShoot()
             bossAttack1()
+            bossAttack3()
 
             # -- #
             screen.fill(BLACK)
