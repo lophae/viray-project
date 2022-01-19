@@ -346,6 +346,10 @@ def bossSpawn():
         b.health = b.health + (level1rooms + 1)
         all_sprites_list.add(b)
         boss_group1.add(b)
+        b2 = Boss2(BROWN)
+        b2.health = b2.health + (level1rooms + 1)
+        all_sprites_list.add(b2)
+        boss_group1.add(b2)
 
     doorClose()
 
