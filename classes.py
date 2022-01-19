@@ -219,7 +219,7 @@ class Boss2(pygame.sprite.Sprite):
         self.rect.y = 360
         self.speed_x = bossArraySpeed[random.randint(0, 1)]
         self.speed_y = bossArraySpeed[random.randint(0, 1)]
-        self.health = 1
+        self.health = 10
 
     def update(self):
         self.rect.x = self.rect.x + self.speed_x
@@ -265,10 +265,10 @@ class Boss3(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 640
         self.rect.y = 360
-        self.health = 1
+        self.health = 8
 
     def update(self):
-        randomT = random.randint(1,100)
+        randomT = random.randint(1,150)
         if randomT == 50:
             self.rect.x = random.randrange(200, 1080)
             self.rect.y = random.randrange(200, 580)
