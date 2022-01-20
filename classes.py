@@ -160,10 +160,8 @@ class Enemy2(pygame.sprite.Sprite):
         self.image = pygame.Surface([30, 30])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = 640
+        self.rect.x = random.randint(440, 880)
         self.rect.y = 360
-        self.speed_x = arraySpeed[random.randint(0, 1)]
-        self.speed_y = arraySpeed[random.randint(0, 1)]
         self.move = move
 
     def update(self):
@@ -172,9 +170,9 @@ class Enemy2(pygame.sprite.Sprite):
         if self.move == 2:
             self.rect.x -= 2
 
-        if self.rect.x == 80:
+        if self.rect.x < 80:
             self.move = 1
-        if self.rect.x == 1200:
+        if self.rect.x > 1200:
             self.move = 2
 
     def delete(self):
