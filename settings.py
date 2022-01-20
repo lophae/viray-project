@@ -9,6 +9,7 @@ BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 PURPLE = (255, 0, 255)
 BROWN = (165, 42, 42)
+LIGHTBLUE = (173, 216, 230)
 
 # screen
 size = (1664, 720)
