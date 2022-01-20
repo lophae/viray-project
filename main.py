@@ -23,6 +23,7 @@ bullet_group = pygame.sprite.Group()
 enemybullet_group = pygame.sprite.Group()
 
 enemy_group1 = pygame.sprite.Group()
+enemy_group2 = pygame.sprite.Group()
 boss_group1 = pygame.sprite.Group()
 boss_group2 = pygame.sprite.Group()
 boss_group3 = pygame.sprite.Group()
@@ -329,9 +330,15 @@ def enemySpawn():
     global enemyCount
     enemyCount = random.randint(1,3)
     for foo in range(enemyCount):
-        e = Enemy1(PURPLE)
-        all_sprites_list.add(e)
-        enemy_group1.add(e)
+        randomNum = random.randint(2,2)
+        if randomNum == 1:
+            e = Enemy1(PURPLE)
+            all_sprites_list.add(e)
+            enemy_group1.add(e)
+        if randomNum == 2:
+            e = Enemy2(BROWN, random.randint(1,2))
+            all_sprites_list.add(e)
+            enemy_group2.add(e)
 
 def bossSpawn():
     global enemyCount
@@ -763,6 +770,11 @@ def game():
             for foo in enemyBulletCollide:
                 enemyCount -= 1
                 coins += 1
+            
+            enemyBulletCollide2 = pygame.sprite.groupcollide(bullet_group, enemy_group2, True, True)
+            for foo in enemyBulletCollide2:
+                enemyCount -= 1
+                coins += 1
 
             # -- PLAYER DAMAGE
             if player.doubleDam == True and player.passive == True:
@@ -902,6 +914,13 @@ def game():
                     collision_det = True
                     player.health -= 1
                     enemyCount -= 1
+                
+                player_hitE2 = pygame.sprite.spritecollide(player, enemy_group2, True)
+                for foo in player_hitE2:
+                    collision_immune = True
+                    collision_det = True
+                    player.health -= 1
+                    enemyCount -= 1
             
             if (pygame.time.get_ticks() - collision_time) > 1500:
                 collision_immune = False
@@ -931,6 +950,8 @@ def game():
                     doorClose()
                     for foo in enemy_group1:
                         foo.delete()
+                    for foo in enemy_group2:
+                        foo.delete()
                     enemySpawn()
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
@@ -951,6 +972,8 @@ def game():
                 if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                     doorClose()
                     for foo in enemy_group1:
+                        foo.delete()
+                    for foo in enemy_group2:
                         foo.delete()
                     enemySpawn()
                 elif mapGrid[mapx][mapy] == 2:
@@ -974,6 +997,8 @@ def game():
                     doorClose()
                     for foo in enemy_group1:
                         foo.delete()
+                    for foo in enemy_group2:
+                        foo.delete()
                     enemySpawn() 
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
@@ -995,6 +1020,8 @@ def game():
                 if mapGrid[mapx][mapy] != 3 and mapGrid[mapx][mapy] != 2:
                     doorClose()
                     for foo in enemy_group1:
+                        foo.delete()
+                    for foo in enemy_group2:
                         foo.delete()
                     enemySpawn()    
                 elif mapGrid[mapx][mapy] == 2:
