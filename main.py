@@ -348,7 +348,7 @@ def enemySpawn():
         all_sprites_list.add(e)
         enemy_group3.add(e)
         enemyCount += 1
-        
+
     print(enemyCount)
 
 def bossSpawn():
@@ -539,7 +539,7 @@ def enemyShoot():
                 enemybullet_group.add(eb)
                 all_sprites_list.add(eb)
 
-    randomShoot = random.randint(1,100)
+    randomShoot = random.randint(1,150)
     if randomShoot == 100:
         for foo in enemy_group2:
             x = foo.rect.centerx
@@ -548,7 +548,7 @@ def enemyShoot():
             enemybullet_group.add(eb)
             all_sprites_list.add(eb)
     
-    randomShoot2 = random.randint(1,85)
+    randomShoot2 = random.randint(1,100)
     if randomShoot == 85:
         for foo in enemy_group3:
             x = foo.rect.centerx
