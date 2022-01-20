@@ -157,7 +157,7 @@ class Enemy1(pygame.sprite.Sprite):
 class Enemy2(pygame.sprite.Sprite):
     def __init__(self, colour, move):
         super().__init__()
-        self.image = pygame.Surface([30, 30])
+        self.image = pygame.Surface([30,30])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(440, 880)
@@ -177,6 +177,24 @@ class Enemy2(pygame.sprite.Sprite):
 
     def delete(self):
         self.kill()
+
+class Enemy3(pygame.sprite.Sprite):
+    def __init__(self, colour):
+        super().__init__()
+        self.image = pygame.Surface([35,35])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = random.choice([60,1180])
+        self.rect.y = random.choice([60,620])
+    
+    def update(self):
+        randomT = random.randint(1,100)
+        if randomT == 50:
+            self.rect.x = random.choice([60, 1180])
+            self.rect.y = random.choice([60, 620])
+
+    def delete(self):
+        self.kill
 
 class Boss1(pygame.sprite.Sprite):
     def __init__(self, colour, targety, targetx):
