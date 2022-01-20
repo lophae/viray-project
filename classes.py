@@ -155,18 +155,27 @@ class Enemy1(pygame.sprite.Sprite):
         self.kill()
 
 class Enemy2(pygame.sprite.Sprite):
-    def __init__(self, colour):
+    def __init__(self, colour, move):
         super().__init__()
         self.image = pygame.Surface([30, 30])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(600,680)
-        self.rect.y = random.randint(320,400)
+        self.rect.x = 640
+        self.rect.y = 360
         self.speed_x = arraySpeed[random.randint(0, 1)]
         self.speed_y = arraySpeed[random.randint(0, 1)]
+        self.move = move
 
     def update(self):
-        pass
+        if self.move == 1:
+            self.rect.x += 2
+        if self.move == 2:
+            self.rect.x -= 2
+
+        if self.rect.x == 80:
+            self.move = 1
+        if self.rect.x == 1200:
+            self.move = 2
 
     def delete(self):
         self.kill()
