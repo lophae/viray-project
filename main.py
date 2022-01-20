@@ -343,7 +343,7 @@ def enemySpawn():
 def bossSpawn():
     global enemyCount
     enemyCount = 1
-    randomBoss = random.randint(3,3)
+    randomBoss = random.randint(1,3)
 
     if randomBoss == 1:
         b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
