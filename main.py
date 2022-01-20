@@ -527,6 +527,14 @@ def enemyShoot():
                 eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
                 enemybullet_group.add(eb)
                 all_sprites_list.add(eb)
+    randomShoot = random.randint(1,100)
+    if randomShoot == 100:
+        for foo in enemy_group2:
+            x = foo.rect.centerx
+            y = foo.rect.centery
+            eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
+            enemybullet_group.add(eb)
+            all_sprites_list.add(eb)
 
 def bossAttack1():
     bossWall = pygame.sprite.groupcollide(boss_group1, wall_group, False, False)
