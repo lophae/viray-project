@@ -24,6 +24,7 @@ enemybullet_group = pygame.sprite.Group()
 
 enemy_group1 = pygame.sprite.Group()
 enemy_group2 = pygame.sprite.Group()
+enemy_group3 = pygame.sprite.Group()
 boss_group1 = pygame.sprite.Group()
 boss_group2 = pygame.sprite.Group()
 boss_group3 = pygame.sprite.Group()
@@ -329,6 +330,7 @@ def mapDoors():
 def enemySpawn():
     global enemyCount
     enemyCount = random.randint(1,4)
+
     for foo in range(enemyCount):
         randomNum = random.randint(1,2)
         if randomNum == 1:
@@ -339,6 +341,15 @@ def enemySpawn():
             e = Enemy2(BROWN, random.randint(1,2))
             all_sprites_list.add(e)
             enemy_group2.add(e)
+
+    randomEnemy3 = random.randint(1,1)
+    if randomEnemy3 == 1:
+        e = Enemy3(LIGHTBLUE)
+        all_sprites_list.add(e)
+        enemy_group3.add(e)
+        enemyCount += 1
+        
+    print(enemyCount)
 
 def bossSpawn():
     global enemyCount
@@ -527,9 +538,19 @@ def enemyShoot():
                 eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
                 enemybullet_group.add(eb)
                 all_sprites_list.add(eb)
+
     randomShoot = random.randint(1,100)
     if randomShoot == 100:
         for foo in enemy_group2:
+            x = foo.rect.centerx
+            y = foo.rect.centery
+            eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
+            enemybullet_group.add(eb)
+            all_sprites_list.add(eb)
+    
+    randomShoot2 = random.randint(1,85)
+    if randomShoot == 85:
+        for foo in enemy_group3:
             x = foo.rect.centerx
             y = foo.rect.centery
             eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
@@ -784,6 +805,11 @@ def game():
                 enemyCount -= 1
                 coins += 1
 
+            enemyBulletCollide3 = pygame.sprite.groupcollide(bullet_group, enemy_group3, True, True)
+            for foo in enemyBulletCollide3:
+                enemyCount -= 1
+                coins += 1
+
             # -- PLAYER DAMAGE
             if player.doubleDam == True and player.passive == True:
                 if player.health == 1:
@@ -929,6 +955,13 @@ def game():
                     collision_det = True
                     player.health -= 1
                     enemyCount -= 1
+                
+                player_hitE3 = pygame.sprite.spritecollide(player, enemy_group3, True)
+                for foo in player_hitE3:
+                    collision_immune = True
+                    collision_det = True
+                    player.health -= 1
+                    enemyCount -= 1
             
             if (pygame.time.get_ticks() - collision_time) > 1500:
                 collision_immune = False
@@ -960,6 +993,8 @@ def game():
                         foo.delete()
                     for foo in enemy_group2:
                         foo.delete()
+                    for foo in enemy_group3:
+                        foo.delete()
                     enemySpawn()
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
@@ -982,6 +1017,8 @@ def game():
                     for foo in enemy_group1:
                         foo.delete()
                     for foo in enemy_group2:
+                        foo.delete()
+                    for foo in enemy_group3:
                         foo.delete()
                     enemySpawn()
                 elif mapGrid[mapx][mapy] == 2:
@@ -1007,6 +1044,8 @@ def game():
                         foo.delete()
                     for foo in enemy_group2:
                         foo.delete()
+                    for foo in enemy_group3:
+                        foo.delete()
                     enemySpawn() 
                 elif mapGrid[mapx][mapy] == 2:
                     bossSpawn()
@@ -1030,6 +1069,8 @@ def game():
                     for foo in enemy_group1:
                         foo.delete()
                     for foo in enemy_group2:
+                        foo.delete()
+                    for foo in enemy_group3:
                         foo.delete()
                     enemySpawn()    
                 elif mapGrid[mapx][mapy] == 2:
