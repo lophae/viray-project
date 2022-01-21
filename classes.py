@@ -188,7 +188,7 @@ class Enemy3(pygame.sprite.Sprite):
         self.rect.y = random.choice([60,620])
     
     def update(self):
-        randomT = random.randint(1,100)
+        randomT = random.randint(1,95)
         if randomT == 50:
             self.rect.x = random.choice([60, 1180])
             self.rect.y = random.choice([60, 620])
