@@ -13,7 +13,7 @@ LIGHTBLUE = (173, 216, 230)
 
 # screen
 size = (1664, 720)
-screen = pygame.display.set_mode((size)) #, pygame.FULLSCREEN)
+screen = pygame.display.set_mode((size) , pygame.FULLSCREEN)
 pygame.display.set_caption("Test1")
 
 #other
