@@ -349,7 +349,7 @@ def enemySpawn():
         enemy_group3.add(e)
         enemyCount += 1
 
-    print(enemyCount)
+    #print(enemyCount)
 
 def bossSpawn():
     global enemyCount
