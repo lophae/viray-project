@@ -293,7 +293,7 @@ class Boss3(pygame.sprite.Sprite):
         self.health = 8
 
     def update(self):
-        randomT = random.randint(1,150)
+        randomT = random.randint(1,125)
         if randomT == 50:
             self.rect.x = random.randrange(200, 1080)
             self.rect.y = random.randrange(200, 580)
