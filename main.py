@@ -332,7 +332,7 @@ def enemySpawn():
     enemyCount = random.randint(1,4)
 
     for foo in range(enemyCount):
-        randomNum = random.randint(1,3)
+        randomNum = random.randint(1,2)
         if randomNum == 1:
             e = Enemy1(PURPLE)
             all_sprites_list.add(e)
@@ -342,7 +342,7 @@ def enemySpawn():
             all_sprites_list.add(e)
             enemy_group2.add(e)
 
-    randomEnemy3 = random.randint(1,1)
+    randomEnemy3 = random.randint(1,3)
     if randomEnemy3 == 1:
         e = Enemy3(LIGHTBLUE)
         all_sprites_list.add(e)
