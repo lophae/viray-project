@@ -1082,7 +1082,7 @@ def game():
             playerTeleport = pygame.sprite.spritecollide(player, teleporter_group, False)
             for foo in playerTeleport:
                 print("teleport")
-                score += 1
+                score += 2
                 teleport()
                 #print(mapGrid)
 
