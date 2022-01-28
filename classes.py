@@ -343,10 +343,11 @@ class MiniPlayer(pygame.sprite.Sprite):
         self.kill()
 
 class Chest(pygame.sprite.Sprite):
-    def __init__(self, colour):
+    def __init__(self):
         super().__init__()
+        chest_img = pygame.image.load("assets/chest_1.png")
         self.image = pygame.Surface([20,20])
-        self.image.fill(colour)
+        self.image.blit(chest_img,(0,0))
         self.rect = self.image.get_rect()
         self.rect.x = 630
         self.rect.y = 350
