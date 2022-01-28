@@ -81,6 +81,19 @@ class Wall(pygame.sprite.Sprite):
     def delete(self):
         self.kill()
 
+class Wall2(pygame.sprite.Sprite):
+    def __init__(self, width, height, posx, posy):
+        super().__init__()
+        wall_img = pygame.image.load("assets/wall.png")
+        self.image = pygame.Surface([width, height])
+        self.image.blit(wall_img,(0,0))
+        self.rect = self.image.get_rect()
+        self.rect.x = posx
+        self.rect.y = posy
+
+    def delete(self):
+        self.kill()
+
 class Teleporter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
