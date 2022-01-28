@@ -612,9 +612,9 @@ def miniMap(direction):
 
 def createChest():
     global chestA
-    chance = random.randint(1,2)
+    chance = random.randint(1,1)
     if chance == 1:
-        c = Chest(BROWN)
+        c = Chest()
         all_sprites_list.add(c)
         chest_group.add(c)
     chestA = False
