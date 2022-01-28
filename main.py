@@ -51,7 +51,7 @@ def spawnRoom():
     for row in blankMap:
         for col in row:
             if col == 1:
-                w = Wall(RED, 40, 40, x, y)
+                w = Wall2(40, 40, x, y)
                 all_sprites_list.add(w)
                 wall_group.add(w)
             x = x + 40
@@ -194,7 +194,7 @@ def mapCreate():
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
-                        w = Wall(BLUE, 40, 40, x, y)
+                        w = Wall2(40, 40, x, y)
                         all_sprites_list.add(w)
                         wall_group.add(w)
                     x = x + 40
@@ -215,7 +215,7 @@ def mapCreate():
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
-                        w = Wall(YELLOW, 40, 40, x, y) 
+                        w = Wall2(40, 40, x, y) 
                         all_sprites_list.add(w)
                         wall_group.add(w)
                     x = x + 40
@@ -236,7 +236,7 @@ def mapCreate():
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
-                        w = Wall(GREEN, 40, 40, x, y)
+                        w = Wall2(40, 40, x, y)
                         all_sprites_list.add(w)
                         wall_group.add(w)
                     x = x + 40
@@ -256,7 +256,7 @@ def mapCreate():
             for row in myRooms[randomRoom]:
                 for col in row:
                     if col == 1:
-                        w = Wall(WHITE, 40, 40, x, y)
+                        w = Wall2(40, 40, x, y)
                         all_sprites_list.add(w)
                         wall_group.add(w)
                     x = x + 40
