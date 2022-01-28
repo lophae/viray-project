@@ -97,8 +97,9 @@ class Wall2(pygame.sprite.Sprite):
 class Teleporter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        tp_img = pygame.image.load("assets/teleporter.png")
         self.image = pygame.Surface([40,40])
-        self.image.fill(YELLOW)
+        self.image.blit(tp_img,(0,0))
         self.rect = self.image.get_rect()
         self.rect.x = 620
         self.rect.y = 340
@@ -222,8 +223,8 @@ class Boss1(pygame.sprite.Sprite):
         self.target_x = targetx
         self.target_y = targety
         angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
-        self.dx = math.cos(angle) * 3
-        self.dy = math.sin(angle) * 3
+        self.dx = math.cos(angle) * 4
+        self.dy = math.sin(angle) * 4
         self.health = 12
 
     def attack(self):
@@ -236,8 +237,8 @@ class Boss1(pygame.sprite.Sprite):
         angle = math.atan2(targety-self.rect.y, targetx-self.rect.x)
         self.dx = 0
         self.dy = 0
-        self.dx = math.cos(angle) * 3
-        self.dy = math.sin(angle) * 3
+        self.dx = math.cos(angle) * 4
+        self.dy = math.sin(angle) * 4
     
     def update(self):
         font = pygame.font.Font(None, 25)
