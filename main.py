@@ -612,7 +612,7 @@ def miniMap(direction):
 
 def createChest():
     global chestA
-    chance = random.randint(1,1)
+    chance = random.randint(1,2)
     if chance == 1:
         c = Chest()
         all_sprites_list.add(c)
