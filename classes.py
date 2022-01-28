@@ -174,7 +174,7 @@ class Enemy2(pygame.sprite.Sprite):
         self.image = pygame.Surface([30,30])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(440, 880)
+        self.rect.x = random.randint(340, 980)
         self.rect.y = 360
         self.move = move
 
@@ -202,7 +202,7 @@ class Enemy3(pygame.sprite.Sprite):
         self.rect.y = random.choice([60,620])
     
     def update(self):
-        randomT = random.randint(1,95)
+        randomT = random.randint(1,125)
         if randomT == 50:
             self.rect.x = random.choice([60, 1180])
             self.rect.y = random.choice([60, 620])
