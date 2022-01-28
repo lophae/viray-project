@@ -90,7 +90,7 @@ def mapCreate():
     
     while z != level1rooms:
         randomNum = random.randint(1, 4)
-        randomRoom = random.randint(0, 2)
+        randomRoom = random.randint(0, 4)
 
         # no overlapping
         if mapGrid[originalx][originaly + 1] == 1 and mapGrid[originalx][originaly - 1] == 1 and mapGrid[originalx - 1][originaly] == 1 and mapGrid[originalx + 1][originaly] == 1:
@@ -189,7 +189,7 @@ def mapCreate():
             originaly += 1
             mapGrid[originalx][originaly] = 1
             if z == level1rooms - 1:
-                randomRoom = 3
+                randomRoom = 5
                 mapGrid[originalx][originaly] = 2
             for row in myRooms[randomRoom]:
                 for col in row:
@@ -210,7 +210,7 @@ def mapCreate():
             originaly -= 1
             mapGrid[originalx][originaly] = 1
             if z == level1rooms - 1:
-                randomRoom = 3
+                randomRoom = 5
                 mapGrid[originalx][originaly] = 2
             for row in myRooms[randomRoom]:
                 for col in row:
@@ -231,7 +231,7 @@ def mapCreate():
             originalx -= 1
             mapGrid[originalx][originaly] = 1
             if z == level1rooms - 1:
-                randomRoom = 3
+                randomRoom = 5
                 mapGrid[originalx][originaly] = 2
             for row in myRooms[randomRoom]:
                 for col in row:
@@ -251,7 +251,7 @@ def mapCreate():
             originalx += 1
             mapGrid[originalx][originaly] = 1
             if z == level1rooms - 1:
-                randomRoom = 3
+                randomRoom = 5
                 mapGrid[originalx][originaly] = 2
             for row in myRooms[randomRoom]:
                 for col in row:
