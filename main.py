@@ -576,6 +576,12 @@ def bossAttack3():
             eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
             enemybullet_group.add(eb)
             all_sprites_list.add(eb)
+        for foo in boss_group1:
+            x = foo.rect.centerx
+            y = foo.rect.centery
+            eb = enemyBullet(x, y, player.rect.centerx, player.rect.centery)
+            enemybullet_group.add(eb)
+            all_sprites_list.add(eb)
     
 def miniMap(direction):
     global minimapx, minimapy
