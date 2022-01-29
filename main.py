@@ -737,7 +737,7 @@ def game():
                 teleportCollide = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 3 and player.teleportCount > 0: # right click
-                        for wall in all_sprites_list: #wall_group:
+                        for wall in all_sprites_list: 
                             if wall.rect.collidepoint(event.pos):
                                 teleportCollide = True
                         if teleportCollide == False:
@@ -904,7 +904,6 @@ def game():
             # -- PLAYER WALL COLLISION 
             player_hit = pygame.sprite.spritecollide(player, wall_group, False)
             for foo in player_hit:
-                #player.move(0, 0)
                 player.rect.x = player_old_x
                 player.rect.y = player_old_y
                 
