@@ -627,6 +627,7 @@ def createChest():
 
 def abilities(): # from room chests
     global coins
+    tempCoins = coins
     randomAbility = random.randint(1,8)
     coins = coins - 5
     if randomAbility == 1: # +1 to max health
@@ -645,8 +646,8 @@ def abilities(): # from room chests
     if randomAbility == 7 or randomAbility == 8:
         player.staminaMax += 50 # increase to stamina
     
-    if coins < 0: # bug fix
-        coins = 0
+    if tempCoins - 10 == coins: # bug fix
+        coins = coins + 5
 
 def abilitiesBoss(): # from boss drops
     global bulletSpeed
