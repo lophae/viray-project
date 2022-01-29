@@ -549,7 +549,7 @@ def enemyShoot():
             all_sprites_list.add(eb)
     
     randomShoot2 = random.randint(1,100)
-    if randomShoot == 85:
+    if randomShoot2 == 85:
         for foo in enemy_group3:
             x = foo.rect.centerx
             y = foo.rect.centery
