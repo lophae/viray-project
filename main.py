@@ -669,7 +669,6 @@ def abilitiesBoss(): # from boss drops
             player.reloadItem = True
             player.reloadItemCount += 1
             player.reloadTime -= 500
-            print(player.reloadTime)
         else:
             abilitiesBoss()
     
