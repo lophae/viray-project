@@ -1193,6 +1193,9 @@ def mainMenu():
     quittxt = font.render("[quit]", True, BLACK)
     buttonStart = pygame.Rect(100, 300, 400, 100)
     buttonQuit = pygame.Rect(100, 550, 400, 100)
+    controlstxt = font.render("[movement] - wasd", True, WHITE)
+    controlstxt2 = font.render("[sprint] - shift", True, WHITE)
+    controlstxt3 = font.render("[shoot] - mouse", True, WHITE)
 
     while menu is True:
         for event in pygame.event.get():
@@ -1223,6 +1226,9 @@ def mainMenu():
         screen.blit(starttxt, (100, 310))
         screen.blit(quittxt, (100, 560))
         screen.blit(txt, (100, 100))
+        screen.blit(controlstxt, (800, 100))
+        screen.blit(controlstxt2, (800, 300))
+        screen.blit(controlstxt3, (800, 500))
         pygame.display.flip()
         clock.tick(240)
 
