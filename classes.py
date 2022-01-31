@@ -134,7 +134,7 @@ class Enemy1(pygame.sprite.Sprite):
         self.image = pygame.Surface([30, 30])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(600,680)
+        self.rect.x = random.randint(560,680)
         self.rect.y = random.randint(320,400)
         self.speed_x = arraySpeed[random.randint(0, 1)]
         self.speed_y = arraySpeed[random.randint(0, 1)]
