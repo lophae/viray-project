@@ -25,8 +25,8 @@ class Player(pygame.sprite.Sprite):
         self.stamina = 300
         self.staminaMax = 300
 
-        self.reloadItem = False
-        self.reloadItemCount = 0
+        self.reloadItem = False # attributes for upgrades / abilities
+        self.reloadItemCount = 0 
         self.reloadTime = 3500
 
         self.teleport = False
@@ -41,11 +41,11 @@ class Player(pygame.sprite.Sprite):
         self.doubleDam = False
         self.damage = 1
         
-    def move(self, x_val, y_val):
+    def move(self, x_val, y_val): # method for moving the player
         self.rect.x += x_val 
         self.rect.y += y_val
 
-    def delete(self):
+    def delete(self): # method to remove the sprite
         self.kill()
 
 class Bullet(pygame.sprite.Sprite):
@@ -60,16 +60,16 @@ class Bullet(pygame.sprite.Sprite):
         self.x = posx
         self.y = posy
     
-    def move(self):
+    def move(self): # method to automatically move the bullet sprite across the screen
         self.x = self.x + self.dx
         self.y = self.y + self.dy
         self.rect.x = int(self.x) - 5
         self.rect.y = int(self.y) - 5
 
-    def delete(self):
+    def delete(self): # method to remove the sprite
         self.kill()
 
-class Wall(pygame.sprite.Sprite):
+class Wall(pygame.sprite.Sprite): # sprite used for the door openings 
     def __init__(self, colour, width, height, posx, posy):
         super().__init__()
         self.image = pygame.Surface([width, height])
@@ -78,33 +78,33 @@ class Wall(pygame.sprite.Sprite):
         self.rect.x = posx
         self.rect.y = posy
 
-    def delete(self):
+    def delete(self): # method to remove the sprite
         self.kill()
 
-class Wall2(pygame.sprite.Sprite):
+class Wall2(pygame.sprite.Sprite): # sprite for the walls of the room
     def __init__(self, width, height, posx, posy):
         super().__init__()
-        wall_img = pygame.image.load("assets/wall.png")
+        wall_img = pygame.image.load("assets/wall.png") # using imported image
         self.image = pygame.Surface([width, height])
         self.image.blit(wall_img,(0,0))
         self.rect = self.image.get_rect()
         self.rect.x = posx
         self.rect.y = posy
 
-    def delete(self):
+    def delete(self): # method to remove the sprite
         self.kill()
 
-class Teleporter(pygame.sprite.Sprite):
+class Teleporter(pygame.sprite.Sprite): 
     def __init__(self):
         super().__init__()
-        tp_img = pygame.image.load("assets/teleporter.png")
+        tp_img = pygame.image.load("assets/teleporter.png") # using imported image
         self.image = pygame.Surface([40,40])
         self.image.blit(tp_img,(0,0))
         self.rect = self.image.get_rect()
         self.rect.x = 620
         self.rect.y = 340
     
-    def delete(self):
+    def delete(self): # method to remove the sprite
         self.kill()
 
 class enemyBullet(pygame.sprite.Sprite):
@@ -113,19 +113,19 @@ class enemyBullet(pygame.sprite.Sprite):
         self.image = pygame.Surface([10, 10])
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
-        angle = math.atan2(targety-posy, targetx-posx) 
+        angle = math.atan2(targety-posy, targetx-posx) # get angle to target in radians
         self.dx = math.cos(angle) * 1.5
         self.dy = math.sin(angle) * 1.5
         self.x = posx
         self.y = posy
 
-    def update(self):
+    def update(self): # method to automatically move bullet sprite 
         self.x = self.x + self.dx
         self.y = self.y + self.dy
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
 
-    def delete(self):
+    def delete(self): # get angle to target in radians
         self.kill() 
 
 class Enemy1(pygame.sprite.Sprite):
@@ -136,16 +136,17 @@ class Enemy1(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(560,680)
         self.rect.y = random.randint(320,400)
-        self.speed_x = arraySpeed[random.randint(0, 1)]
+        self.speed_x = arraySpeed[random.randint(0, 1)] # randomised direction of the sprite
         self.speed_y = arraySpeed[random.randint(0, 1)]
     
-    def update(self):
+    def update(self): # update method that controls the automatic movement of enemy sprites
         self.rect.x = self.rect.x + self.speed_x
         self.rect.y = self.rect.y + self.speed_y
         enemyWall = pygame.sprite.spritecollide(self, wall_group, False)
         enemyDoor = pygame.sprite.spritecollide(self, door_group, False)
         enemycloseDoor = pygame.sprite.spritecollide(self, doorclose_group, False)
 
+        # checking for collisions with different sprites
         for foo in enemyWall:
             self.speed_x = arraySpeed[random.randint(0, 1)]
             self.speed_y = arraySpeed[random.randint(0, 1)]
@@ -165,7 +166,7 @@ class Enemy1(pygame.sprite.Sprite):
         self.old_x = self.rect.x
         self.old_y = self.rect.y
         
-    def delete(self):
+    def delete(self): # method to remove sprite
         self.kill()
 
 class Enemy2(pygame.sprite.Sprite):
@@ -178,7 +179,8 @@ class Enemy2(pygame.sprite.Sprite):
         self.rect.y = 360
         self.move = move
 
-    def update(self):
+    def update(self): # method to move this enemy sprite back and forth, at a 
+                      # consistent speed
         if self.move == 1:
             self.rect.x += 2
         if self.move == 2:
@@ -201,7 +203,8 @@ class Enemy3(pygame.sprite.Sprite):
         self.rect.x = random.choice([60,1180])
         self.rect.y = random.choice([60,620])
     
-    def update(self):
+    def update(self): # method to randomly teleport this enemy sprite across the corners
+                      # of the room
         randomT = random.randint(1,125)
         if randomT == 50:
             self.rect.x = random.choice([60, 1180])
@@ -222,25 +225,25 @@ class Boss1(pygame.sprite.Sprite):
         self.y = 300
         self.target_x = targetx
         self.target_y = targety
-        angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x)
+        angle = math.atan2(self.target_y-self.rect.y, self.target_x-self.rect.x) # get angle to target in radians
         self.dx = math.cos(angle) * 4
         self.dy = math.sin(angle) * 4
         self.health = 12
 
-    def attack(self):
+    def attack(self): # boss sprite is moved towards the location of the target
         self.x = self.x + self.dx
         self.y = self.y + self.dy
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
     
-    def stop(self, targety, targetx):
+    def stop(self, targety, targetx): # this method is called whenever the boss hits a wall
         angle = math.atan2(targety-self.rect.y, targetx-self.rect.x)
         self.dx = 0
         self.dy = 0
         self.dx = math.cos(angle) * 4
         self.dy = math.sin(angle) * 4
     
-    def update(self):
+    def update(self): # checks the health of the boss
         font = pygame.font.Font(None, 25)
         if self.health == 0:
             self.kill()
@@ -256,10 +259,11 @@ class Boss2(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 640
         self.rect.y = 360
-        self.speed_x = bossArraySpeed[random.randint(0, 1)]
+        self.speed_x = bossArraySpeed[random.randint(0, 1)] # random direction chosen
         self.speed_y = bossArraySpeed[random.randint(0, 1)]
         self.health = 10
 
+    # update method that controls the automatic movement of enemy sprites
     def update(self):
         self.rect.x = self.rect.x + self.speed_x
         self.rect.y = self.rect.y + self.speed_y
@@ -267,7 +271,7 @@ class Boss2(pygame.sprite.Sprite):
         bossDoor = pygame.sprite.spritecollide(self, door_group, False)
         bosscloseDoor = pygame.sprite.spritecollide(self, doorclose_group, False)
 
-        for foo in bossWall:
+        for foo in bossWall: # checking for collisions with other sprites
             self.speed_x = bossArraySpeed[random.randint(0,1)]
             self.speed_y = bossArraySpeed[random.randint(0,1)]
             self.rect.x = self.old_x
@@ -292,10 +296,7 @@ class Boss2(pygame.sprite.Sprite):
         elif self.health > 0:
             txt = font.render("boss health: " + str(self.health), True, WHITE)
             screen.blit(txt, (60, 200))  
-
-    def attack(self):
-        pass  
-
+            
 class Boss3(pygame.sprite.Sprite):
     def __init__(self, colour):
         super().__init__()
@@ -306,8 +307,8 @@ class Boss3(pygame.sprite.Sprite):
         self.rect.y = 360
         self.health = 8
 
-    def update(self):
-        randomT = random.randint(1,125)
+    def update(self): # boss sprite is teleported randomly across the entire area of the room
+        randomT = random.randint(1,125) # The chance of the boss teleporting is 1/125
         if randomT == 50:
             self.rect.x = random.randrange(200, 1080)
             self.rect.y = random.randrange(200, 580)
@@ -346,7 +347,7 @@ class MiniPlayer(pygame.sprite.Sprite):
 class Chest(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        chest_img = pygame.image.load("assets/chest_1.png")
+        chest_img = pygame.image.load("assets/chest_1.png") # using imported image
         self.image = pygame.Surface([20,20])
         self.image.blit(chest_img,(0,0))
         self.rect = self.image.get_rect()
