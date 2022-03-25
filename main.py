@@ -8,12 +8,13 @@ from settings import *
 from variables import *
 pygame.init()
 
+# Timer for enemy fire rate
 pygame.time.set_timer(pygame.USEREVENT, enemyFirerate)
 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
-# -- sprite lists
+# -- sprite lists / groups
 all_sprites_list = pygame.sprite.Group()
 
 player = Player(WHITE)
@@ -41,6 +42,7 @@ mapP_group = pygame.sprite.Group()
 
 chest_group = pygame.sprite.Group()
 
+# initialising player sprite
 p = MiniPlayer(BLUE, 1470, 105)
 mapP_group.add(p)
 
