@@ -196,4 +196,4 @@ boss1 = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
-myRooms = [room1, room2, room3, room4, room5, boss1]
+myRooms = [room1, room2, room3, room4, room5, boss1] # array to store the pre set rooms
