@@ -91,10 +91,10 @@ def mapCreate():
     originaly = 13
     
     while z != level1rooms:
-        randomNum = random.randint(1, 4)
-        randomRoom = random.randint(0, 4)
+        randomNum = random.randint(1, 4) # random direction to draw room
+        randomRoom = random.randint(0, 4) # random pre-set room chosen
 
-        # no overlapping
+        # algorithm to prevent overlapping in the room locations
         if mapGrid[originalx][originaly + 1] == 1 and mapGrid[originalx][originaly - 1] == 1 and mapGrid[originalx - 1][originaly] == 1 and mapGrid[originalx + 1][originaly] == 1:
             z = level1rooms
         
@@ -279,7 +279,8 @@ def mapCreate():
                  
         z += 1
 
-def mapDoors():
+def mapDoors(): # checks for rooms surrounding current room, and placing 
+                # doors where there is no room adjacent
     x = 0
     y = 0
     if mapGrid[mapx][mapy + 1] == 0:
@@ -331,10 +332,10 @@ def mapDoors():
 
 def enemySpawn():
     global enemyCount
-    enemyCount = random.randint(1,4)
+    enemyCount = random.randint(1,4) # random number of enemies generated
 
     for foo in range(enemyCount):
-        randomNum = random.randint(1,2)
+        randomNum = random.randint(1,2) # random type of enemy
         if randomNum == 1:
             e = Enemy1(PURPLE)
             all_sprites_list.add(e)
@@ -344,20 +345,19 @@ def enemySpawn():
             all_sprites_list.add(e)
             enemy_group2.add(e)
 
-    randomEnemy3 = random.randint(1,3)
+    randomEnemy3 = random.randint(1,3) # another random type of enemy 
     if randomEnemy3 == 1:
         e = Enemy3(LIGHTBLUE)
         all_sprites_list.add(e)
         enemy_group3.add(e)
         enemyCount += 1
 
-    #print(enemyCount)
-
 def bossSpawn():
     global enemyCount
     enemyCount = 1
     randomBoss = random.randint(1,3)
 
+    # a random number is generated, which determines what type of boss will be spawned
     if randomBoss == 1:
         b = Boss1(PURPLE, player.rect.centery, player.rect.centerx)
         b.health = b.health + (level1rooms + 1)
@@ -378,9 +378,11 @@ def bossSpawn():
         all_sprites_list.add(b)
         boss_group3.add(b)
 
-    doorClose()
+    doorClose() # this is so that the player has to defeat the boss to 
+                # go back to different rooms
 
-def deleteWall():
+def deleteWall(): # this function clears out all sprites in the game, so
+                  # that a new level can be drawn when needed
     global mapGrid
 
     for foo in wall_group:
@@ -404,6 +406,7 @@ def deleteWall():
     for foo in chest_group:
         foo.delete()
     
+    # the previous mapGrid is wiped
     mapGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -452,7 +455,7 @@ def teleport():
     spawnRoom(), mapCreate(), mapDoors(), miniMap(0)
 
 
-def projectileCollision():
+def projectileCollision(): # function for all bullet collisions
     bulletWall = pygame.sprite.groupcollide(bullet_group, wall_group, True, False)
     bulletWall = pygame.sprite.groupcollide(bullet_group, door_group, True, False)
     bulletWall = pygame.sprite.groupcollide(bullet_group, wall_groupDown, True, False)
@@ -468,7 +471,7 @@ def projectileCollision():
     enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, wall_groupUp, True, False)
     enemybulletWall = pygame.sprite.groupcollide(enemybullet_group, doorclose_group, True, False)
 
-def doorClose():
+def doorClose(): # closes all the doors, used when the player enters a new room
     # right
     w = Wall(RED, 10, 240, 1240, 240)
     all_sprites_list.add(w)
@@ -489,7 +492,8 @@ def doorClose():
     all_sprites_list.add(w)
     doorclose_group.add(w)
 
-def spriteLocate(direction):
+def spriteLocate(direction): # a function used to move all sprites when the player moves
+                             # through a door
     if direction == 1:
         for foo in wall_group:
             foo.rect.x = foo.rect.x - 1280
@@ -531,9 +535,9 @@ def spriteLocate(direction):
             foo.delete()
 
 pygame.time.set_timer(pygame.USEREVENT, 150)
-def enemyShoot():
+def enemyShoot(): # a function that controls all the mechancics of the enemy's bullets
     for event in pygame.event.get():
-        if event.type == pygame.USEREVENT:
+        if event.type == pygame.USEREVENT: # a timer used to simulate fire rate
             for foo in enemy_group1:
                 x = foo.rect.centerx
                 y = foo.rect.centery
@@ -559,7 +563,7 @@ def enemyShoot():
             enemybullet_group.add(eb)
             all_sprites_list.add(eb)
 
-def bossAttack1():
+def bossAttack1(): # controls the attacking mechanism of the first boss type
     bossWall = pygame.sprite.groupcollide(boss_group1, wall_group, False, False)
     bossWall2 = pygame.sprite.groupcollide(boss_group1, doorclose_group, False, False)
     for foo in boss_group1:
@@ -569,7 +573,7 @@ def bossAttack1():
         for y in bossWall2:
             foo.stop(player.rect.y, player.rect.x)
 
-def bossAttack3():
+def bossAttack3(): # controls the shooting mechanism of the first and third boss type
     randomShoot = random.randint(1,100)
     if randomShoot == 100:
         for foo in boss_group3:
@@ -585,20 +589,20 @@ def bossAttack3():
             enemybullet_group.add(eb)
             all_sprites_list.add(eb)
     
-def miniMap(direction):
+def miniMap(direction): # a function to control the minimap mechanisms 
     global minimapx, minimapy
 
-    if direction == 0:
+    if direction == 0: # draws first minimap room
         minimapx = 1460
         minimapy = 100
         m = MiniMap(WHITE, 1460, 100)
         map_group.add(m)
 
-    if direction == 1:
+    if direction == 1: 
         minimapx += 40
         m = MiniMap(WHITE, minimapx, minimapy)
         map_group.add(m)
-        p.rect.x += 40
+        p.rect.x += 40 # sprite of minimap player is moved
 
     if direction == 2:
         minimapx -= 40
@@ -620,7 +624,7 @@ def miniMap(direction):
 
 def createChest():
     global chestA
-    chance = random.randint(1,2)
+    chance = random.randint(1,2) # 50% chance of a chest being created
     if chance == 1:
         c = Chest()
         all_sprites_list.add(c)
@@ -708,7 +712,7 @@ def game():
             if event.type == pygame.QUIT:
                 done = True
                 quit()
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN: # pause and quit keys
                 if event.key == pygame.K_l: running = False
                 if event.key == pygame.K_m: running = True
                 if event.key == pygame.K_p: quit()
@@ -721,7 +725,7 @@ def game():
                         bulletHeight = 10
                         bulletSpeed = 4
 
-                        if player.bulletSpeedUp == True:
+                        if player.bulletSpeedUp == True: # if upgrades are activated
                             bulletSpeed = 8
                         if player.bulletSizeUp == True:
                             bulletWidth = 20
@@ -739,8 +743,8 @@ def game():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 3 and player.teleportCount > 0: # right click
                         for wall in all_sprites_list: 
-                            if wall.rect.collidepoint(event.pos):
-                                teleportCollide = True
+                            if wall.rect.collidepoint(event.pos): # checks if the player is able to teleport
+                                teleportCollide = True            # to that location
                         if teleportCollide == False:
                             x, y = pygame.mouse.get_pos()
                             if (x < 1280):
@@ -910,7 +914,6 @@ def game():
                 
             player_hitDoor = pygame.sprite.spritecollide(player, door_group, False)
             for foo in player_hitDoor:
-                #player.move(0, 0)
                 player.rect.x = player_old_x
                 player.rect.y = player_old_y
             
@@ -1088,17 +1091,15 @@ def game():
             # -- PLAYER TELEPORTER COLLISION
             playerTeleport = pygame.sprite.spritecollide(player, teleporter_group, False)
             for foo in playerTeleport:
-                print("teleport")
                 score += 2
                 teleport()
-                #print(mapGrid)
 
             # -- ENEMY attack
             enemyShoot()
             bossAttack1()
             bossAttack3()
 
-            # -- #
+            # -UI- and update functions called#
             screen.fill(BLACK)
             font = pygame.font.Font(None, 25)
             font2 = pygame.font.Font(None, 60)
@@ -1172,6 +1173,7 @@ def game():
                 for foo in chest_buy:
                     abilities()
 
+        # text for pause menu and death screen
         elif running == False:
             if player.health < 1:       
                 screen.blit(txtdeath, (540, 360))
@@ -1204,10 +1206,10 @@ def mainMenu():
             if event.type == pygame.QUIT:
                 menu = False
             
-            if event.type == pygame.MOUSEMOTION:
+            if event.type == pygame.MOUSEMOTION: # checks if mouse cursor is on menu buttons
                 mouse_pos = event.pos
                 if buttonStart.collidepoint(mouse_pos):
-                    starttxt = font.render("[start]", True, RED)
+                    starttxt = font.render("[start]", True, RED) # if cursor on button, font colour changed
                 else:
                     starttxt = font.render("[start]", True, BLACK)
 
@@ -1216,7 +1218,7 @@ def mainMenu():
                 else:
                     quittxt = font.render("[quit]", True, BLACK)
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN: # checks if mouse clicks on menu buttons
                 mouse_pos = event.pos
                 if buttonStart.collidepoint(mouse_pos):
                     game()
